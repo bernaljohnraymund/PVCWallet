@@ -49,10 +49,10 @@
         <q-btn  label="Login" size="lg" dense class="login-btn"/>
         <div class="row q-py-lg" style="font-size: 13px">
             <div class="col-6 text-left">
-                <a href="#" style="color: #43b3f4;">Forgot password?</a>
+                <a href="#" style="color: #43b3f4; text-decoration: none;">Forgot password?</a>
             </div>
             <div class="col-6 text-right">
-                <a href="#" style="color: #43b3f4;"> Sign up</a>
+                <a href="#" style="color: #43b3f4; text-decoration: none;"> Sign up</a>
             </div>
         </div>
       </q-form>

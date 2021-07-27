@@ -47,7 +47,7 @@
         </q-input>
         <q-space class="q-py-md" />
         <q-btn  label="Login" size="lg" dense class="login-btn"/>
-        <div class="row q-py-lg" style="font-size: 13px">
+        <div class="row account-links">
             <div class="col-6 text-left">
                 <a href="#" style="color: #43b3f4; text-decoration: none;">Forgot password?</a>
             </div>
@@ -83,22 +83,29 @@ export default {
         padding: 0 14px;
         position: relative;
         top: 22vh;
-    }
-    #login-form > .heading {
-        color: #FBFBFB;
-    }
-    #login-form > .sub-heading {
-        color: #FBFBFB;
-        margin: 0 0 32px 0;
-    }
-    #login-form .login-btn {
-        display: block;
-        margin: auto;
-        text-align: center;
-        border-radius: 10px;
-        width: 60%;
-        color: #FBFBFB;
-        background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
         
+        .heading {
+            color: #FBFBFB;
+        }
+
+        .sub-heading {
+            color: #FBFBFB;
+            margin: 0 0 32px 0;
+        }
+
+        .login-btn {
+            display: block;
+            margin: auto;
+            text-align: center;
+            border-radius: 10px;
+            width: 60%;
+            color: #FBFBFB;
+            background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+        }
+
+        .account-links {
+            font-size: 14px;
+            margin-top: 40px !important;
+        }
     }
 </style>

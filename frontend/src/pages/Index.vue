@@ -2,7 +2,14 @@
   <q-page id="main" class="container-fluid">
     <div class="row">
       <div class="col-md-3 col-12 drawer">
-        <login />
+        <login
+          v-if="activeComponent === 'login'"
+          @changeActiveComponent="changeActiveComponent"
+        />
+        <register
+          v-if="activeComponent === 'register'"
+          @changeActiveComponent="changeActiveComponent"
+        />
       </div>
       <div class="col-md-9 main-view"></div>
     </div>
@@ -12,12 +19,23 @@
 <script>
 import { defineComponent } from 'vue';
 import Login from 'components/Login'
+import Register from 'components/Register'
 
 export default defineComponent({
   name: 'Index',
-  components: { Login },
+  components: { Login, Register },
+  data: () => ({
+    activeComponent: 'login'
+  }),
   beforeRouteEnter (to, from, next) {
     next()
+  },
+
+  methods: {
+    changeActiveComponent (val) {
+      console.log(val)
+      this.activeComponent = val.component
+    }
   }
 })
 </script>

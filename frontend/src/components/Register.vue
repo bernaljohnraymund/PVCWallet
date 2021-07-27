@@ -1,14 +1,14 @@
 <template>
   <div>
-      <q-form id="login-form">
+      <q-form id="register-form">
         <div class="text-h4 text-center heading">
-            Welcome
+            Sign up
         </div>
-        <div class="text-subtitle1 text-center sub-heading">Sign in to your account</div>
+        <div class="text-subtitle1 text-center sub-heading">Sign up your account</div>
         <q-input v-model="form.username"
             type="text"
             bg-color="white"
-            label="Email or username"
+            label="Username"
             outlined
             rounded
         >
@@ -16,6 +16,22 @@
                 <span style="color: #0b0c22">
                     <q-icon
                         name="account_circle"
+                    />
+                </span>
+            </template>
+        </q-input>
+        <q-space class="q-py-xs" />
+        <q-input v-model="form.email"
+            type="email"
+            bg-color="white"
+            label="Email"
+            outlined
+            rounded
+        >
+            <template v-slot:prepend>
+                <span style="color: #0b0c22">
+                    <q-icon
+                        name="contact_mail"
                     />
                 </span>
             </template>
@@ -45,14 +61,36 @@
                 </span>
             </template>
         </q-input>
+        <q-space class="q-py-xs" />
+        <q-input v-model="form.confirmPassword"
+            :type="form.isPwd ? 'password' : 'text'"
+            bg-color="white"
+            label="Confirm password"
+            outlined
+            rounded
+        >
+            <template v-slot:prepend>
+                <span style="color: #63bb20">
+                    <q-icon
+                        name="vpn_key"
+                    />
+                </span>
+            </template>
+            <template v-slot:append>
+                <span style="color: #0b0c22">
+                    <q-icon
+                        :name="form.isPwd ? 'visibility_off' : 'visibility'"
+                        class="cursor-pointer"
+                        @click="togglePasswordVisibility()"
+                    />
+                </span>
+            </template>
+        </q-input>
         <q-space class="q-py-md" />
-        <q-btn  label="Login" size="lg" dense class="login-btn"/>
+        <q-btn  label="Sign up" size="lg" dense class="register-btn"/>
         <div class="row account-links">
-            <div class="col-6 text-left">
-                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;">Forgot password?</a>
-            </div>
-            <div class="col-6 text-right">
-                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('register')"> Sign up</a>
+            <div class="col-12 text-center">
+                <span style="color: #FBFBFB; cursor: pointer;">Already registered? </span> <a href="#" style="color: #43b3f4; text-decoration: none;" @click="changeActiveComponent('login')">Log in</a>
             </div>
         </div>
       </q-form>
@@ -61,12 +99,13 @@
 
 <script>
 export default {
-    name: "Login",
-    components: {},
+    name: "Register",
     data: () => ({
         form: {
             username: '',
+            email: '',
             password: '',
+            confirmPassword: '',
             isPwd: true
         }
     }),
@@ -83,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    #login-form {
+    #register-form {
         padding: 0 14px;
         position: relative;
         top: 14vh;
@@ -97,7 +136,7 @@ export default {
             margin: 0 0 32px 0;
         }
 
-        .login-btn {
+        .register-btn {
             display: block;
             margin: auto;
             text-align: center;

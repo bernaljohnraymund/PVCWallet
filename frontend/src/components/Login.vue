@@ -46,10 +46,10 @@
             </template>
         </q-input>
         <q-space class="q-py-md" />
-        <q-btn  label="Login" size="lg" dense class="login-btn"/>
+        <q-btn  label="Login" size="lg" type="submit" dense class="login-btn"/>
         <div class="row account-links">
             <div class="col-6 text-left">
-                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;">Forgot password?</a>
+                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('forgot-password')">Forgot password?</a>
             </div>
             <div class="col-6 text-right">
                 <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('register')"> Sign up</a>

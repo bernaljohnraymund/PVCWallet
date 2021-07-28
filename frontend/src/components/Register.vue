@@ -87,7 +87,7 @@
             </template>
         </q-input>
         <q-space class="q-py-md" />
-        <q-btn  label="Sign up" size="lg" dense class="register-btn"/>
+        <q-btn  label="Sign up" size="lg" type="submit" dense class="register-btn"/>
         <div class="row account-links">
             <div class="col-12 text-center">
                 <span style="color: #FBFBFB; cursor: pointer;">Already registered? </span> <a href="#" style="color: #43b3f4; text-decoration: none;" @click="changeActiveComponent('login')">Log in</a>

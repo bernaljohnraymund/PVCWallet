@@ -86,7 +86,7 @@ export default {
     #login-form {
         padding: 0 14px;
         position: relative;
-        top: 14vh;
+        top: 22vh;
         
         .heading {
             color: #FBFBFB;

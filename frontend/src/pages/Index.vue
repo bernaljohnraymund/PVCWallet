@@ -10,6 +10,10 @@
           v-if="activeComponent === 'register'"
           @changeActiveComponent="changeActiveComponent"
         />
+        <forgot-password
+          v-if="activeComponent === 'forgot-password'"
+          @changeActiveComponent="changeActiveComponent"
+        />
       </div>
       <div class="col-md-9 main-view"></div>
     </div>
@@ -20,10 +24,11 @@
 import { defineComponent } from 'vue';
 import Login from 'components/Login'
 import Register from 'components/Register'
+import ForgotPassword from '../components/ForgotPassword.vue';
 
 export default defineComponent({
   name: 'Index',
-  components: { Login, Register },
+  components: { Login, Register, ForgotPassword },
   data: () => ({
     activeComponent: 'login'
   }),

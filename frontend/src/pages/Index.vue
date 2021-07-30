@@ -6,6 +6,10 @@
           v-if="activeComponent === 'login'"
           @changeActiveComponent="changeActiveComponent"
         />
+        <login-one-time-passcode
+          v-if="activeComponent === 'login-one-time-passcode'"
+          @changeActiveComponent="changeActiveComponent"
+        />
         <register
           v-if="activeComponent === 'register'"
           @changeActiveComponent="changeActiveComponent"
@@ -23,12 +27,13 @@
 <script>
 import { defineComponent } from 'vue';
 import Login from 'components/Login'
+import LoginOneTimePasscode from 'components/LoginOneTimePasscode'
 import Register from 'components/Register'
 import ForgotPassword from '../components/ForgotPassword.vue';
 
 export default defineComponent({
   name: 'Index',
-  components: { Login, Register, ForgotPassword },
+  components: { Login, LoginOneTimePasscode, Register, ForgotPassword },
   data: () => ({
     activeComponent: 'login'
   }),

@@ -1,58 +1,78 @@
 <template>
   <div>
-      <q-form id="login-form">
+      <q-form id="otp-form">
         <div class="text-h4 text-center heading">
-            Welcome
+            One Time Passcode
         </div>
-        <div class="text-subtitle1 text-center sub-heading">Sign in to your account</div>
-        <q-input v-model="form.username"
+        <div class="text-subtitle1 text-center sub-heading">We will send you a passcode</div>
+        <q-space class="q-py-xs" />
+        <q-input v-model="form.emailPasscode"
             type="text"
             bg-color="white"
-            label="Email or username"
             outlined
             rounded
+            input-class="text-center"
+            class="otp-input"
+            maxlength="7"
         >
             <template v-slot:prepend>
                 <span style="color: #0b0c22">
                     <q-icon
-                        name="account_circle"
-                    />
-                </span>
-            </template>
-        </q-input>
-        <q-space class="q-py-xs" />
-        <q-input v-model="form.password"
-            :type="form.isPwd ? 'password' : 'text'"
-            bg-color="white"
-            label="Password"
-            outlined
-            rounded
-        >
-            <template v-slot:prepend>
-                <span style="color: #0b0c22">
-                    <q-icon
-                        name="vpn_key"
+                        name="email"
                     />
                 </span>
             </template>
             <template v-slot:append>
+                <q-btn label="send" size="md" class="otp-send-btn" />
+            </template>
+        </q-input>
+        <!-- <q-space class="q-py-xs" />
+        <q-input v-model="form.phonePasscode"
+            type="text"
+            bg-color="white"
+            outlined
+            rounded
+            input-class="text-center"
+            class="otp-input"
+            maxlength="7"
+        >
+            <template v-slot:prepend>
                 <span style="color: #0b0c22">
                     <q-icon
-                        :name="form.isPwd ? 'visibility_off' : 'visibility'"
-                        class="cursor-pointer"
-                        @click="togglePasswordVisibility()"
+                        name="smartphone"
                     />
                 </span>
             </template>
+            <template v-slot:append>
+                <q-btn label="send" size="md" class="otp-send-btn" />
+            </template>
         </q-input>
+        <q-space class="q-py-xs" />
+        <q-input v-model="form.googlePasscode"
+            type="text"
+            bg-color="white"
+            outlined
+            rounded
+            input-class="text-center"
+            class="otp-input"
+            maxlength="7"
+        >
+            <template v-slot:prepend>
+                <span style="color: #0b0c22">
+                    <q-icon
+                        name="lock"
+                    />
+                </span>
+            </template>
+            <template v-slot:append>
+                <q-btn label="send" size="md" class="otp-send-btn" />
+            </template>
+        </q-input> -->
         <q-space class="q-py-md" />
-        <q-btn  label="Login" size="lg" type="submit" @click="changeActiveComponent('login-one-time-passcode')" dense class="login-btn"/>
+        <q-btn  label="Submit" size="lg" type="submit" dense class="submit-btn"/>
         <div class="row account-links">
-            <div class="col-6 text-left">
-                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('forgot-password')">Forgot password?</a>
-            </div>
-            <div class="col-6 text-right">
-                <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('register')"> Sign up</a>
+            <div class="col-12 text-center">
+                <span style="color: #FBFBFB; cursor: pointer;">Wrong account? </span> <a href="#" style="color: #43b3f4; text-decoration: none;" @click="changeActiveComponent('login')">Log in</a>
             </div>
         </div>
       </q-form>
@@ -61,13 +81,13 @@
 
 <script>
 export default {
-    name: "Login",
+    name: "LoginOneTimePasscode",
     components: {},
     data: () => ({
         form: {
-            username: '',
-            password: '',
-            isPwd: true
+            emailPasscode: '',
+            phonePasscode: '',
+            googlePasscode: ''
         }
     }),
     methods: {
@@ -83,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    #login-form {
+    #otp-form {
         padding: 0 14px;
         position: relative;
         top: 22vh;
@@ -96,8 +116,13 @@ export default {
             color: #FBFBFB;
             margin: 0 0 32px 0;
         }
+        
+        .otp-send-btn {
+            background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+            color: #FBFBFB;
+        }
 
-        .login-btn {
+        .submit-btn {
             display: block;
             margin: auto;
             text-align: center;

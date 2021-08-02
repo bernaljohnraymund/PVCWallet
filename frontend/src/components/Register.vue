@@ -110,12 +110,27 @@ export default {
         }
     }),
     methods: {
-        register () {
-            const validateForm = this.validateForm();
-            console.log(validateForm)
+        async register () {
+            const username = this.form.username;
+            const email = this.form.email;
+            const password1 = this.form.password;
+            const password2 = this.form.confirmPassword;
 
-            if (validateForm.status === 'fail') {
-                validateForm.errors.forEach((val) => {
+            const registerRes = await this.$api({
+                url: '/register',
+                method: 'post',
+                data: {
+                    username,
+                    email,
+                    password1,
+                    password2
+                }
+            })
+            console.log(registerRes.data)
+
+            if (registerRes.data.status === 'fail') {
+                console.log('failed')
+                registerRes.data.errors.forEach((val) => {
                     this.$q.notify({
                         type: 'negative',
                         progress: true,
@@ -125,28 +140,6 @@ export default {
                         position: 'top-left',
                     })
                 })
-            }
-        },
-        validateForm () {
-            let errors = [];
-            let message = '';
-            // check password
-            if (this.form.username === '') {
-                errors.push('username can not be empty');
-            }
-            if (this.form.email === '') {
-                errors.push('email can not be empty');
-            }
-            if (this.form.password === '') {
-                errors.push('password can not be empty');
-            }
-            if (this.form.password !== this.form.confirmPassword ) {
-                errors.push('Password do not match')
-            }
-            return {
-                status: errors.length > 0 ? 'fail' : 'success',
-                errors,
-                message
             }
         },
         togglePasswordVisibility () {

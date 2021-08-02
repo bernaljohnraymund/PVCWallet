@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-form id="register-form">
+      <q-form id="register-form" @submit="register">
         <div class="text-h4 text-center heading">
             Sign up
         </div>
@@ -110,6 +110,45 @@ export default {
         }
     }),
     methods: {
+        register () {
+            const validateForm = this.validateForm();
+            console.log(validateForm)
+
+            if (validateForm.status === 'fail') {
+                validateForm.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'cancel',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }
+        },
+        validateForm () {
+            let errors = [];
+            let message = '';
+            // check password
+            if (this.form.username === '') {
+                errors.push('username can not be empty');
+            }
+            if (this.form.email === '') {
+                errors.push('email can not be empty');
+            }
+            if (this.form.password === '') {
+                errors.push('password can not be empty');
+            }
+            if (this.form.password !== this.form.confirmPassword ) {
+                errors.push('Password do not match')
+            }
+            return {
+                status: errors.length > 0 ? 'fail' : 'success',
+                errors,
+                message
+            }
+        },
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
         },

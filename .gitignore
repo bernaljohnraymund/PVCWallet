@@ -1,6 +1,8 @@
 # frontend
-./frontend/node_modules/
-./frontend/public
+frontend/node_modules/
+frontend/public
+frontend/.env
 
 # backend
-./backend/node_modules/
+backend/node_modules/
+backend/.env

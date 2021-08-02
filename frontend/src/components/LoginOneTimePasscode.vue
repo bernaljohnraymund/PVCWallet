@@ -14,6 +14,7 @@
             input-class="text-center"
             class="otp-input"
             maxlength="7"
+            label="Email verification code"
         >
             <template v-slot:prepend>
                 <span style="color: #0b0c22">
@@ -35,6 +36,7 @@
             input-class="text-center"
             class="otp-input"
             maxlength="7"
+            label="Phone verification code"
         >
             <template v-slot:prepend>
                 <span style="color: #0b0c22">
@@ -56,6 +58,7 @@
             input-class="text-center"
             class="otp-input"
             maxlength="7"
+            label="Google verification code"
         >
             <template v-slot:prepend>
                 <span style="color: #0b0c22">

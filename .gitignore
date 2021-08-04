@@ -1,6 +1,8 @@
 # frontend
 frontend/node_modules/
 frontend/public
+frontend/.quasar/
+frontend/dist
 frontend/.env
 
 # backend

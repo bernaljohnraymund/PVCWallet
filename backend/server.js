@@ -1,8 +1,9 @@
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const app = express();
 
-const Users = require('./controllers/Users.controller');
+const Users = require('./controllers/User.controller');
 
 app.use(cors())
 app.use(express.json())

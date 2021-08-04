@@ -126,19 +126,28 @@ export default {
                     password2
                 }
             })
+
             console.log(registerRes.data)
 
             if (registerRes.data.status === 'fail') {
-                console.log('failed')
                 registerRes.data.errors.forEach((val) => {
                     this.$q.notify({
                         type: 'negative',
                         progress: true,
                         html: true,
-                        icon: 'cancel',
+                        icon: 'warning',
                         message: `<span style="font-color: white;">${val}</span>`,
                         position: 'top-left',
                     })
+                })
+            }else
+            if (registerRes.data.status === 'success') {
+                this.$router.push({
+                    name: 'EmailVerification',
+                    query: {
+                        status: 'verifying',
+                        email: registerRes.data.obj.email
+                    }
                 })
             }
         },
@@ -146,8 +155,11 @@ export default {
             this.form.isPwd = !this.form.isPwd
         },
         changeActiveComponent (component) {
-            console.log(component)
             this.$emit('changeActiveComponent', { component })
+            this.$router.push({
+                name: 'Index',
+                params: { component }
+            })
         }
     }
 }

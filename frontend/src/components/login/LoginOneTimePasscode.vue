@@ -98,7 +98,6 @@ export default {
             this.form.isPwd = !this.form.isPwd
         },
         changeActiveComponent (component) {
-            console.log(component)
             this.$emit('changeActiveComponent', { component })
         }
     }

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-form id="register-form">
+      <q-form id="register-form" @submit="register">
         <div class="text-h4 text-center heading">
             Sign up
         </div>
@@ -110,12 +110,56 @@ export default {
         }
     }),
     methods: {
+        async register () {
+            const username = this.form.username;
+            const email = this.form.email;
+            const password1 = this.form.password;
+            const password2 = this.form.confirmPassword;
+
+            const registerRes = await this.$api({
+                url: '/register',
+                method: 'post',
+                data: {
+                    username,
+                    email,
+                    password1,
+                    password2
+                }
+            })
+
+            console.log(registerRes.data)
+
+            if (registerRes.data.status === 'fail') {
+                registerRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }else
+            if (registerRes.data.status === 'success') {
+                this.$router.push({
+                    name: 'EmailVerification',
+                    query: {
+                        status: 'verifying',
+                        email: registerRes.data.obj.email
+                    }
+                })
+            }
+        },
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
         },
         changeActiveComponent (component) {
-            console.log(component)
             this.$emit('changeActiveComponent', { component })
+            this.$router.push({
+                name: 'Index',
+                params: { component }
+            })
         }
     }
 }

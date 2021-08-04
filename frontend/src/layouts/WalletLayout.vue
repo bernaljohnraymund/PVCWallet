@@ -111,7 +111,7 @@ export default defineComponent({
   }),
 
   setup () {
-    const leftDrawerOpen = ref(false)
+    const leftDrawerOpen = ref(true)
 
     return {
       essentialLinks: linksList,
@@ -123,7 +123,6 @@ export default defineComponent({
   },
 
   async mounted () {
-    console.log(this.noGlobalComponentRoutes)
   }
 })
 </script>

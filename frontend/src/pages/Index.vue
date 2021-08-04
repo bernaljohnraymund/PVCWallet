@@ -26,8 +26,8 @@
 
 <script>
 import { defineComponent } from 'vue';
-import Login from 'components/Login'
-import LoginOneTimePasscode from 'components/LoginOneTimePasscode'
+import Login from 'components/login/Login'
+import LoginOneTimePasscode from 'components/login/LoginOneTimePasscode'
 import Register from 'components/Register'
 import ForgotPassword from '../components/ForgotPassword.vue';
 
@@ -40,10 +40,14 @@ export default defineComponent({
   beforeRouteEnter (to, from, next) {
     next()
   },
+  mounted () {
+      this.activeComponent = this.$route.query.route || 'login';
+  },
 
   methods: {
     changeActiveComponent (val) {
       console.log(val)
+      
       this.activeComponent = val.component
     }
   }

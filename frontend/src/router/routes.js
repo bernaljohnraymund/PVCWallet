@@ -8,6 +8,11 @@ const routes = [
         path: '',
         name: 'Index',
         component: () => import('pages/Index.vue')
+      },
+      {
+        path: 'email-verification',
+        name: 'EmailVerification',
+        component: () => import('pages/EmailVerification.vue')
       }
     ]
   },

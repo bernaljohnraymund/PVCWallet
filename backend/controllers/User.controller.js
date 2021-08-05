@@ -1,33 +1,43 @@
+const bcrypt = require('bcrypt');
 const moment = require('../utils/moment');
 const UserModel = require('../models/User.model');
 const Mailer = require('../utils/Mailer');
+const { json } = require('express');
+
+const GEN_SALT = process.env.GEN_SALT;
 
 const Users = {
     async register (req, res) {
         const validateForm = await Users.validateForm(req.body.username, req.body.email, req.body.password1, req.body.password2)
         let user;
 
-        const dateNow = moment(Date.now()).format('X')
+        const dateNow = moment(Date.now()).format('X');
 
         if (validateForm.errors.length === 0) {
+            let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT));
+            let emailVerificationHashCode = bcrypt.hashSync(req.body.email, salt);
+
             user = await UserModel.create({
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password1,
+                emailVerificationHashCode,
                 expiresAt: moment(Date.now()).add(5, 'minutes'),
                 unixCreatedAt: dateNow,
                 unixUpdatedAt: dateNow
             })
-        }
-
-        if (user !== undefined || user !== null) {
             const mailer = new Mailer();
+
             await mailer.createEmail(user.email, 'Email verification', {
                 title: "Email verfication",
-                body: 'Your email was used to create account to our platform. Click this link to confirm your email verfication: link <br/> Leave this message if you did not execute this'
+                body: 'Your email was used to create account to our platform. Click the verify link for your verification or just delete this message if you did not execute this.',
+                securityCode: emailVerificationHashCode
             })
             await mailer.send()
         }
+
+        // if (user !== undefined) {
+        // }
 
         let jsonResponse = {};
 
@@ -80,6 +90,57 @@ const Users = {
         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email) ? 'valid' : 'invalid';
     },
+
+    async verifyEmail (req, res) {
+        let errors = [];
+        let isValidated;
+        let userDoc = await UserModel.findOne({
+            $or: [{
+                emailVerificationHashCode: req.body.emailVerificationHashCode,
+                email: req.body.email
+            }]
+        }, {email: 1, emailVerificationHashCode: 1, emailVerified: 1} );
+        console.log(userDoc)
+        if (userDoc === null) {
+            errors.push('record not found');
+        }
+        else
+        if (userDoc.emailVerified === false) {
+            isValidated = bcrypt.compareSync(req.body.email, userDoc.emailVerificationHashCode);
+
+            !isValidated ? errors.push('invalid') : '';
+        }
+
+        // console.log(isValidated)
+
+        if (isValidated && userDoc !== null && userDoc.emailVerified == false) {
+            const email = userDoc.email;
+
+            let updatedUserDoc = await UserModel.findOneAndUpdate({ email }, {
+                $unset: {
+                    expiresAt: 1, emailVerificationHashCode: 1
+                },
+                $set: {
+                    emailVerified: true,
+                }
+            }, {
+                new: true
+            })
+        }
+
+        let jsonResponse = {};
+
+
+        if (errors.length > 0) {
+            jsonResponse.status = 'fail';
+            jsonResponse.errors = ['Your link might have been expired'];
+        } else {
+            jsonResponse.status = 'success';
+            jsonResponse.message = 'Email verified';
+        }
+
+        res.json( { ...jsonResponse } );
+    }
 }
 
 module.exports = Users;

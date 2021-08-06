@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/api/register', Users.register)
 app.post('/api/verify/email', Users.verifyEmail)
+app.post('/api/user/login', Users.login)
 
 app.listen({
     host: process.env.SERVER_HOST,

@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import { EventBus, events } from 'boot/events'
 export default {
     name: "LoginOneTimePasscode",
     components: {},
@@ -91,15 +92,25 @@ export default {
             emailPasscode: '',
             phonePasscode: '',
             googlePasscode: ''
-        }
+        },
+        key: null
     }),
+    async mounted () {
+    },
     methods: {
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
         },
         changeActiveComponent (component) {
             this.$emit('changeActiveComponent', { component })
-        }
+        },
+        setKey (key) {
+            this.key = key;
+            console.log(this.key)
+        } 
+    },
+    async beforeDestroy () {
+        EventBus.$off(events.ON_LOGIN)
     }
 }
 </script>

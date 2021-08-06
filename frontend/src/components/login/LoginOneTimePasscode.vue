@@ -24,7 +24,10 @@
                 </span>
             </template>
             <template v-slot:append>
-                <q-btn label="send" size="md" class="otp-send-btn" />
+                <q-btn size="md" class="otp-send-btn" @click="setOtp('email')" >
+                    <q-spinner-tail color="#FBFBFB" v-if="form.emailBtnLoading"></q-spinner-tail>
+                    <span v-if="form.emailBtnLoading === false">SEND</span>
+                </q-btn>
             </template>
         </q-input>
         <!-- <q-space class="q-py-xs" />
@@ -91,11 +94,16 @@ export default {
         form: {
             emailPasscode: '',
             phonePasscode: '',
-            googlePasscode: ''
+            googlePasscode: '',
+            username: '',
+            emailBtnLoading: false,
+            phoneBtnLoading: false,
+            googleAuthBtnLoading: false
         },
         key: null
     }),
     async mounted () {
+        // create a function that will get user's auth security (phone, google auth)
     },
     methods: {
         togglePasswordVisibility () {
@@ -104,10 +112,26 @@ export default {
         changeActiveComponent (component) {
             this.$emit('changeActiveComponent', { component })
         },
-        setKey (key) {
-            this.key = key;
+        async setOtp (to) {
+            if (to === 'email') {
+                this.form.emailBtnLoading = true;
+            }
+
+            const otp = await this.$api({
+                url: '/generateotp',
+                method: 'POST',
+                data: { to, username: this.form.username, operation: 'login' }
+            })
+
+            console.log(otp)
+            if (to === 'email') {
+                this.form.emailBtnLoading = false;
+            }
+        },
+        getKey () {
+            // this.key = key;
             console.log(this.key)
-        } 
+        }
     },
     async beforeDestroy () {
         EventBus.$off(events.ON_LOGIN)

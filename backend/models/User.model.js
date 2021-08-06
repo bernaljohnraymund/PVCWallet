@@ -39,6 +39,18 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isEmailAuthEnabled: {
+        type: Boolean,
+        default: true
+    },
+    isPhoneAuthEnabled: {
+        type: Boolean,
+        default: false
+    },
+    isGoogleAuthEnabled: {
+        type: Boolean,
+        default: false
+    },
     expiresAt: {
         type: Date,
         expires: "5m"

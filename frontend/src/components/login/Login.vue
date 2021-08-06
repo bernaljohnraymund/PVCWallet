@@ -116,7 +116,8 @@ export default {
                         position: 'top-left',
                     })
                     this.changeActiveComponent('login-one-time-passcode', {
-                        key: loginRes.data.message
+                        key: loginRes.data.message,
+                        username: this.form.username
                     });
             }
             this.form.loading = false;

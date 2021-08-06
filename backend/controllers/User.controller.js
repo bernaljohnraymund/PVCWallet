@@ -3,6 +3,8 @@ const moment = require('../utils/moment');
 const authentication = require('../utils/Authentication')
 const UserModel = require('../models/User.model');
 const Mailer = require('../utils/Mailer');
+const Otp = require('../utils/Otp');
+const OtpModel = require('../models/Otp.model');
 
 const GEN_SALT = process.env.GEN_SALT;
 
@@ -16,9 +18,9 @@ const Users = {
         if (validateForm.errors.length === 0) {
             let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT));
             let emailVerificationHashCode = bcrypt.hashSync(req.body.email, salt);
-            console.log('email hash done')
+            // console.log('email hash done')
             let hashPassword = bcrypt.hashSync(req.body.password1, salt);
-            console.log('password hash done')
+            // console.log('password hash done')
             user = await UserModel.create({
                 username: req.body.username,
                 email: req.body.email,
@@ -28,7 +30,7 @@ const Users = {
                 unixCreatedAt: dateNow,
                 unixUpdatedAt: dateNow
             })
-            console.log(user)
+            // console.log(user)
             const mailer = new Mailer();
 
             await mailer.createEmail(user.email, 'Email verification', {
@@ -59,7 +61,7 @@ const Users = {
         if (req.url === '/api/user/login') {
             jsonResponse = await Users.userLogin({ ...req.body })
         }
-        console.log(jsonResponse)
+        // console.log(jsonResponse)
         res.json({ ...jsonResponse })
     },
 
@@ -67,7 +69,7 @@ const Users = {
         let errors = [];
         let token;
 
-        console.log(user)
+        // console.log(user)
 
         const userDoc = await UserModel.findOne({
             $or: [
@@ -80,7 +82,7 @@ const Users = {
 
         if (userDoc == null) {
             errors.push('username/email or password is incorrect')
-            console.log('in null')
+            // console.log('in null')
             return {
                 status: 'fail',
                 errors
@@ -88,7 +90,7 @@ const Users = {
         }else
         if (await Users.verifyPassword(user.password, userDoc.password) === false) {
             errors.push('username/email or password is incorrect')
-            console.log('in invalid password')
+            // console.log('in invalid password')
             return {
                 status: 'fail',
                 errors
@@ -111,12 +113,48 @@ const Users = {
             jsonResponse.errors = errors;
         }else
         if (token !== undefined) {
-            console.log(token)
+            // console.log(token)
             jsonResponse.status = 'success';
             jsonResponse.message = token;
         }
 
         return jsonResponse;
+
+    },
+
+    async generateOtp(req, res) {
+        let errors = [];
+        console.log(req.body)
+        let userDoc = await UserModel.findOne({
+            $or: [
+                { username: req.body.username },
+                { email: req.body.username }
+            ]
+        })
+
+        console.log(userDoc)
+
+        if (userDoc == null) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const otpCode = await Otp.generateOtp();
+
+        const otp = OtpModel.create({
+            username: userDoc.username,
+            operation: req.body.operation,
+            to: req.body.to,
+            code: otpCode,
+            expiresAt: moment(Date.now()).add(5, 'minutes'),
+        });
+
+        res.json({
+            status: 'success',
+            message: `OTP was sent to your ${otp.to}`
+        })
 
     },
 
@@ -173,7 +211,7 @@ const Users = {
                 email: req.body.email
             }]
         }, {email: 1, emailVerificationHashCode: 1, emailVerified: 1} );
-        console.log(userDoc)
+        // console.log(userDoc)
         if (userDoc == null) {
             errors.push('record not found');
         }

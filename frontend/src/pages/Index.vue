@@ -51,9 +51,9 @@ export default {
         if (val.component === 'login-one-time-passcode') {
           this.$refs['loginRef'].form.username = '';
           this.$refs['loginRef'].form.password = '';
-          this.$refs['loginOneTimePasscodeRef'].setKey(val.key)
+          this.$refs['loginOneTimePasscodeRef'].form.username = val.username;
+          this.$refs['loginOneTimePasscodeRef'].key = val.key;
         }
-        console.log(val)
 
     }
   }

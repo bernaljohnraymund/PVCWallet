@@ -18,7 +18,8 @@ const localMongoUri     = `${LOCAL_DB_PROTOCOL}://${LOCAL_DB_USER}:${LOCAL_DB_PA
 mongoose.connect(mongoUri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }).then((a) => {
     console.log('database connection created');
 }).catch( err => {

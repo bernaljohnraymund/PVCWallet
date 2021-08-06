@@ -116,6 +116,7 @@ export default {
             width: 60%;
             color: #FBFBFB;
             background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+            height: 7vh;
         }
 
         .account-links {

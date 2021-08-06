@@ -3,24 +3,30 @@
       id="email-verifying-card"
     >
         <q-card-section>
-            <div class="text-h6 text-center">Email Verification</div>
+            <div class="text-h6 text-center">Email {{ emailStatus }}</div>
         </q-card-section>
         <q-separator dark inset />
         <q-card-section class="q-pt-none text-justify card-body">
             <div class="text-center">
-                <q-icon name="attach_email" class="main-icon" />
+                <q-spinner-tail v-if="emailStatus === 'Verifying'" class="main-icon" />
+                <q-icon name="verified" color="green" class="main-icon" v-else-if="emailStatus === 'Verified'" />
+                <q-icon name="sentiment_very_dissatisfied" color="red" class="main-icon" v-else-if="emailStatus === 'Not Found'" />
             </div>
-            We sent you a verification link to activate {{ $route.query.email }}. <a href="#" @click.prevent="resendEmailVerificationLink" style="color: #43b3f4; text-decoration: none; cursor: pointer;">Resend link</a>
-            <div class="text-caption text-italic">(Note: You will not be able to login without verifying your email)</div>
+            <p class="text-center" v-if="emailStatus === 'Verifying'">
+                Please wait for your
+            </p>
+            <p class="text-center" v-if="emailStatus === 'Verified'">
+                Your account has been verified
+            </p>
+            <p class="text-center" v-if="emailStatus === 'Not Found'">
+                We can't find your account
+            </p>
         </q-card-section>
-        
+
         <q-card-section class="q-pt-none card-footer">
             <div class="row">
-                <div class="col-6 text-left">
+                <div class="col-12 text-center">
                     <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('login')">Login</a>
-                </div>
-                <div class="col-6 text-right">
-                    <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('register')">Sign up</a>
                 </div>
             </div>
         </q-card-section>
@@ -31,6 +37,12 @@
 <script>
 export default {
     name: "EmailVerifying",
+    data: () => ({
+        emailStatus: 'Verifying'
+    }),
+    async mounted () {
+        this.verifyEmail(this.$route.query.email, this.$route.query.code);
+    },
     methods: {
         changeActiveComponent (component) {
             this.$router.push({
@@ -39,6 +51,42 @@ export default {
                     route: component
                 }
             })
+        },
+        async verifyEmail (email, emailVerificationHashCode) {
+            const emailVerificationRes = await this.$api({
+                method: 'post',
+                url: '/verify/email',
+                data: {
+                    emailVerificationHashCode,
+                    email
+                }
+            });
+            console.log(emailVerificationRes)
+            if (emailVerificationRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    message: `<span style="font-color: white;">Email verified</span>`,
+                    position: 'top',
+                })
+
+                this.emailStatus = 'Verified';
+            }else
+            if (emailVerificationRes.data.status === 'fail') {
+                emailVerificationRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top',
+                    })
+                })
+
+                this.emailStatus = 'Not Found';
+            }
         }
     }
 }

@@ -31,6 +31,10 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    emailVerificationHashCode: {
+        type: String,
+        default: ''
+    },
     identityVerified: {
         type: Boolean,
         default: false

@@ -87,7 +87,10 @@
             </template>
         </q-input>
         <q-space class="q-py-md" />
-        <q-btn  label="Sign up" size="lg" type="submit" dense class="register-btn"/>
+        <q-btn size="lg" type="submit" dense class="register-btn"> 
+            <q-spinner-tail color="#FBFBFB" size="2rem" v-if="form.loading"></q-spinner-tail>
+            <span v-if="form.loading === false">SUBMIT</span>
+        </q-btn>
         <div class="row account-links">
             <div class="col-12 text-center">
                 <span style="color: #FBFBFB; cursor: pointer;">Already registered? </span> <a href="#" style="color: #43b3f4; text-decoration: none;" @click="changeActiveComponent('login')">Log in</a>
@@ -106,11 +109,13 @@ export default {
             email: '',
             password: '',
             confirmPassword: '',
-            isPwd: true
+            isPwd: true,
+            loading: false
         }
     }),
     methods: {
         async register () {
+            this.form.loading = true;
             const username = this.form.username;
             const email = this.form.email;
             const password1 = this.form.password;
@@ -142,14 +147,22 @@ export default {
                 })
             }else
             if (registerRes.data.status === 'success') {
+                this.$q.notify({
+                        type: 'positive',
+                        progress: true,
+                        html: true,
+                        message: `<span style="font-color: white;">Registration successful</span>`,
+                        position: 'top',
+                    })
                 this.$router.push({
                     name: 'EmailVerification',
                     query: {
-                        status: 'verifying',
+                        status: 'on-verifying',
                         email: registerRes.data.obj.email
                     }
                 })
             }
+            this.form.loading = false;
         },
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
@@ -188,6 +201,7 @@ export default {
             width: 60%;
             color: #FBFBFB;
             background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+            height: 7vh;
         }
 
         .account-links {

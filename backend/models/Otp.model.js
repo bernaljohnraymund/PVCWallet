@@ -19,12 +19,13 @@ const schema = new mongoose.Schema({
         required: true
     },
     expiresAt: {
-        type: Date,
-        expires: "5m"
+        type: Date
     }
 }, {
     timestamps: true
 })
+
+schema.index({ expiresAt: 1 }, { expires: "1m" })
 
 const OtpModel = mongoose.model('Otp', schema, 'otp');
 

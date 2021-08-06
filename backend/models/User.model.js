@@ -52,8 +52,7 @@ const schema = new mongoose.Schema({
         default: false
     },
     expiresAt: {
-        type: Date,
-        expires: "5m"
+        type: Date
     },
     unixCreatedAt: {
         type: String
@@ -64,6 +63,8 @@ const schema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+schema.index({ expiresAt: 1 }, { expires: "1m" })
 
 const UserModel = mongoose.model('User', schema, 'users');
 

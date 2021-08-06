@@ -124,6 +124,7 @@ const Users = {
 
     async generateOtp(req, res) {
         let errors = [];
+        let otpDoc;
         console.log(req.body)
         let userDoc = await UserModel.findOne({
             $or: [
@@ -131,8 +132,6 @@ const Users = {
                 { email: req.body.username }
             ]
         })
-
-        console.log(userDoc)
 
         if (userDoc == null) {
             res.json({
@@ -143,17 +142,43 @@ const Users = {
 
         const otpCode = await Otp.generateOtp();
 
-        const otp = OtpModel.create({
+        // find and update if no otpDoc yet
+        otpDoc = await OtpModel.findOne({
             username: userDoc.username,
             operation: req.body.operation,
-            to: req.body.to,
-            code: otpCode,
-            expiresAt: moment(Date.now()).add(5, 'minutes'),
-        });
+            to: req.body.to
+        })
+
+        console.log('found', otpDoc)
+
+        if (otpDoc) {
+            console.log('otp updated')
+            otpDoc = await OtpModel.findOneAndUpdate({
+                username: userDoc.username,
+                operation: req.body.operation,
+                to: req.body.to
+            }, {
+                code: otpCode,
+                expiresAt: moment(Date.now()).add(1, 'minutes'),
+            }, {
+                new: true
+            })
+        }else
+        // if still no otpDoc, create one
+        if (!otpDoc) {
+            console.log('otp created')
+            otpDoc = await OtpModel.create({
+                username: userDoc.username,
+                operation: req.body.operation,
+                to: req.body.to,
+                code: otpCode,
+                expiresAt: moment(Date.now()).add(1, 'minutes'),
+            });
+        }
 
         res.json({
             status: 'success',
-            message: `OTP was sent to your ${otp.to}`
+            message: `OTP was sent to your ${otpDoc.to}`
         })
 
     },

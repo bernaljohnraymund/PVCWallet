@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
     },
     to: {
         type: String,
-        enum: ['email', 'phone', 'googleAuth'],
+        enum: ['email', 'phone', 'google'],
         required: true
     },
     code: {

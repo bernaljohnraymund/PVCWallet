@@ -32,6 +32,8 @@ import LoginOneTimePasscode from 'components/login/LoginOneTimePasscode'
 import Register from 'components/Register'
 import ForgotPassword from '../components/ForgotPassword.vue';
 
+import store from '../store'
+
 export default {
   name: 'Index',
   components: { Login, LoginOneTimePasscode, Register, ForgotPassword },
@@ -42,6 +44,7 @@ export default {
     next()
   },
   mounted () {
+      // console.log(this.$users)
       this.activeComponent = this.$route.query.route || 'login';
   },
 

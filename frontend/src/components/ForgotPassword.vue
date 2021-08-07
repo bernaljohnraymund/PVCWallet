@@ -54,7 +54,7 @@
             </q-input>
         </div>
         <q-space class="q-py-md" />
-        <q-btn  label="Submit" size="lg" type="submit" dense class="submit-btn"/>
+        <q-btn  label="Submit" flat size="lg" type="submit" dense class="submit-btn"/>
         <div class="row account-links">
             <div class="col-6 text-left">
                 <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('login')">Login</a>

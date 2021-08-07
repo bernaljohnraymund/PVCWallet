@@ -46,7 +46,7 @@
             </template>
         </q-input>
         <q-space class="q-py-md" />
-        <q-btn size="lg" type="submit" dense class="login-btn">
+        <q-btn size="lg" flat type="submit" :disable="form.loading" dense class="login-btn">
             <q-spinner-tail color="#FBFBFB" size="2rem" v-if="form.loading"></q-spinner-tail>
             <span v-if="form.loading === false">LOGIN</span>
         </q-btn>

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-form id="otp-form">
+      <q-form id="otp-form" @submit="submitLoginOtp">
         <div class="text-h4 text-center heading">
             One Time Passcode
         </div>
@@ -14,7 +14,7 @@
             input-class="text-center"
             class="otp-input"
             maxlength="7"
-            label="Email verification code"
+            label="Email code"
         >
             <template v-slot:prepend>
                 <span style="color: #0b0c22">
@@ -24,7 +24,7 @@
                 </span>
             </template>
             <template v-slot:append>
-                <q-btn size="md" class="otp-send-btn" @click="setOtp('email')" >
+                <q-btn size="md" flat class="otp-send-btn" type="button" @click="setOtp('email')" :disable="form.emailBtnLoading" >
                     <q-spinner-tail color="#FBFBFB" v-if="form.emailBtnLoading"></q-spinner-tail>
                     <span v-if="form.emailBtnLoading === false">SEND</span>
                 </q-btn>
@@ -75,7 +75,10 @@
             </template>
         </q-input> -->
         <q-space class="q-py-md" />
-        <q-btn  label="Submit" size="lg" type="submit" dense class="submit-btn"/>
+        <q-btn size="lg" flat type="submit" dense class="submit-btn" :disable="form.submitBtnLoading">
+            <q-spinner-tail color="#FBFBFB" v-if="form.submitBtnLoading"></q-spinner-tail>
+            <span v-if="form.submitBtnLoading === false">SUBMIT</span>
+        </q-btn>
         <div class="row account-links">
             <div class="col-12 text-center">
                 <span style="color: #FBFBFB; cursor: pointer;">Wrong account? </span> <a href="#" style="color: #43b3f4; text-decoration: none;" @click="changeActiveComponent('login')">Log in</a>
@@ -98,7 +101,8 @@ export default {
             username: '',
             emailBtnLoading: false,
             phoneBtnLoading: false,
-            googleAuthBtnLoading: false
+            googleAuthBtnLoading: false,
+            submitBtnLoading: false
         },
         key: null
     }),
@@ -118,7 +122,7 @@ export default {
             }
 
             const otp = await this.$api({
-                url: '/generateotp',
+                url: '/user/generateotp',
                 method: 'POST',
                 data: { to, username: this.form.username, operation: 'login' }
             })
@@ -127,6 +131,57 @@ export default {
             if (to === 'email') {
                 this.form.emailBtnLoading = false;
             }
+        },
+        async submitLoginOtp () {
+            this.form.submitBtnLoading = true;
+
+            let loginOtpAuthRes = await this.$api({
+                url: '/user/verifyotp',
+                method: 'POST',
+                data: {
+                    username: this.form.username,
+                    operation: 'login',
+                    phoneCode: this.form.phonePasscode,
+                    emailCode: this.form.emailPasscode,
+                    googleCode: this.form.googlePasscode
+                }
+            })
+
+            if (loginOtpAuthRes.data.status === 'fail') {
+                loginOtpAuthRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }else
+            if (loginOtpAuthRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${loginOtpAuthRes.data.message}</span>`,
+                    position: 'top',
+                })
+                console.log(loginOtpAuthRes.data)
+                // sessionStorage.setItem('pvccrypto_token', loginOtpAuthRes.data.token);
+                // sessionStorage.setItem('username', loginOtpAuthRes.data.token);
+                this.$user = {
+                    token: loginOtpAuthRes.data.token,
+                    username: loginOtpAuthRes.data.username,
+                    email: loginOtpAuthRes.data.email,
+                    firstName: loginOtpAuthRes.data.firstName,
+                    middleName: loginOtpAuthRes.data.middleName,
+                    lastName: loginOtpAuthRes.data.lastName,
+                }
+            }
+
+            this.form.submitBtnLoading = false;
         },
         getKey () {
             // this.key = key;

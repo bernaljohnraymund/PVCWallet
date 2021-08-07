@@ -68,9 +68,15 @@ const Users = {
 
     async userLogin (user = {}) {
         let errors = [];
-        let token;
 
-        // console.log(user)
+        if (user.username === '' || user.password === '') {
+            errors.push('username/email or password is incorrect')
+            // console.log('in null')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
 
         const userDoc = await UserModel.findOne({
             $or: [
@@ -78,8 +84,6 @@ const Users = {
                 { email: user.username }
             ]
         })
-        
-        console.log(userDoc == null)
 
         if (userDoc == null) {
             errors.push('username/email or password is incorrect')
@@ -89,6 +93,13 @@ const Users = {
                 errors
             }
         }else
+        if (!userDoc.emailVerified) {
+            errors.push('username/email or password is incorrect')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
         if (await Users.verifyPassword(user.password, userDoc.password) === false) {
             errors.push('username/email or password is incorrect')
             // console.log('in invalid password')
@@ -98,25 +109,14 @@ const Users = {
             }
         }
 
-        if (await Users.verifyPassword(user.password, userDoc.password) && errors.length === 0) {
-            token = await authentication.sign({
-                data: {
-                    email: user.email,
-                    username: user.username,
-                }
-            });
-        }
-
         let jsonResponse = {};
 
         if (errors.length > 0) {
             jsonResponse.status = 'fail';
             jsonResponse.errors = errors;
-        }else
-        if (token !== undefined) {
-            // console.log(token)
+        }else {
             jsonResponse.status = 'success';
-            jsonResponse.message = token;
+            jsonResponse.message = 'success';
         }
 
         return jsonResponse;
@@ -195,6 +195,77 @@ const Users = {
         res.json({
             status: 'success',
             message: `OTP was sent to your ${otpDoc.to}`
+        })
+
+    },
+
+    async verifyOtp (req, res) {
+
+        let errors = [];
+
+        const userDoc = await UserModel.findOne({
+            $or: [
+                { username: req.body.username },
+                { email: req.body.username },
+            ]
+        })
+        console.log(req.body)
+        if (userDoc.isEmailAuthEnabled) {
+           const otpDoc = OtpModel.findOne({ 
+                to: 'email',
+                username: userDoc.username,
+                operation: req.body.operation,
+                code: req.body.emailCode,
+             })
+
+             !otpDoc ? errors.push('invalid email code') : '';
+        }
+        if (userDoc.isPhoneAuthEnabled) {
+           const otpDoc = OtpModel.findOne({ 
+                to: 'phone',
+                username: userDoc.username,
+                operation: req.body.operation,
+                code: req.body.phoneCode,
+             })
+
+             !otpDoc ? errors.push('invalid phone code') : '';
+        }
+        if (userDoc.isGoogleAuthEnabled) {
+           const otpDoc = OtpModel.findOne({ 
+                to: 'google',
+                username: userDoc.username,
+                operation: req.body.operation,
+                code: req.body.googleCode,
+             })
+
+             !otpDoc ? errors.push('invalid google code') : '';
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+            return
+        }
+
+        let token = await authentication.sign({
+            data: {
+                email: userDoc.email,
+                username: userDoc.username,
+                _id: userDoc._id,
+            }
+        });
+
+        res.json({
+            status: 'success',
+            message: 'Login successful',
+            token,
+            username: userDoc.username,
+            email: userDoc.email,
+            firstName: userDoc.firstName,
+            middleName: userDoc.middleName,
+            lastName: userDoc.lastName,
         })
 
     },

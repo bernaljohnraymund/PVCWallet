@@ -39,9 +39,20 @@ const schema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isEmailAuthEnabled: {
+        type: Boolean,
+        default: true
+    },
+    isPhoneAuthEnabled: {
+        type: Boolean,
+        default: false
+    },
+    isGoogleAuthEnabled: {
+        type: Boolean,
+        default: false
+    },
     expiresAt: {
-        type: Date,
-        expires: "5m"
+        type: Date
     },
     unixCreatedAt: {
         type: String
@@ -52,6 +63,8 @@ const schema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+schema.index({ expiresAt: 1 }, { expires: "1m" })
 
 const UserModel = mongoose.model('User', schema, 'users');
 

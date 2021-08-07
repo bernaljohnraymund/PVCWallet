@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
 const moment = require('../utils/moment');
+const authentication = require('../utils/Authentication')
 const UserModel = require('../models/User.model');
 const Mailer = require('../utils/Mailer');
-const { json } = require('express');
+const Otp = require('../utils/Otp');
+const OtpModel = require('../models/Otp.model');
 
 const GEN_SALT = process.env.GEN_SALT;
 
@@ -16,16 +18,19 @@ const Users = {
         if (validateForm.errors.length === 0) {
             let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT));
             let emailVerificationHashCode = bcrypt.hashSync(req.body.email, salt);
-
+            // console.log('email hash done')
+            let hashPassword = bcrypt.hashSync(req.body.password1, salt);
+            // console.log('password hash done')
             user = await UserModel.create({
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password1,
+                password: hashPassword,
                 emailVerificationHashCode,
                 expiresAt: moment(Date.now()).add(5, 'minutes'),
                 unixCreatedAt: dateNow,
                 unixUpdatedAt: dateNow
             })
+            // console.log(user)
             const mailer = new Mailer();
 
             await mailer.createEmail(user.email, 'Email verification', {
@@ -45,6 +50,137 @@ const Users = {
         jsonResponse[validateForm.errors.length === 0 ? 'obj' : 'errors'] = validateForm.errors.length === 0 ? { email:req.body.email } : validateForm.errors;
 
         res.json({ ...jsonResponse });
+    },
+
+    async verifyPassword (password, hashedPassword) {
+        return bcrypt.compareSync(password, hashedPassword);
+    },
+
+    async login (req, res) {
+        let jsonResponse = {};
+        if (req.url === '/api/user/login') {
+            jsonResponse = await Users.userLogin({ ...req.body })
+        }
+        // console.log(jsonResponse)
+        res.json({ ...jsonResponse })
+    },
+
+    async userLogin (user = {}) {
+        let errors = [];
+        let token;
+
+        // console.log(user)
+
+        const userDoc = await UserModel.findOne({
+            $or: [
+                { username: user.username },
+                { email: user.username }
+            ]
+        })
+        
+        console.log(userDoc == null)
+
+        if (userDoc == null) {
+            errors.push('username/email or password is incorrect')
+            // console.log('in null')
+            return {
+                status: 'fail',
+                errors
+            }
+        }else
+        if (await Users.verifyPassword(user.password, userDoc.password) === false) {
+            errors.push('username/email or password is incorrect')
+            // console.log('in invalid password')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
+
+        if (await Users.verifyPassword(user.password, userDoc.password) && errors.length === 0) {
+            token = await authentication.sign({
+                data: {
+                    email: user.email,
+                    username: user.username,
+                }
+            });
+        }
+
+        let jsonResponse = {};
+
+        if (errors.length > 0) {
+            jsonResponse.status = 'fail';
+            jsonResponse.errors = errors;
+        }else
+        if (token !== undefined) {
+            // console.log(token)
+            jsonResponse.status = 'success';
+            jsonResponse.message = token;
+        }
+
+        return jsonResponse;
+
+    },
+
+    async generateOtp(req, res) {
+        let errors = [];
+        let otpDoc;
+        console.log(req.body)
+        let userDoc = await UserModel.findOne({
+            $or: [
+                { username: req.body.username },
+                { email: req.body.username }
+            ]
+        })
+
+        if (userDoc == null) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const otpCode = await Otp.generateOtp();
+
+        // find and update if no otpDoc yet
+        otpDoc = await OtpModel.findOne({
+            username: userDoc.username,
+            operation: req.body.operation,
+            to: req.body.to
+        })
+
+        console.log('found', otpDoc)
+
+        if (otpDoc) {
+            console.log('otp updated')
+            otpDoc = await OtpModel.findOneAndUpdate({
+                username: userDoc.username,
+                operation: req.body.operation,
+                to: req.body.to
+            }, {
+                code: otpCode,
+                expiresAt: moment(Date.now()).add(1, 'minutes'),
+            }, {
+                new: true
+            })
+        }else
+        // if still no otpDoc, create one
+        if (!otpDoc) {
+            console.log('otp created')
+            otpDoc = await OtpModel.create({
+                username: userDoc.username,
+                operation: req.body.operation,
+                to: req.body.to,
+                code: otpCode,
+                expiresAt: moment(Date.now()).add(1, 'minutes'),
+            });
+        }
+
+        res.json({
+            status: 'success',
+            message: `OTP was sent to your ${otpDoc.to}`
+        })
+
     },
 
     async validateForm (username, email, password1, password2) {
@@ -100,8 +236,8 @@ const Users = {
                 email: req.body.email
             }]
         }, {email: 1, emailVerificationHashCode: 1, emailVerified: 1} );
-        console.log(userDoc)
-        if (userDoc === null) {
+        // console.log(userDoc)
+        if (userDoc == null) {
             errors.push('record not found');
         }
         else
@@ -110,8 +246,6 @@ const Users = {
 
             !isValidated ? errors.push('invalid') : '';
         }
-
-        // console.log(isValidated)
 
         if (isValidated && userDoc !== null && userDoc.emailVerified == false) {
             const email = userDoc.email;

@@ -3,19 +3,21 @@
     <div class="row">
       <div class="col-md-3 col-12 drawer">
         <login
-          v-if="activeComponent === 'login'"
+          v-show="activeComponent === 'login'"
           @changeActiveComponent="changeActiveComponent"
+          ref="loginRef"
         />
         <login-one-time-passcode
-          v-if="activeComponent === 'login-one-time-passcode'"
+          v-show="activeComponent === 'login-one-time-passcode'"
           @changeActiveComponent="changeActiveComponent"
+          ref="loginOneTimePasscodeRef"
         />
         <register
-          v-if="activeComponent === 'register'"
+          v-show="activeComponent === 'register'"
           @changeActiveComponent="changeActiveComponent"
         />
         <forgot-password
-          v-if="activeComponent === 'forgot-password'"
+          v-show="activeComponent === 'forgot-password'"
           @changeActiveComponent="changeActiveComponent"
         />
       </div>
@@ -25,13 +27,12 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
 import Login from 'components/login/Login'
 import LoginOneTimePasscode from 'components/login/LoginOneTimePasscode'
 import Register from 'components/Register'
 import ForgotPassword from '../components/ForgotPassword.vue';
 
-export default defineComponent({
+export default {
   name: 'Index',
   components: { Login, LoginOneTimePasscode, Register, ForgotPassword },
   data: () => ({
@@ -45,13 +46,18 @@ export default defineComponent({
   },
 
   methods: {
-    changeActiveComponent (val) {
-      console.log(val)
-      
-      this.activeComponent = val.component
+    async changeActiveComponent (val) {
+        this.activeComponent = val.component
+        if (val.component === 'login-one-time-passcode') {
+          this.$refs['loginRef'].form.username = '';
+          this.$refs['loginRef'].form.password = '';
+          this.$refs['loginOneTimePasscodeRef'].form.username = val.username;
+          this.$refs['loginOneTimePasscodeRef'].key = val.key;
+        }
+
     }
   }
-})
+}
 </script>
 <style lang="scss" scoped>
   // colors

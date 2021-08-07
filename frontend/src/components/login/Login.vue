@@ -1,6 +1,6 @@
 <template>
   <div>
-      <q-form id="login-form">
+      <q-form id="login-form" @submit="login">
         <div class="text-h4 text-center heading">
             Welcome
         </div>
@@ -46,7 +46,10 @@
             </template>
         </q-input>
         <q-space class="q-py-md" />
-        <q-btn  label="Login" size="lg" type="submit" @click="changeActiveComponent('login-one-time-passcode')" dense class="login-btn"/>
+        <q-btn size="lg" type="submit" dense class="login-btn">
+            <q-spinner-tail color="#FBFBFB" size="2rem" v-if="form.loading"></q-spinner-tail>
+            <span v-if="form.loading === false">LOGIN</span>
+        </q-btn>
         <div class="row account-links">
             <div class="col-6 text-left">
                 <a href="#" style="color: #43b3f4; text-decoration: none; cursor: pointer;" @click="changeActiveComponent('forgot-password')">Forgot password?</a>
@@ -67,15 +70,57 @@ export default {
         form: {
             username: '',
             password: '',
-            isPwd: true
+            isPwd: true,
+            loading: false
         }
     }),
     methods: {
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
         },
-        changeActiveComponent (component) {
-            this.$emit('changeActiveComponent', { component })
+        changeActiveComponent (component, data) {
+            this.$emit('changeActiveComponent', { component, ...data })
+        },
+        async login () {
+            this.form.loading = true;
+            let loginRes = await this.$api({
+                url: '/user/login',
+                method: 'POST',
+                data: {
+                    username: this.form.username,
+                    password: this.form.password,
+                }
+            })
+
+            delete loginRes.config;
+
+            if (loginRes.data.status === 'fail') {
+                loginRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }else
+            if (loginRes.data.status === 'success') {
+                this.$q.notify({
+                        type: 'positive',
+                        progress: true,
+                        html: true,
+                        message: `<span style="font-color: white;">Verification</span>`,
+                        icon: 'lock',
+                        position: 'top-left',
+                    })
+                    this.changeActiveComponent('login-one-time-passcode', {
+                        key: loginRes.data.message,
+                        username: this.form.username
+                    });
+            }
+            this.form.loading = false;
         }
     }
 }

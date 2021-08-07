@@ -33,10 +33,11 @@ const Users = {
             // console.log(user)
             const mailer = new Mailer();
 
-            await mailer.createEmail(user.email, 'Email verification', {
+            await mailer.createEmail('emailVerification', user.email, 'Email verification', {
                 title: "Email verfication",
-                body: 'Your email was used to create account to our platform. Click the verify link for your verification or just delete this message if you did not execute this.',
-                securityCode: emailVerificationHashCode
+                description: 'Your email was used to create account to our platform. Click the verify link for your verification or just delete this message if you did not execute this.',
+                securityCode: emailVerificationHashCode,
+                link: process.env.CLIENT_PROTOCOL + '://' + process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT + `/#/email-verification?status=verifying&email=${user.email}&code=${user.emailVerificationHashCode}`
             })
             await mailer.send()
         }
@@ -149,21 +150,19 @@ const Users = {
             to: req.body.to
         })
 
-        console.log('found', otpDoc)
-
-        if (otpDoc) {
-            console.log('otp updated')
-            otpDoc = await OtpModel.findOneAndUpdate({
-                username: userDoc.username,
-                operation: req.body.operation,
-                to: req.body.to
-            }, {
-                code: otpCode,
-                expiresAt: moment(Date.now()).add(1, 'minutes'),
-            }, {
-                new: true
-            })
-        }else
+        // if (otpDoc) {
+        otpDoc = await OtpModel.findOneAndUpdate({
+            username: userDoc.username,
+            operation: req.body.operation,
+            to: req.body.to
+        }, {
+            code: otpCode,
+            expiresAt: moment(Date.now()).add(1, 'minutes'),
+        }, {
+            new: true
+        })
+        console.log('found', otpDoc);
+        // }else
         // if still no otpDoc, create one
         if (!otpDoc) {
             console.log('otp created')
@@ -174,6 +173,23 @@ const Users = {
                 code: otpCode,
                 expiresAt: moment(Date.now()).add(1, 'minutes'),
             });
+        }
+
+        // conditions where to send otp
+        if (req.body.to === 'email') {
+            const mailer = new Mailer();
+            await mailer.createEmail('loginOtp', userDoc.email, 'Email verification', {
+                title: "Login One Time Passcode",
+                description: `Your login code is`,
+                code: otpCode,
+            })
+            await mailer.send()
+        }else 
+        if (req.body.to === 'phone') {
+
+        }else
+        if (req.body.to === 'googleAuth') {
+
         }
 
         res.json({

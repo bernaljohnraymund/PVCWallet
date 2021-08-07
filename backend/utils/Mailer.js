@@ -18,9 +18,8 @@ class Mailer {
 
     constructor () {
     }
-    async createEmail (email, subject, content) {
-        console.log(content.securityCode)
-        ejs.renderFile(path.join(__dirname, '../template/mail.ejs'), { subject, content, link: process.env.CLIENT_PROTOCOL + '://' + process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT + `/#/email-verification?status=verifying&email=${email}&code=${content.securityCode}` }, (err, data) => {
+    async createEmail (type, email, subject, content) {
+        ejs.renderFile(path.join(__dirname, `../template/${type}Mail.ejs`), { subject, content }, (err, data) => {
             if (err) {
                 console.log(err);
                 return

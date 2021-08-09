@@ -26,7 +26,7 @@ const Users = {
                 email: req.body.email,
                 password: hashPassword,
                 emailVerificationHashCode,
-                expiresAt: moment(Date.now()).add(5, 'minutes'),
+                expiresAt: moment(Date.now()).add(1, 'minutes'),
                 unixCreatedAt: dateNow,
                 unixUpdatedAt: dateNow
             })
@@ -135,6 +135,7 @@ const Users = {
         })
 
         if (userDoc == null) {
+            errors.push('Something went wrong. Please try again later');
             res.json({
                 status: 'fail',
                 errors
@@ -211,17 +212,18 @@ const Users = {
         })
         console.log(req.body)
         if (userDoc.isEmailAuthEnabled) {
-           const otpDoc = OtpModel.findOne({ 
+           const otpDoc = await OtpModel.findOne({ 
                 to: 'email',
                 username: userDoc.username,
                 operation: req.body.operation,
                 code: req.body.emailCode,
              })
 
+             console.log(otpDoc)
              !otpDoc ? errors.push('invalid email code') : '';
         }
         if (userDoc.isPhoneAuthEnabled) {
-           const otpDoc = OtpModel.findOne({ 
+           const otpDoc = await OtpModel.findOne({ 
                 to: 'phone',
                 username: userDoc.username,
                 operation: req.body.operation,
@@ -231,7 +233,7 @@ const Users = {
              !otpDoc ? errors.push('invalid phone code') : '';
         }
         if (userDoc.isGoogleAuthEnabled) {
-           const otpDoc = OtpModel.findOne({ 
+           const otpDoc = await OtpModel.findOne({ 
                 to: 'google',
                 username: userDoc.username,
                 operation: req.body.operation,

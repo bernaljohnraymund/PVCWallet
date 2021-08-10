@@ -1,12 +1,6 @@
 import { boot } from 'quasar/wrappers';
+import globalMixins from '../mixins/globalMixins'
 
 export default boot(({ app }) => {
-    app.mixin({
-        data: () => ({
-            $user: undefined
-        }),
-        mounted () {
-            console.log('mixin here')
-        }
-    })
+    app.mixin(globalMixins)
 })

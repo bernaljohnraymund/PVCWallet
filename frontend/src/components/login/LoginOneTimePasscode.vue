@@ -13,7 +13,7 @@
             rounded
             input-class="text-center"
             class="otp-input"
-            maxlength="7"
+            maxlength="6"
             label="Email code"
         >
             <template v-slot:prepend>
@@ -38,7 +38,7 @@
             rounded
             input-class="text-center"
             class="otp-input"
-            maxlength="7"
+            maxlength="6"
             label="Phone verification code"
         >
             <template v-slot:prepend>
@@ -60,7 +60,7 @@
             rounded
             input-class="text-center"
             class="otp-input"
-            maxlength="7"
+            maxlength="6"
             label="Google verification code"
         >
             <template v-slot:prepend>
@@ -127,7 +127,29 @@ export default {
                 data: { to, username: this.form.username, operation: 'login' }
             })
 
-            console.log(otp)
+            if (otp.data.status === 'fail') {
+                otp.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }else
+            if (otp.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${otp.data.message}</span>`,
+                    position: 'top',
+                })
+            }
+
             if (to === 'email') {
                 this.form.emailBtnLoading = false;
             }
@@ -168,10 +190,9 @@ export default {
                     message: `<span style="font-color: white;">${loginOtpAuthRes.data.message}</span>`,
                     position: 'top',
                 })
-                console.log(loginOtpAuthRes.data)
                 // sessionStorage.setItem('pvccrypto_token', loginOtpAuthRes.data.token);
                 // sessionStorage.setItem('username', loginOtpAuthRes.data.token);
-                this.$user = {
+                const user = {
                     token: loginOtpAuthRes.data.token,
                     username: loginOtpAuthRes.data.username,
                     email: loginOtpAuthRes.data.email,
@@ -179,6 +200,10 @@ export default {
                     middleName: loginOtpAuthRes.data.middleName,
                     lastName: loginOtpAuthRes.data.lastName,
                 }
+
+                console.log(this.$getUser())
+                this.$setUser(user)
+                console.log(this.$getUser())
             }
 
             this.form.submitBtnLoading = false;

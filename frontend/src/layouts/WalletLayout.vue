@@ -17,30 +17,52 @@
         <q-toolbar-title>
           PVC
         </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
-      
+
     </q-header>
     <q-drawer
       v-model="leftDrawerOpen"
-      bordered
-      class="bg-grey-1"
       v-if="!noGlobalComponentRoutes.drawer.includes($route.name)"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
+      <div id="drawer-content">
+        <div id="profile" class="absolute-top text-center">
+          <img src="/temporary/couple-img.jpg" />
+          <h6 class="name absolute-bottom">{{ profile.firstName }} {{ profile.lastName }}</h6>
+        </div>
+        <div class="menu q-pa-md" style="max-width: 350px">
+          <q-list bordered>
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon color="primary" name="bluetooth" />
+              </q-item-section>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+              <q-item-section>Icon as avatar</q-item-section>
+            </q-item>
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-avatar color="teal" text-color="white" icon="bluetooth" />
+              </q-item-section>
+
+              <q-item-section>Avatar-type icon</q-item-section>
+            </q-item>
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-avatar rounded color="purple" text-color="white" icon="bluetooth" />
+              </q-item-section>
+
+              <q-item-section>Rounded avatar-type icon</q-item-section>
+            </q-item>
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-avatar color="primary" text-color="white">
+                  R
+                </q-avatar>
+              </q-item-section>
+              <q-item-section>Letter avatar-type</q-item-section>
+          </q-item>
+          </q-list>
+        </div>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -98,9 +120,9 @@ const linksList = [
   }
 ];
 
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
+export default {
   name: 'WalletLayout',
 
   components: {
@@ -108,6 +130,11 @@ export default defineComponent({
   },
   data: () => ({
     noGlobalComponentRoutes: noGlobalComponentRoutes,
+    profile: {
+      firstName: "John Raymund",
+      middleName: "",
+      lastName: "Bernal",
+    }
   }),
 
   setup () {
@@ -124,5 +151,66 @@ export default defineComponent({
 
   async mounted () {
   }
-})
+}
 </script>
+
+<style lang="scss" scoped>
+
+.q-layout {
+    background-color: #10122d;
+    color: #FBFBFB;
+    header {
+      background-color: #00a1ff
+    }
+    #drawer-content {
+      background-color: #0b0c22 !important;
+      width: 100%;
+      height: 100%;
+    }
+    #profile {
+      width: 100%;
+      max-height: 244px;
+      height: 37vh;
+      padding-top: 7vh;
+      display: block;
+      position: relative;
+
+      img {
+        width: 50%;
+        border-radius: 50%;
+      }
+
+      .name {
+        margin: 0;
+      }
+    }
+    .menu {
+      position: relative;
+      margin-top: 7vh;
+    }
+}
+
+@media (min-width:320px)  {
+        /* smartphones, iPhone, portrait 480x320 phones */
+
+}
+@media (min-width:481px)  {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+}
+@media (min-width:641px)  {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+
+}
+@media (min-width:961px)  {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+
+}
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+
+}
+@media (min-width:1281px) {
+    /* hi-res laptops and desktops */
+}
+</style>

@@ -13,6 +13,11 @@ const routes = [
         path: 'email-verification',
         name: 'EmailVerification',
         component: () => import('pages/EmailVerification.vue')
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('pages/Dashboard.vue')
       }
     ]
   },

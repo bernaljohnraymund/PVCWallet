@@ -30,36 +30,21 @@
           <h6 class="name absolute-bottom">{{ profile.firstName }} {{ profile.lastName }}</h6>
         </div>
         <div class="menu q-pa-md" style="max-width: 350px">
-          <q-list bordered>
-            <q-item clickable v-ripple>
+          <q-list>
+            <q-item
+              clickable
+              v-ripple
+              v-for="(item, i) in menuItems"
+              :key="i"
+              @click="activeItem(item.name)"
+              :active="menu.item === item.name"
+              active-class="active"
+            >
               <q-item-section avatar>
-                <q-icon color="primary" name="bluetooth" />
+                <q-icon :name="item.icon"  class="text-center" />
               </q-item-section>
-
-              <q-item-section>Icon as avatar</q-item-section>
+              <q-item-section>{{ item.label }}</q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-avatar color="teal" text-color="white" icon="bluetooth" />
-              </q-item-section>
-
-              <q-item-section>Avatar-type icon</q-item-section>
-            </q-item>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-avatar rounded color="purple" text-color="white" icon="bluetooth" />
-              </q-item-section>
-
-              <q-item-section>Rounded avatar-type icon</q-item-section>
-            </q-item>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-avatar color="primary" text-color="white">
-                  R
-                </q-avatar>
-              </q-item-section>
-              <q-item-section>Letter avatar-type</q-item-section>
-          </q-item>
           </q-list>
         </div>
       </div>
@@ -72,61 +57,37 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
 import noGlobalComponentRoutes from '../utils/data/noGlobalComponentRoutes'
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
 import { ref } from 'vue'
+
+let menuItems= [{
+      name: 'wallet',
+      label: 'Wallet',
+      icon: 'account_balance_wallet'
+    }, {
+      name: 'transactions',
+      label: 'Transactions',
+      icon: 'receipt_long'
+    },
+    {
+      name: 'chart',
+      label: 'Chart',
+      icon: 'trending_up'
+    },
+    {
+      name: 'settings',
+      label: 'Settings',
+      icon: 'settings'
+    },{
+      name: 'logout',
+      label: 'Logout',
+      icon: 'logout'
+    }]
 
 export default {
   name: 'WalletLayout',
 
   components: {
-    EssentialLink
   },
   data: () => ({
     noGlobalComponentRoutes: noGlobalComponentRoutes,
@@ -134,15 +95,19 @@ export default {
       firstName: "John Raymund",
       middleName: "",
       lastName: "Bernal",
-    }
+    },
+    menu: {
+      item: 'wallet'
+    },
+    
   }),
 
   setup () {
     const leftDrawerOpen = ref(true)
-
+    
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
+      menuItems,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
@@ -150,6 +115,13 @@ export default {
   },
 
   async mounted () {
+  },
+
+  methods: {
+    async activeItem (menuItem) {
+      console.log(menuItem)
+      this.menu.item = menuItem;
+    }
   }
 }
 </script>
@@ -187,6 +159,16 @@ export default {
     .menu {
       position: relative;
       margin-top: 7vh;
+
+      .active {
+        color: #FBFBFB;
+        background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+      }
+      .q-item__section--side > .q-icon {
+        background: -webkit-linear-gradient(left, #2D5EF5 2%, #44B6F4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 }
 

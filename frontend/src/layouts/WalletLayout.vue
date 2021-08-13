@@ -14,9 +14,9 @@
           v-if="!noGlobalComponentRoutes.drawer.includes($route.name)"
         />
 
-        <q-toolbar-title>
-          PVC
-        </q-toolbar-title>
+        <q-avatar>
+          <img src="/logo/logo.png" name="logo" alt="logo" />
+        </q-avatar>
       </q-toolbar>
 
     </q-header>
@@ -102,7 +102,7 @@ export default {
       lastName: "Bernal",
     },
     menu: {
-      item: 'wallet'
+      item: 'dashboard'
     },
     
   }),
@@ -137,12 +137,15 @@ export default {
     background-color: #10122d;
     color: #FBFBFB;
     header {
-      background-color: #00a1ff
+      background-color: #00a1ff;
     }
     #drawer-content {
       background-color: #0b0c22 !important;
       width: 100%;
       height: 100%;
+    }
+    .q-toolbar .q-avatar {
+        left: 5px;
     }
     #profile {
       width: 100%;

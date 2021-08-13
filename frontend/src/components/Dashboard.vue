@@ -1,12 +1,16 @@
 <template>
     <div class="root">
-        
+        <wallet-balances />
     </div>
 </template>
 
 <script>
+import WalletBalances from './dashboard/WalletBalances'
 export default {
     name: 'Dashboard',
+    components: {
+        WalletBalances
+    },
     data: () => ({
         
     }),

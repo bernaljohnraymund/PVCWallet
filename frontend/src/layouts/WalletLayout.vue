@@ -61,9 +61,14 @@ import noGlobalComponentRoutes from '../utils/data/noGlobalComponentRoutes'
 import { ref } from 'vue'
 
 let menuItems= [{
-      name: 'wallet',
-      label: 'Wallet',
-      icon: 'account_balance_wallet'
+      name: 'dashboard',
+      label: 'Dashboard',
+      icon: 'dashboard'
+    },
+    {
+      name: 'portfolio',
+      label: 'Portfolio',
+      icon: 'pie_chart'
     }, {
       name: 'transactions',
       label: 'Transactions',
@@ -166,9 +171,13 @@ export default {
       }
       .q-item__section--side > .q-icon {
         background: -webkit-linear-gradient(left, #2D5EF5 2%, #44B6F4 100%);
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
+    }
+    .q-page-container > div {
+      padding: 20px;
     }
 }
 

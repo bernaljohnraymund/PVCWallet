@@ -1,4 +1,9 @@
-
+import store from '../store'
+// import mixins from '../boot/mixins'
+// const $mixins = mixins()
+// console.log($mixins)
+const $store = store()
+const $user = $store.getters.getUser
 const routes = [
   {
     path: '/',
@@ -7,17 +12,26 @@ const routes = [
       {
         path: '',
         name: 'Index',
-        component: () => import('pages/Index.vue')
+        component: () => import('pages/Index.vue'),
+        meta: {
+          auth: false
+        }
       },
       {
         path: 'email-verification',
         name: 'EmailVerification',
-        component: () => import('pages/EmailVerification.vue')
+        component: () => import('pages/EmailVerification.vue'),
+        meta: {
+          auth: false
+        }
       },
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('pages/Dashboard.vue')
+        component: () => import('pages/Dashboard.vue'),
+        meta: {
+          auth: true
+        }
       }
     ]
   },

@@ -14,33 +14,40 @@
           v-if="!noGlobalComponentRoutes.drawer.includes($route.name)"
         />
 
-        <q-toolbar-title>
-          PVC
-        </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
+        <q-avatar>
+          <img src="/logo/logo.png" name="logo" alt="logo" />
+        </q-avatar>
       </q-toolbar>
-      
+
     </q-header>
     <q-drawer
       v-model="leftDrawerOpen"
-      bordered
-      class="bg-grey-1"
       v-if="!noGlobalComponentRoutes.drawer.includes($route.name)"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <div id="drawer-content">
+        <div id="profile" class="absolute-top text-center">
+          <img src="/temporary/couple-img.jpg" />
+          <h6 class="name absolute-bottom">{{ profile.firstName }} {{ profile.lastName }}</h6>
+        </div>
+        <div class="menu q-pa-md" style="max-width: 350px">
+          <q-list>
+            <q-item
+              clickable
+              v-ripple
+              v-for="(item, i) in menuItems"
+              :key="i"
+              @click="activeItem(item.name)"
+              :active="menu.item === item.name"
+              active-class="active"
+            >
+              <q-item-section avatar>
+                <q-icon :name="item.icon"  class="text-center" />
+              </q-item-section>
+              <q-item-section>{{ item.label }}</q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -50,72 +57,62 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
 import noGlobalComponentRoutes from '../utils/data/noGlobalComponentRoutes'
+import { ref } from 'vue'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+let menuItems= [{
+      name: 'dashboard',
+      label: 'Dashboard',
+      icon: 'dashboard'
+    },
+    {
+      name: 'portfolio',
+      label: 'Portfolio',
+      icon: 'pie_chart'
+    }, {
+      name: 'transactions',
+      label: 'Transactions',
+      icon: 'receipt_long'
+    },
+    {
+      name: 'chart',
+      label: 'Chart',
+      icon: 'trending_up'
+    },
+    {
+      name: 'settings',
+      label: 'Settings',
+      icon: 'settings'
+    },{
+      name: 'logout',
+      label: 'Logout',
+      icon: 'logout'
+    }]
 
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
+export default {
   name: 'WalletLayout',
 
   components: {
-    EssentialLink
   },
   data: () => ({
     noGlobalComponentRoutes: noGlobalComponentRoutes,
+    profile: {
+      firstName: "John Raymund",
+      middleName: "",
+      lastName: "Bernal",
+    },
+    menu: {
+      item: 'dashboard'
+    },
+    
   }),
 
   setup () {
     const leftDrawerOpen = ref(true)
-
+    
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
+      menuItems,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
@@ -123,6 +120,91 @@ export default defineComponent({
   },
 
   async mounted () {
+  },
+
+  methods: {
+    async activeItem (menuItem) {
+      console.log(menuItem)
+      this.menu.item = menuItem;
+    }
   }
-})
+}
 </script>
+
+<style lang="scss" scoped>
+
+.q-layout {
+    background-color: #10122d;
+    color: #FBFBFB;
+    header {
+      background-color: #00a1ff;
+    }
+    #drawer-content {
+      background-color: #0b0c22 !important;
+      width: 100%;
+      height: 100%;
+    }
+    .q-toolbar .q-avatar {
+        left: 5px;
+    }
+    #profile {
+      width: 100%;
+      max-height: 244px;
+      height: 37vh;
+      padding-top: 7vh;
+      display: block;
+      position: relative;
+
+      img {
+        width: 50%;
+        border-radius: 50%;
+      }
+
+      .name {
+        margin: 0;
+      }
+    }
+    .menu {
+      position: relative;
+      margin-top: 7vh;
+
+      .active {
+        color: #FBFBFB;
+        background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+      }
+      .q-item__section--side > .q-icon {
+        background: -webkit-linear-gradient(left, #2D5EF5 2%, #44B6F4 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    .q-page-container > div {
+      padding: 20px;
+    }
+}
+
+@media (min-width:320px)  {
+        /* smartphones, iPhone, portrait 480x320 phones */
+
+}
+@media (min-width:481px)  {
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+}
+@media (min-width:641px)  {
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+
+}
+@media (min-width:961px)  {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+
+}
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+
+}
+@media (min-width:1281px) {
+    /* hi-res laptops and desktops */
+}
+</style>

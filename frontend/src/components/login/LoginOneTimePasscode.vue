@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import { EventBus, events } from 'boot/events'
 export default {
     name: "LoginOneTimePasscode",
     components: {},
@@ -204,6 +203,8 @@ export default {
                 console.log(this.$getUser())
                 this.$setUser(user)
                 console.log(this.$getUser())
+                // this.$router.push({ name: 'Dashboard' })
+                location.reload();
             }
 
             this.form.submitBtnLoading = false;
@@ -212,9 +213,6 @@ export default {
             // this.key = key;
             console.log(this.key)
         }
-    },
-    async beforeDestroy () {
-        EventBus.$off(events.ON_LOGIN)
     }
 }
 </script>

@@ -203,8 +203,8 @@ export default {
                 console.log(this.$getUser())
                 this.$setUser(user)
                 console.log(this.$getUser())
-                this.$router.push({ name: 'Dashboard' })
-                // location.reload();
+                // this.$router.push({ name: 'Dashboard' })
+                location.reload();
             }
 
             this.form.submitBtnLoading = false;

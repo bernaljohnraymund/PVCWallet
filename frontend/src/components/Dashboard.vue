@@ -1,15 +1,18 @@
 <template>
     <div class="root">
         <wallet-balances />
+        <transactions />
     </div>
 </template>
 
 <script>
 import WalletBalances from './dashboard/WalletBalances'
+import Transactions from './dashboard/Transactions'
 export default {
     name: 'Dashboard',
     components: {
-        WalletBalances
+        WalletBalances,
+        Transactions
     },
     data: () => ({
         

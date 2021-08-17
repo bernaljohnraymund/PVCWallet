@@ -4,12 +4,11 @@
             <pvc-table :tbl="transactionTable" v-if="transactionTable">
                 <template v-slot:row="props">
                     <q-td key="date">{{ props.data.date }}</q-td>
-                    <q-td key="txid" class="txid">{{ props.data.txid }}</q-td>
-                    <q-td key="from" class="from">{{ props.data.from }}</q-td>
-                    <q-td key="to" class="to">{{ props.data.to }}</q-td>
+                    <q-td key="txid" class="txid"><a href="#" @click.prevent="visitLink">{{ props.data.txid }}</a></q-td>
+                    <q-td key="from" class="from"><a href="#" @click.prevent="visitLink">{{ props.data.from }}</a></q-td>
+                    <q-td key="to" class="to"><a href="#" @click.prevent="visitLink">{{ props.data.to }}</a></q-td>
                     <q-td key="amount">{{ props.data.amount }}</q-td>
-                    <q-td key="value">{{ props.data.value }}</q-td>
-                    <q-td key="currency">{{ props.data.currency }}</q-td>
+                    <q-td key="value">{{ props.data.value }} {{ props.data.currency }}</q-td>
                     <q-td key="token">{{ props.data.token }}</q-td>
                 </template>
             </pvc-table>
@@ -59,8 +58,6 @@ export default {
                     field: 'date',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'txid',
@@ -68,8 +65,6 @@ export default {
                     field: 'txid',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'from',
@@ -77,8 +72,6 @@ export default {
                     field: 'from',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'to',
@@ -86,8 +79,6 @@ export default {
                     field: 'to',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'amount',
@@ -95,8 +86,6 @@ export default {
                     field: 'amount',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'value',
@@ -104,17 +93,6 @@ export default {
                     field: 'value',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
-                },
-                {
-                    name: 'currency',
-                    label: 'currency ',
-                    field: 'currency',
-                    align: 'left',
-                    sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 },
                 {
                     name: 'token',
@@ -122,14 +100,17 @@ export default {
                     field: 'token',
                     align: 'left',
                     sortable: false,
-                    style: 'max-width: 50px',
-                    headerStyle: 'max-width: 50px'
                 }
             ]
         }
     }),
     mounted () {
         // console.log(this.transactionTable);
+    },
+    methods: {
+        visitLink () {
+            console.log('test')
+        }
     }
 }
 </script>
@@ -137,14 +118,25 @@ export default {
 <style lang="scss" scoped>
     #root {
         #table {
-            // ::v-deep .q-table thead th {
-            //     width: 50px;
-            //     white-space: normal;
-            // }
-            // ::v-deep .q-table tbody td {
-            //     width: 50px;
-            //     white-space: normal;
-            // }
+            ::v-deep tbody td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px;
+
+                a {
+                    color: #000 !important;
+                    text-decoration: none;
+                }
+            }
+            ::v-deep tbody td:last-of-type {
+                text-transform: uppercase;
+            }
+        }
+        
+        ::v-deep .q-field__control-container > .q-field__native,
+        ::v-deep .q-field__append > i.q-select__dropdown-icon {
+            color: #FBFBFB !important;
         }
     }
 </style>

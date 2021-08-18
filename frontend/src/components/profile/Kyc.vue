@@ -10,7 +10,7 @@
                     <q-icon name="verified" color="green" v-if="user.kycLevel > 1" />
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         <q-btn type="button" :label="user.kycLevel > 1 ? 'verified' : 'verify'" flat />
                     </div>
                 </q-card-section>
@@ -27,7 +27,7 @@
                     <q-icon name="verified" color="green" v-if="user.kycLevel > 2" />
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         <q-btn type="button" :disabled="user.kycLevel < 2" :label="user.kycLevel > 2 ? 'verified' : 'verify'" flat />
                     </div>
                 </q-card-section>
@@ -44,7 +44,7 @@
                     <q-icon name="verified" color="green" v-if="user.kycLevel > 3" />
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         <q-btn type="button" :disabled="user.kycLevel < 3" :label="user.kycLevel > 3 ? 'verified' : 'verify'" flat />
                     </div>
                 </q-card-section>
@@ -91,7 +91,13 @@ export default {
                 > div {
                     margin: 0 auto 17px;
                 }
-                
+                .header {
+                    font-size: 1.4rem;
+                    text-align: center;
+                }
+                .body {
+                    font-size: 5rem;
+                }
             }
     }
     @media (min-width:481px)  {

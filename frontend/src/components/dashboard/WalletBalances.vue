@@ -10,7 +10,7 @@
                     <h4>{{ wallets.total.fiatBalance }}</h4>
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         <q-btn type="button" label="view portfolio" flat />
                     </div>
                 </q-card-section>
@@ -27,10 +27,10 @@
                     <h6>{{ wallets.pvc.fiatBalance }}</h6>
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <q-btn type="button" label="deposit" flat />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <q-btn type="button" label="withdraw" flat />
                     </div>
                 </q-card-section>
@@ -47,10 +47,10 @@
                     <h6>{{ wallets.btc.fiatBalance }}</h6>
                 </q-card-section>
                 <q-card-section class="row footer">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <q-btn type="button" label="deposit" flat />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <q-btn type="button" label="withdraw" flat />
                     </div>
                 </q-card-section>

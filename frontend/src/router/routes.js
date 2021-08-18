@@ -32,6 +32,26 @@ const routes = [
         meta: {
           auth: true
         }
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('pages/Settings.vue'),
+        children: [
+          {
+            path: '',
+            name: 'SettingsRoot',
+            component: () => import('pages/settings/Root.vue'),
+          },
+          {
+            path: 'profile',
+            name: 'Profile-Settings',
+            component: () => import('pages/settings/Profile.vue'),
+          }
+        ],
+        meta: {
+          auth: true
+        }
       }
     ]
   },

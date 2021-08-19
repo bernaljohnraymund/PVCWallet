@@ -11,7 +11,7 @@
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :label="user.kycLevel > 1 ? 'verified' : 'verify'" flat />
+                        <q-btn type="button" :label="user.kycLevel > 1 ? 'verified' : 'verify'" flat @click="user.kycLevel <= 1 ? $router.push({ name: 'BasicInformation' }) : ''" />
                     </div>
                 </q-card-section>
             </q-card>

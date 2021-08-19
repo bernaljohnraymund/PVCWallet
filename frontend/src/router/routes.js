@@ -45,8 +45,29 @@ const routes = [
           },
           {
             path: 'profile',
-            name: 'Profile-Settings',
+            name: 'Profile',
             component: () => import('pages/settings/Profile.vue'),
+            children: [
+              {
+                path: '',
+                name: 'ProfileRoot',
+                component: () => import('pages/settings/profile/Root.vue'),
+              },
+              {
+                path: 'basic-information',
+                name: 'BasicInformation',
+                component: () => import('pages/settings/profile/BasicInformation.vue'),
+              },
+              {
+                path: 'identity-information',
+                name: 'IdentityInformation',
+                component: () => import('pages/settings/profile/IdentityInformation.vue'),
+              },{
+                path: 'address-information',
+                name: 'AddressInformation',
+                component: () => import('pages/settings/profile/AddressInformation.vue'),
+              },
+            ]
           }
         ],
         meta: {

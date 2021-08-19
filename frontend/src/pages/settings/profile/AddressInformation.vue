@@ -1,12 +1,12 @@
 <template>
-  <div>
-      <router-view />
-  </div>
+    <div>
+        address information
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'Root'
+    name: 'AddressInformation'
 }
 </script>
 

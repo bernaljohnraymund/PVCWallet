@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import countries from '../../utils/data/countries'
+import countries from '../../utils/data/json/countries'
 export default {
     name: "WalletBalances",
     data: () => ({

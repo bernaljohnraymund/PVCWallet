@@ -89,6 +89,7 @@ export default {
       background-color: #0b0c22 !important;
       width: 100%;
       height: 100%;
+      overflow-y: hidden !important;
     }
     .q-toolbar .q-avatar {
         left: 5px;

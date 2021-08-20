@@ -33,10 +33,9 @@
                 </q-card-section>
             </q-card>
       </div>
-      <div class="col-10 col-md-6">
+      <!-- <div class="col-10 col-md-6">
           <q-card :class="`kyc-card ${user.kycLevel > 3 ? 'verified' : 'unverified'} advance`">
                 <q-card-section class="header">
-                    <!-- <img src="/icons/wallet.png" class="img-icon" /> -->
                     <label>Address Information</label>
                 </q-card-section>
                 <q-card-section class="body text-center">
@@ -49,7 +48,7 @@
                     </div>
                 </q-card-section>
             </q-card>
-      </div>
+      </div> -->
   </div>
   
 </template>

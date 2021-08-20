@@ -2,7 +2,7 @@
     <div id="root" class="row">
         <div class="col-12">
             <q-form id="basic-information-form">
-                <div class="text-h4 text-center heading">
+                <div class="text-h4 text-center header">
                     <div>
                         <q-icon name="perm_identity" />
                     </div>
@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <q-select
                                 outlined
-                                label="Country"
+                                label="Nationality"
                                 v-model="form.country"
                                 use-input
                                 hide-selected
@@ -63,7 +63,7 @@
                             <q-input type="text" outlined label="Middle Name" v-model="form.middleName" name="middleName" />
                         </div>
                         <div class="col-12 col-md-6">
-                            <q-input outlined v-model="form.birthDate" label="Birthdate" mask="date" >
+                            <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate" label="Birthdate" mask="date" >
                                 <template v-slot:append>
                                     <q-icon name="event" class="cursor-pointer">
                                         <q-popup-proxy breakpoint="99999">
@@ -72,6 +72,31 @@
                                     </q-icon>
                                 </template>
                             </q-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <q-input type="text" outlined label="House #" v-model="form.houseNumber" name="houseNumber" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <q-input type="text" outlined label="Street" v-model="form.street" name="street" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <q-input type="text" outlined label="Postal code" v-model="form.postal" name="postal" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <q-input type="text" outlined label="City" v-model="form.city" name="city" />
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-12">
+                            <q-btn label="save" class="signup-btn" flat />
+                            <span class="btn-margin"></span>
+                            <q-btn label="cancel" class="cancel-btn" flat />
                         </div>
                     </div>
                 </div>
@@ -135,9 +160,23 @@ export default {
         #basic-information-form {
             padding: 10px;
 
-            .heading i.q-icon {
-                font-size: 5rem;
+            .footer {
+                text-align: center;
             }
+
+            .footer .signup-btn, .footer .cancel-btn {
+                border-radius: 10px;
+                color: #FBFBFB;
+                min-height: 0;
+                margin: auto;
+            }
+            .footer .signup-btn {
+                background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+            }
+            .footer .cancel-btn {
+                background-image: linear-gradient(to right, #f52d2d, #fa3030);
+            }
+
         }
 
         ::v-deep .q-field {
@@ -154,10 +193,30 @@ export default {
     @media (min-width:320px)  {
         /* smartphones, iPhone, portrait 480x320 phones */
         #root {
+            .header {
+                padding-bottom: 15px;
+            }
+
             #basic-information-form .body {
                 .row > div {
                     padding-bottom: 5px;
                 }
+
+                .row:nth-of-type(2) > div:nth-of-type(2) label.q-field {
+                    padding-bottom: 0;
+                }
+            }
+            .btn-margin {
+                display: inline-block;
+                width: 10px;
+            }
+            .footer {
+                padding-top: 9px;
+            }
+            .footer .signup-btn, .footer .cancel-btn {
+                font-size: 17px;
+                width: 36%;
+                height: 6vh;
             }
         }
     }
@@ -178,17 +237,32 @@ export default {
         /* hi-res laptops and desktops */
 
         #root {
+            .header {
+                padding-bottom: 4vh;
+            }
             #basic-information-form .body {
                 .row > div {
                     padding-bottom: 12px;
                 }
 
-                .row:nth-of-type(2) > div:nth-of-type(1), .row:nth-of-type(3) > div:nth-of-type(1) {
+                .row:nth-of-type(2) > div:nth-of-type(1), .row:nth-of-type(3) > div:nth-of-type(1), .row:nth-of-type(4) > div:nth-of-type(1), .row:nth-of-type(5) > div:nth-of-type(1) {
                     padding-right: 5px;
                 }
-                .row:nth-of-type(2) > div:nth-of-type(2), .row:nth-of-type(3) > div:nth-of-type(2) {
+                .row:nth-of-type(2) > div:nth-of-type(2), .row:nth-of-type(3) > div:nth-of-type(2), .row:nth-of-type(4) > div:nth-of-type(2), .row:nth-of-type(5) > div:nth-of-type(2) {
                     padding-left: 5px;
                 }
+            }
+            .btn-margin {
+                display: inline-block;
+                width: 10px;
+            }
+            .footer {
+                padding-top: 15px;
+            }
+            .footer .signup-btn, .footer .cancel-btn {
+                font-size: 20px;
+                width: 13%;
+                height: 7vh;
             }
         }
     }

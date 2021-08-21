@@ -28,7 +28,7 @@
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :disabled="user.kycLevel < 2" :label="user.kycLevel > 2 ? 'verified' : 'verify'" flat />
+                        <q-btn type="button" :disabled="user.kycLevel < 2" :label="user.kycLevel > 2 ? 'verified' : 'verify'" flat @click="user.kycLevel === 2 ? $router.push({ name: 'IdentityInformation' }) : ''"/>
                     </div>
                 </q-card-section>
             </q-card>
@@ -58,7 +58,7 @@ export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 1
+            kycLevel: 2
         }
     })
 }

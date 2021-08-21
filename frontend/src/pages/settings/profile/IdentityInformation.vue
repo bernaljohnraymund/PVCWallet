@@ -1,15 +1,18 @@
 <template>
     <div>
-        identity information
+        <identity-information-component />
     </div>
 </template>
 
 <script>
+import IdentityInformation from '../../../components/profile/IdentityInformation.vue'
 export default {
-    name: 'IdentityInformation'
+    name: 'IdentityInformation',
+    components: {
+        'identity-information-component': IdentityInformation
+    },
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
 </style>

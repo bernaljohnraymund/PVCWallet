@@ -54,17 +54,17 @@ export default {
 
 <style lang="scss" scoped>
     #table {
-      ::v-deep .q-table__top, ::v-deep thead, ::v-deep .q-table__bottom {
+      :deep .q-table__top, :deep thead, :deep .q-table__bottom {
         background-color: #0b0c22;
       }
-      ::v-deep thead {
+      :deep thead {
         text-transform: uppercase !important;
         color: #FBFBFB;
       }
-      ::v-deep tbody {
+      :deep tbody {
         background-color: #43b2f4
       }
-      ::v-deep .q-table__bottom, ::v-deep .q-table__control {
+      :deep .q-table__bottom, :deep .q-table__control {
         color: #FBFBFB !important;
       }
     }

@@ -1,18 +1,21 @@
 <template>
     <div class="root">
+        <notification-banner />
         <wallet-balances />
         <transactions />
     </div>
 </template>
 
 <script>
+import NotificationBanner from './dashboard/NotificationBanner'
 import WalletBalances from './dashboard/WalletBalances'
 import Transactions from './dashboard/Transactions'
 export default {
     name: 'Dashboard',
     components: {
         WalletBalances,
-        Transactions
+        Transactions,
+        NotificationBanner
     },
     data: () => ({
         

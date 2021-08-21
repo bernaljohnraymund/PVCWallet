@@ -49,6 +49,94 @@ export default {
                         currency: 'USD',
                         token: 'pvc',
                         type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '500',
+                        value: '500',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '200',
+                        value: '200',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '500',
+                        value: '500',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '200',
+                        value: '200',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '500',
+                        value: '500',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '200',
+                        value: '200',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '500',
+                        value: '500',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
+                    },
+                    {
+                        date: moment(moment.now()).format('MM/DD/yyyy'),
+                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
+                        amount: '200',
+                        value: '200',
+                        currency: 'USD',
+                        token: 'pvc',
+                        type: 'out'
                     }
                 ],
             columns: [
@@ -118,7 +206,7 @@ export default {
 <style lang="scss" scoped>
     #root {
         #table {
-            ::v-deep tbody td {
+            :deep tbody td {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -129,13 +217,13 @@ export default {
                     text-decoration: none;
                 }
             }
-            ::v-deep tbody td:last-of-type {
+            :deep tbody td:last-of-type {
                 text-transform: uppercase;
             }
         }
         
-        ::v-deep .q-field__control-container > .q-field__native,
-        ::v-deep .q-field__append > i.q-select__dropdown-icon {
+        :deep .q-field__control-container > .q-field__native,
+        :deep .q-field__append > i.q-select__dropdown-icon {
             color: #FBFBFB !important;
         }
     }

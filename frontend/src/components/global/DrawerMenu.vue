@@ -2,7 +2,7 @@
     <div id="drawer-content">
         <div id="profile" class="absolute-top text-center">
             <img src="/temporary/couple-img.jpg" />
-            <h6 class="name">{{ profile.firstName }} {{ profile.lastName }}</h6>
+            <h6 class="name">{{ profile.lastName }}</h6>
             <q-badge
                 color="negative"
                 class="profile-badge"
@@ -70,6 +70,7 @@ export default {
             firstName: "John Raymund",
             middleName: "",
             lastName: "Bernal",
+            email: "bernaljohnraymund777@gmail.com"
         },
         menu: {
             item: 'dashboard'

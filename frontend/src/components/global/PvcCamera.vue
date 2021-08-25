@@ -9,13 +9,7 @@
                     </button>
                 </div> -->
                 
-                <div v-show="isCameraOpen && isLoading" class="camera-loading">
-                    <ul class="loader-circle">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    </ul>
-                </div>
+                <q-spinner-tail v-if="isCameraOpen && isLoading" class="camera-loading"/>
                 
                 <div v-if="isCameraOpen" v-show="!isLoading" class="camera-box" :class="{ 'flash' : isShotPhoto }">
                     
@@ -26,11 +20,11 @@
                     <canvas v-show="isPhotoTaken" id="photoTaken" ref="canvas" :width="450" :height="337.5"></canvas>
                 </div>
                 
-                <div v-if="isCameraOpen && !isLoading" class="camera-shoot">
+                <!-- <div v-if="isCameraOpen && !isLoading" class="camera-shoot">
                     <button type="button" class="button" @click="takePhoto">
                     <img src="https://img.icons8.com/material-outlined/50/000000/camera--v2.png">
                     </button>
-                </div>
+                </div> -->
                 
                 <div v-if="isPhotoTaken && isCameraOpen" class="camera-download">
                     <a id="downloadPhoto" download="my-photo.jpg" class="button" role="button" @click="downloadImage">
@@ -50,14 +44,16 @@ export default {
         isPhotoTaken: false,
         isShotPhoto: false,
         isLoading: false,
-        link: '#'
+        context: null,
+        data: {}
     }),
     mounted () {
     },
     methods: {
-        open() {
+        open(val) {
             this.isCameraOpen = true;
             this.createCameraElement();
+            this.data = { ...val }
         },
         close() {
             this.isCameraOpen = false;
@@ -90,7 +86,7 @@ export default {
             navigator.mediaDevices
                 .getUserMedia(constraints)
                 .then(stream => {
-                this.isLoading = false;
+                    this.isLoading = false;
                     this.$refs.camera.srcObject = stream;
                 })
                 .catch(error => {
@@ -120,8 +116,15 @@ export default {
         
             this.isPhotoTaken = !this.isPhotoTaken;
             
-            const context = this.$refs.canvas.getContext('2d');
-            context.drawImage(this.$refs.camera, 0, 0, 450, 337.5);
+            this.context = this.$refs.canvas.getContext('2d');
+            this.context.drawImage(this.$refs.camera, 0, 0, 450, 337.5);
+        },
+        savePhoto () {
+            const base64 = this.$refs.canvas.toDataURL();
+            this.$emit('savePhoto', {
+                base64,
+                ...this.data
+            })
         },
         
         downloadImage() {
@@ -141,18 +144,20 @@ body {
 }
 
 .web-camera-container {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  padding: 2rem;
+  // margin-top: 2rem;
+  // margin-bottom: 2rem;
+  // padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 500px;
+  // border: 1px solid #ccc;
+  // border-radius: 4px;
+  // width: 500px;
 
-  
+  .camera-loading {
+    font-size: 2rem;
+  }
   .camera-button {
     margin-bottom: 2rem;
   }
@@ -188,59 +193,7 @@ body {
       }
     }
   }
-  
-  .camera-loading {
-    overflow: hidden;
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    min-height: 150px;
-    margin: 3rem 0 0 -1.2rem;
-    
-    ul {
-      height: 100%;
-      position: absolute;
-      width: 100%;
-      z-index: 999999;
-      margin: 0;
-    }
-    
-    .loader-circle {
-      display: block;
-      height: 14px;
-      margin: 0 auto;
-      top: 50%;
-      left: 100%;
-      transform: translateY(-50%);
-      transform: translateX(-50%);
-      position: absolute;
-      width: 100%;
-      padding: 0;
-      
-      li {
-        display: block;
-        float: left;
-        width: 10px;
-        height: 10px;
-        line-height: 10px;
-        padding: 0;
-        position: relative;
-        margin: 0 0 0 4px;
-        background: #999;
-        animation: preload 1s infinite;
-        top: -50%;
-        border-radius: 100%;
-        
-        &:nth-child(2) {
-          animation-delay: .2s;
-        }
-        
-        &:nth-child(3) {
-          animation-delay: .4s;
-        }
-      }
-    }
-  }
+
 
   @keyframes preload {
     0% {

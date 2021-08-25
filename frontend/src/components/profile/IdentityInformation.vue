@@ -16,8 +16,8 @@
                                     <div class="col-12">
                                         <h4>Selfie</h4>
                                     </div>
-                                    <div class="col-12 col-md-6" v-if="form.selfie === null">
-                                        <q-card @click="openCamera">
+                                    <div class="col-12 col-md-6" v-if="form.hasSelfie === false">
+                                        <q-card @click="openCamera({imageType: 'selfie'})">
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <q-icon name="photo_camera" />
@@ -26,14 +26,14 @@
                                             <q-card-section></q-card-section>
                                         </q-card>
                                     </div>
-                                    <div class="col-12 col-md-6" v-if="form.selfie === null">
+                                    <div class="col-12 col-md-6" v-if="form.hasSelfie === false">
                                         <q-card @click="openSelfieUpload">
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <input
                                                     type="file"
                                                     ref="selfieFile"
-                                                    @input="showSelfieImage"
+                                                    @input="showUploadedImage('selfie')"
                                                     hidden
                                                 />
                                                 <q-icon name="image" />
@@ -42,11 +42,19 @@
                                             <q-card-section></q-card-section>
                                         </q-card>
                                     </div>
-                                    <div class="col-6 selfie-image-container" v-if="form.selfie !== null">
+                                    <div class="col-6 selfie-image-container" v-show="form.hasSelfie === true">
                                         <q-card>
-                                            <q-card-section></q-card-section>
+                                            <!-- <q-card-section></q-card-section> -->
                                             <q-card-section>
-                                                <q-img :src="form.selfieImageData" ref="selfiePreview" />
+                                                <div ref="previewSelfie">
+                                                </div>
+                                            </q-card-section>
+                                            <q-card-section>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <q-btn type="button" label="remove" @click="removeUploadedImage('selfie')" flat />
+                                                    </div>
+                                                </div>
                                             </q-card-section>
                                         </q-card>
                                     </div>
@@ -57,18 +65,23 @@
                     <div class="footer">
                         <div class="row">
                             <div class="col-12">
-                                <q-btn label="save" class="save-btn" flat />
+                                <!-- <q-btn label="save" class="save-btn" flat />
                                 <span class="btn-margin"></span>
-                                <q-btn label="cancel" class="cancel-btn" flat />
+                                <q-btn label="cancel" class="cancel-btn" flat /> -->
                             </div>
                         </div>
                     </div>
                 </q-form>
             </div>
         </div>
-        <pvc-modal :modal="cameraModal" @close="closeCamera" ref="cameraModal">
+        <pvc-modal :modal="cameraModal" @close="closeCamera" @takePhoto="takePhoto" ref="cameraModal">
             <template v-slot:body>
-                <pvc-camera ref="camera"/>
+                <pvc-camera ref="camera" @savePhoto="savePhoto" />
+            </template>
+            <template v-slot:footer>
+                <q-btn type="button" label="close" flat @click="$refs.cameraModal.hide()" />
+                <q-btn type="button" :label="$refs.camera && $refs.camera.isPhotoTaken ? 'take again' : 'take a picture'" flat @click="$refs.camera && $refs.camera.isPhotoTaken ? $refs.camera.isPhotoTaken = false : $refs.camera.takePhoto()" v-if="$refs.camera" />
+                <q-btn type="button" label="save" flat @click="$refs.camera.savePhoto" v-if="$refs.camera && $refs.camera.isPhotoTaken" />
             </template>
         </pvc-modal>
     </div>
@@ -77,6 +90,10 @@
 <script>
 import PvcModal from '../global/PvcModal.vue'
 import PvcCamera from '../global/PvcCamera.vue'
+
+
+let image = new Image();
+
 export default {
     name: 'IdentityInformation',
     components: {
@@ -85,12 +102,14 @@ export default {
     },
     data: () => ({
         form: {
-            selfie: null,
-            selfieImageData: null
+            hasSelfie: false,
+            selfieImageData: null,
         },
         cameraModal: {
             isHeaderEnabled: false,
-            isFooterEnabled: false
+            isCloseBtnEnable: false,
+            isFooterEnabled: true,
+            isPersistent: true
         }
     }),
     async mounted () {
@@ -99,27 +118,82 @@ export default {
         openSelfieUpload () {
             this.$refs.selfieFile.click();
         },
-        async openCamera () {
+        removeUploadedImage (imageType) {
+            if (imageType === 'selfie') {
+                this.form.hasSelfie = false
+                this.form.selfieImageData = null
+
+                this.$q.notify({
+                    type: 'negative',
+                    progress: true,
+                    html: true,
+                    message: `<span style="font-color: white;">Selfie removed.</span>`,
+                    position: 'top',
+                })
+            }
+
+            image.src = null
+        },
+        async openCamera (val = {}) {
             await this.$refs.cameraModal.show();
-            await this.$refs.camera.open();
+            await this.$refs.camera.open(val);
         },
         async closeCamera () {
             this.$refs.camera.close();
             // await this.$refs.cameraModal.hide();
         },
-        showSelfieImage () {
-            const input = this.$refs.selfieFile;
-            this.form.selfie = input.files;
-            const files = input.files;
-            console.log(this.form.selfie)
-            console.log(files)
-            if (files && files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    this.form.selfieImageData = e.target.result;
-                };
-                reader.readAsDataURL(files[0]);
+        showUploadedImage (imageType) {
+            let input;
+            let imageRef;
+
+            if (imageType === 'selfie') {
+                input = this.$refs.selfieFile;
+                imageRef = 'previewSelfie';
+                this.form.hasSelfie = true;
             }
+            
+            const files = input.files;
+            // if (files && files[0]) {
+            const reader = new FileReader();
+                
+            reader.onload = e => {
+                image.src =  e.target.result
+                this.form.selfieImageData = e.target.result;
+                this.$refs[imageRef].appendChild(image)
+
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    message: `<span style="font-color: white;">${imageType === 'selfie' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                    position: 'top',
+                })
+            }
+            reader.readAsDataURL(files[0])
+        },
+        async takePhoto (val) {
+            console.log(val)
+        },
+        async savePhoto (val) {
+            let imageRef;
+            if (val.imageType === 'selfie') {
+                this.form.hasSelfie = true;
+                this.form.selfieImageData = val.base64;
+                imageRef = 'previewSelfie'
+            }
+            image.src =  val.base64;
+            this.$refs[imageRef].appendChild(image)
+
+            this.$q.notify({
+                type: 'positive',
+                progress: true,
+                html: true,
+                message: `<span style="font-color: white;">${val.imageType === 'selfie' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                position: 'top',
+            })
+
+
+            this.$refs.cameraModal.hide();
         }
     }
 }

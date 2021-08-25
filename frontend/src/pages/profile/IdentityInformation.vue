@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import IdentityInformation from '../../../components/profile/IdentityInformation.vue'
+import IdentityInformation from '../../components/profile/IdentityInformation.vue'
 export default {
     name: 'IdentityInformation',
     components: {

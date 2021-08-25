@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import ProfileInfo from '../../../components/profile/ProfileInfo.vue'
-import Kyc from '../../../components/profile/Kyc.vue'
+import ProfileInfo from '../../components/profile/ProfileInfo.vue'
+import Kyc from '../../components/profile/Kyc.vue'
 
 export default {
     name: 'Profile',

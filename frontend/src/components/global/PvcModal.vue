@@ -1,19 +1,18 @@
 <template>
-    <q-dialog v-model="isShow">
+    <q-dialog v-model="isShow" :persistent="$props.modal.isPersistent && true">
       <q-card>
-        <q-card-section class="row items-center q-pb-none">
-          <!-- <div class="text-h6">Close icon</div> -->
+        <q-card-section v-if="$props.modal.isCloseBtnEnable">
           <q-btn icon="close" flat round dense @click="hide" class="close-btn absolute-right" />
         </q-card-section>
-        <q-card-section v-if="$props.modal.isHeaderEnabled || true">
+        <q-card-section v-if="$props.modal.isHeaderEnabled">
             <slot name="header"></slot>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section>
             <slot name="body"></slot>
         </q-card-section>
 
-        <q-card-section v-if="$props.modal.isFooterEnabled || true">
+        <q-card-section v-if="$props.modal.isFooterEnabled">
             <slot name="footer"></slot>
         </q-card-section>
       </q-card>
@@ -46,7 +45,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .q-card {
+        min-width: 560px;
+        background-color: #79ceff;
+    }
     .close-btn {
-        font-size: 2rem;
+        font-size: 1.4rem;
+        z-index: 99;
+        color: #FBFBFB;
     }
 </style>

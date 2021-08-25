@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BasicInformation from "../../../components/profile/BasicInformation.vue"
+import BasicInformation from "../../components/profile/BasicInformation.vue"
 
 export default {
     name: 'BasicInformation',

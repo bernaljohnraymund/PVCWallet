@@ -34,6 +34,32 @@ const routes = [
         }
       },
       {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('pages/Profile.vue'),
+        children: [
+          {
+            path: '',
+            name: 'ProfileRoot',
+            component: () => import('pages/profile/Root.vue'),
+          },
+          {
+            path: 'basic-information',
+            name: 'BasicInformation',
+            component: () => import('pages/profile/BasicInformation.vue'),
+          },
+          {
+            path: 'identity-information',
+            name: 'IdentityInformation',
+            component: () => import('pages/profile/IdentityInformation.vue'),
+          },{
+            path: 'address-information',
+            name: 'AddressInformation',
+            component: () => import('pages/profile/AddressInformation.vue'),
+          },
+        ]
+      },
+      {
         path: 'settings',
         name: 'Settings',
         component: () => import('pages/Settings.vue'),
@@ -43,32 +69,6 @@ const routes = [
             name: 'SettingsRoot',
             component: () => import('pages/settings/Root.vue'),
           },
-          {
-            path: 'profile',
-            name: 'Profile',
-            component: () => import('pages/settings/Profile.vue'),
-            children: [
-              {
-                path: '',
-                name: 'ProfileRoot',
-                component: () => import('pages/settings/profile/Root.vue'),
-              },
-              {
-                path: 'basic-information',
-                name: 'BasicInformation',
-                component: () => import('pages/settings/profile/BasicInformation.vue'),
-              },
-              {
-                path: 'identity-information',
-                name: 'IdentityInformation',
-                component: () => import('pages/settings/profile/IdentityInformation.vue'),
-              },{
-                path: 'address-information',
-                name: 'AddressInformation',
-                component: () => import('pages/settings/profile/AddressInformation.vue'),
-              },
-            ]
-          }
         ],
         meta: {
           auth: true

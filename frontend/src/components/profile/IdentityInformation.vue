@@ -21,7 +21,7 @@
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <q-icon name="photo_camera" />
-                                                <h6>Use camera</h6>
+                                                <h6>Camera</h6>
                                             </q-card-section>
                                             <q-card-section></q-card-section>
                                         </q-card>
@@ -37,12 +37,12 @@
                                                     hidden
                                                 />
                                                 <q-icon name="image" />
-                                                <h6>Upload image</h6>
+                                                <h6>Upload</h6>
                                             </q-card-section>
                                             <q-card-section></q-card-section>
                                         </q-card>
                                     </div>
-                                    <div class="col-6 selfie-image-container" v-show="form.hasSelfie === true">
+                                    <div class="col-3 selfie-image-container" v-show="form.hasSelfie === true">
                                         <q-card>
                                             <!-- <q-card-section></q-card-section> -->
                                             <q-card-section>
@@ -53,6 +53,55 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <q-btn type="button" label="remove" @click="removeUploadedImage('selfie')" flat />
+                                                    </div>
+                                                </div>
+                                            </q-card-section>
+                                        </q-card>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 id-form">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>ID Card</h4>
+                                    </div>
+                                    <div class="col-12 col-md-6" v-if="form.hasId === false">
+                                        <q-card @click="openCamera({imageType: 'id'})">
+                                            <q-card-section></q-card-section>
+                                            <q-card-section>
+                                                <q-icon name="photo_camera" />
+                                                <h6>Camera</h6>
+                                            </q-card-section>
+                                            <q-card-section></q-card-section>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-12 col-md-6" v-if="form.hasId === false">
+                                        <q-card @click="openIdUpload">
+                                            <q-card-section></q-card-section>
+                                            <q-card-section>
+                                                <input
+                                                    type="file"
+                                                    ref="idFile"
+                                                    @input="showUploadedImage('id')"
+                                                    hidden
+                                                />
+                                                <q-icon name="image" />
+                                                <h6>Upload</h6>
+                                            </q-card-section>
+                                            <q-card-section></q-card-section>
+                                        </q-card>
+                                    </div>
+                                    <div class="col-3 id-image-container" v-show="form.hasId === true">
+                                        <q-card>
+                                            <!-- <q-card-section></q-card-section> -->
+                                            <q-card-section>
+                                                <div ref="previewId">
+                                                </div>
+                                            </q-card-section>
+                                            <q-card-section>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <q-btn type="button" label="remove" @click="removeUploadedImage('id')" flat />
                                                     </div>
                                                 </div>
                                             </q-card-section>
@@ -92,7 +141,7 @@ import PvcModal from '../global/PvcModal.vue'
 import PvcCamera from '../global/PvcCamera.vue'
 
 
-let image = new Image();
+let selfieImage = new Image();
 
 export default {
     name: 'IdentityInformation',
@@ -103,7 +152,11 @@ export default {
     data: () => ({
         form: {
             hasSelfie: false,
+            hasId: false,
             selfieImageData: null,
+            idImageData: null,
+            selfieImage: new Image(),
+            idImage: new Image()
         },
         cameraModal: {
             isHeaderEnabled: false,
@@ -118,10 +171,14 @@ export default {
         openSelfieUpload () {
             this.$refs.selfieFile.click();
         },
+        openIdUpload () {
+            this.$refs.idFile.click();
+        },
         removeUploadedImage (imageType) {
             if (imageType === 'selfie') {
                 this.form.hasSelfie = false
                 this.form.selfieImageData = null
+                this.form.selfieImage.src = null
 
                 this.$q.notify({
                     type: 'negative',
@@ -130,9 +187,20 @@ export default {
                     message: `<span style="font-color: white;">Selfie removed.</span>`,
                     position: 'top',
                 })
-            }
+            }else
+            if (imageType === 'id') {
+                this.form.hasId = false
+                this.form.idImageData = null
+                this.form.idImage.src = null
 
-            image.src = null
+                this.$q.notify({
+                    type: 'negative',
+                    progress: true,
+                    html: true,
+                    message: `<span style="font-color: white;">ID removed.</span>`,
+                    position: 'top',
+                })
+            }
         },
         async openCamera (val = {}) {
             await this.$refs.cameraModal.show();
@@ -145,21 +213,32 @@ export default {
         showUploadedImage (imageType) {
             let input;
             let imageRef;
+            console.log(imageType)
 
             if (imageType === 'selfie') {
                 input = this.$refs.selfieFile;
                 imageRef = 'previewSelfie';
                 this.form.hasSelfie = true;
+            }else
+            if (imageType === 'id') {
+                input = this.$refs.idFile;
+                imageRef = 'previewId';
+                this.form.hasId = true;
             }
             
             const files = input.files;
-            // if (files && files[0]) {
             const reader = new FileReader();
-                
+            
             reader.onload = e => {
-                image.src =  e.target.result
-                this.form.selfieImageData = e.target.result;
-                this.$refs[imageRef].appendChild(image)
+                if (imageType === 'selfie') {
+                    this.form.selfieImage.src =  e.target.result;
+                    this.form.selfieImageData = e.target.result;
+                }else
+                if (imageType === 'id') {
+                    this.form.idImage.src =  e.target.result;
+                    this.form.idImageData = e.target.result;
+                }
+                this.$refs[imageRef].appendChild(imageType === 'selfie' ? this.form.selfieImage : imageType === 'id' ? this.form.idImage : null)
 
                 this.$q.notify({
                     type: 'positive',
@@ -180,15 +259,20 @@ export default {
                 this.form.hasSelfie = true;
                 this.form.selfieImageData = val.base64;
                 imageRef = 'previewSelfie'
+            }else
+            if (val.imageType === 'id') {
+                this.form.hasId = true;
+                this.form.idImageData = val.base64;
+                imageRef = 'previewId'
             }
-            image.src =  val.base64;
-            this.$refs[imageRef].appendChild(image)
+            this.form[val.imageType + 'Image'].src =  val.base64;
+            this.$refs[imageRef].appendChild(this.form[val.imageType + 'Image'])
 
             this.$q.notify({
                 type: 'positive',
                 progress: true,
                 html: true,
-                message: `<span style="font-color: white;">${val.imageType === 'selfie' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                message: `<span style="font-color: white;">${val.imageType === 'selfie' ? 'Selfie' : val.imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
                 position: 'top',
             })
 
@@ -218,12 +302,12 @@ html, body, .ion-app, .ion-content {
                 -webkit-text-fill-color: transparent;
             }
 
-            .selfie-form {
+            .selfie-form, .id-form {
                 background: #10122d;
                 text-align: center;
             }
             
-            .selfie-form .q-card {
+            .selfie-form .q-card, .id-form .q-card {
                 background: transparent;
                 box-shadow: none;
                 border: 1px dashed #1c1e47;
@@ -231,7 +315,7 @@ html, body, .ion-app, .ion-content {
                 cursor: pointer;
             }
 
-            .selfie-form .q-icon {
+            .selfie-form .q-icon, .id-form .q-icon {
                 display: block;
                 margin: auto;
                 background: -webkit-linear-gradient(left, #2D5EF5 2%, #44B6F4 100%);
@@ -240,15 +324,15 @@ html, body, .ion-app, .ion-content {
                 -webkit-text-fill-color: transparent;
             }
 
-            .selfie-form h6 {
+            .selfie-form h6, .id-form h6 {
                 margin: 0;
             }
 
-            .selfie-image-container .q-img {
+            .selfie-image-container .q-img, .id-image-container .q-img {
                 height: 50vh;
                 
             }
-            .selfie-image-container :deep img {
+            .selfie-image-container :deep img, .id-image-container :deep img {
                 object-fit: contain !important;
                 width: 100%;
             }
@@ -324,12 +408,15 @@ html, body, .ion-app, .ion-content {
                 }
             }
             #identity-verification-form .body {
-                .selfie-form .q-icon {
+                .selfie-form .q-icon, .id-form .q-icon {
                     font-size: 7rem
                 }
 
-                .selfie-image-container {
+                .selfie-image-container, .id-image-container {
                     margin: auto;
+                }
+                .selfie-image-container img, .is-image-container img {
+                    width: 200px !important;
                 }
             }
             .btn-margin {

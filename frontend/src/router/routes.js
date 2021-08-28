@@ -53,9 +53,9 @@ const routes = [
             name: 'IdentityInformation',
             component: () => import('pages/profile/IdentityInformation.vue'),
           },{
-            path: 'address-information',
-            name: 'AddressInformation',
-            component: () => import('pages/profile/AddressInformation.vue'),
+            path: 'proof-of-address',
+            name: 'ProofOfAddress',
+            component: () => import('pages/profile/ProofOfAddress.vue'),
           },
         ]
       },

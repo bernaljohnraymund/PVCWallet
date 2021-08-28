@@ -123,14 +123,16 @@
                 </q-form>
             </div>
         </div>
-        <pvc-modal :modal="cameraModal" @close="closeCamera" @takePhoto="takePhoto" ref="cameraModal">
+        <pvc-modal :modal="cameraModal" @close="closeCamera" @takePhoto="takePhoto" ref="cameraModal" class="camera-modal">
             <template v-slot:body>
                 <pvc-camera ref="camera" @savePhoto="savePhoto" />
             </template>
             <template v-slot:footer>
-                <q-btn type="button" label="close" flat @click="$refs.cameraModal.hide()" />
-                <q-btn type="button" :label="$refs.camera && $refs.camera.isPhotoTaken ? 'take again' : 'take a picture'" flat @click="$refs.camera && $refs.camera.isPhotoTaken ? $refs.camera.isPhotoTaken = false : $refs.camera.takePhoto()" v-if="$refs.camera" />
-                <q-btn type="button" label="save" flat @click="$refs.camera.savePhoto" v-if="$refs.camera && $refs.camera.isPhotoTaken" />
+                <div class="footer">
+                    <q-btn type="button" :icon="$refs.camera && $refs.camera.isPhotoTaken ? 'cameraswitch' : 'photo_camera'" :label="$refs.camera && $refs.camera.isPhotoTaken ? 'take again' : 'take a picture'" flat @click="$refs.camera && $refs.camera.isPhotoTaken ? $refs.camera.isPhotoTaken = false : $refs.camera.takePhoto()" v-if="$refs.camera" class="take-picture-btn" />
+                    <q-btn type="button" :icon="'save'" label="save" flat @click="$refs.camera.savePhoto" v-if="$refs.camera && $refs.camera.isPhotoTaken" class="save-picture-btn" />
+                    <q-btn type="button" label="close" flat @click="$refs.cameraModal.hide()" class="close-camera-btn" />
+                </div>
             </template>
         </pvc-modal>
     </div>
@@ -349,6 +351,22 @@ export default {
             }
             .footer .cancel-btn {
                 background-image: linear-gradient(to right, #f52d2d, #fa3030);
+            }
+        }
+    }
+    .camera-modal {
+        .footer {
+            text-align: center !important;
+            // .q-card__section {
+            //     margin: inherit 0 !important;
+            // }
+            .take-picture-btn, .save-picture-btn, .close-camera-btn {
+                // width: 25%;
+                color: #FBFBFB;
+                background-color: #2D5EF5;
+                height: 7vh;
+                margin: 0 2px;
+                // width: 30%;
             }
         }
     }

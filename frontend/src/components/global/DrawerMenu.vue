@@ -2,7 +2,7 @@
     <div id="drawer-content">
         <div id="profile" class="absolute-top text-center">
             <img src="/temporary/couple-img.jpg" />
-            <h6 class="name">{{ profile.lastName }}</h6>
+            <h6 class="name">{{ profile.email }}</h6>
             <q-badge
                 color="negative"
                 class="profile-badge"
@@ -108,7 +108,8 @@ export default {
       }
 
       .name {
-        margin: 10px 0 7px 0;
+        word-wrap: break-word;
+        margin: 10px 12px 7px 12px;
       }
 
       .profile-badge {

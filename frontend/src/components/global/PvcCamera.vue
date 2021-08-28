@@ -26,11 +26,11 @@
                     </button>
                 </div> -->
                 
-                <div v-if="isPhotoTaken && isCameraOpen" class="camera-download">
+                <!-- <div v-if="isPhotoTaken && isCameraOpen" class="camera-download">
                     <a id="downloadPhoto" download="my-photo.jpg" class="button" role="button" @click="downloadImage">
                     Download
                     </a>
-                </div>
+                </div> -->
             </div>
       </div>
   </div>
@@ -127,12 +127,12 @@ export default {
             })
         },
         
-        downloadImage() {
-            const download = document.getElementById("downloadPhoto");
-            const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
-            .replace("image/jpeg", "image/octet-stream");
-            download.setAttribute("href", canvas);
-        }
+        // downloadImage() {
+        //     const download = document.getElementById("downloadPhoto");
+        //     const canvas = document.getElementById("photoTaken").toDataURL("image/jpeg")
+        //     .replace("image/jpeg", "image/octet-stream");
+        //     download.setAttribute("href", canvas);
+        // }
     }
 }
 </script>

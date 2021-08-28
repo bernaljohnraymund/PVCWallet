@@ -33,10 +33,10 @@
                 </q-card-section>
             </q-card>
       </div>
-      <!-- <div class="col-10 col-md-6">
+      <div class="col-10 col-md-6">
           <q-card :class="`kyc-card ${user.kycLevel > 3 ? 'verified' : 'unverified'} advance`">
                 <q-card-section class="header">
-                    <label>Address Information</label>
+                    <label>Proof of Address</label>
                 </q-card-section>
                 <q-card-section class="body text-center">
                     <q-icon name="place" :color="user.kycLevel > 3 ? 'green' : 'white'" />
@@ -44,11 +44,11 @@
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :disabled="user.kycLevel < 3" :label="user.kycLevel > 3 ? 'verified' : 'verify'" flat />
+                        <q-btn type="button" :disabled="user.kycLevel < 3" :label="user.kycLevel > 3 ? 'verified' : 'verify'" flat @click="user.kycLevel === 3 ? $router.push({ name: 'ProofOfAddress' }) : ''"/>
                     </div>
                 </q-card-section>
             </q-card>
-      </div> -->
+      </div>
   </div>
   
 </template>
@@ -58,7 +58,7 @@ export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 2
+            kycLevel: 3
         }
     })
 }

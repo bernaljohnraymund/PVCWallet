@@ -2,22 +2,22 @@
     <div id="root">
         <div class="row">
             <div class="col-12">
-                <q-form id="identity-verification-form">
+                <q-form id="proof-of-address-form">
                     <div class="text-h4 text-center header">
                         <div>
-                            <q-icon name="fingerprint" />
+                            <q-icon name="place" />
                         </div>
-                        Identity Verification
+                        Proof of Address
                     </div>
                     <div class="body">
                         <div class="row">
-                            <div class="col-12 selfie-form">
+                            <div class="col-12 address-form">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h4>Selfie</h4>
+                                        <h4>Document</h4>
                                     </div>
-                                    <div class="col-12 col-md-6" v-if="form.hasSelfie === false">
-                                        <q-card @click="openCamera({imageType: 'selfie'})">
+                                    <div class="col-12 col-md-6" v-if="form.hasAddressDocument === false">
+                                        <q-card @click="openCamera({imageType: 'addressDocument'})">
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <q-icon name="photo_camera" />
@@ -26,14 +26,14 @@
                                             <q-card-section></q-card-section>
                                         </q-card>
                                     </div>
-                                    <div class="col-12 col-md-6" v-if="form.hasSelfie === false">
+                                    <div class="col-12 col-md-6" v-if="form.hasAddressDocument === false">
                                         <q-card @click="openSelfieUpload">
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <input
                                                     type="file"
-                                                    ref="selfieFile"
-                                                    @input="showUploadedImage('selfie')"
+                                                    ref="addressDocumentFile"
+                                                    @input="showUploadedImage('addressDocument')"
                                                     hidden
                                                 />
                                                 <q-icon name="image" />
@@ -42,66 +42,17 @@
                                             <q-card-section></q-card-section>
                                         </q-card>
                                     </div>
-                                    <div class="col-3 selfie-image-container" v-show="form.hasSelfie === true">
+                                    <div class="col-3 address-document-image-container" v-show="form.hasAddressDocument === true">
                                         <q-card>
                                             <!-- <q-card-section></q-card-section> -->
                                             <q-card-section>
-                                                <div ref="previewSelfie">
+                                                <div ref="previewAddressDocument">
                                                 </div>
                                             </q-card-section>
                                             <q-card-section>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <q-btn type="button" label="remove" @click="removeUploadedImage('selfie')" flat />
-                                                    </div>
-                                                </div>
-                                            </q-card-section>
-                                        </q-card>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 id-form">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4>ID Card</h4>
-                                    </div>
-                                    <div class="col-12 col-md-6" v-if="form.hasId === false">
-                                        <q-card @click="openCamera({imageType: 'id'})">
-                                            <q-card-section></q-card-section>
-                                            <q-card-section>
-                                                <q-icon name="photo_camera" />
-                                                <h6>Camera</h6>
-                                            </q-card-section>
-                                            <q-card-section></q-card-section>
-                                        </q-card>
-                                    </div>
-                                    <div class="col-12 col-md-6" v-if="form.hasId === false">
-                                        <q-card @click="openIdUpload">
-                                            <q-card-section></q-card-section>
-                                            <q-card-section>
-                                                <input
-                                                    type="file"
-                                                    ref="idFile"
-                                                    @input="showUploadedImage('id')"
-                                                    hidden
-                                                />
-                                                <q-icon name="image" />
-                                                <h6>Upload</h6>
-                                            </q-card-section>
-                                            <q-card-section></q-card-section>
-                                        </q-card>
-                                    </div>
-                                    <div class="col-3 id-image-container" v-show="form.hasId === true">
-                                        <q-card>
-                                            <!-- <q-card-section></q-card-section> -->
-                                            <q-card-section>
-                                                <div ref="previewId">
-                                                </div>
-                                            </q-card-section>
-                                            <q-card-section>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <q-btn type="button" label="remove" @click="removeUploadedImage('id')" flat />
+                                                        <q-btn type="button" label="remove" @click="removeUploadedImage('addressDocument')" flat />
                                                     </div>
                                                 </div>
                                             </q-card-section>
@@ -143,21 +94,19 @@ import PvcModal from '../global/PvcModal.vue'
 import PvcCamera from '../global/PvcCamera.vue'
 
 
-let selfieImage = new Image();
+let addressDocumentImage = new Image();
 
 export default {
-    name: 'IdentityInformation',
+    name: 'ProofOfAddress',
     components: {
         PvcModal,
         PvcCamera
     },
     data: () => ({
         form: {
-            hasSelfie: false,
-            hasId: false,
-            selfieImageData: null,
+            hasAddressDocument: false,
             idImageData: null,
-            selfieImage: new Image(),
+            addressDocumentImage: new Image(),
             idImage: new Image()
         },
         cameraModal: {
@@ -171,35 +120,22 @@ export default {
     },
     methods: {
         openSelfieUpload () {
-            this.$refs.selfieFile.click();
+            this.$refs.addressDocumentFile.click();
         },
         openIdUpload () {
             this.$refs.idFile.click();
         },
         removeUploadedImage (imageType) {
-            if (imageType === 'selfie') {
-                this.form.hasSelfie = false
+            if (imageType === 'addressDocument') {
+                this.form.hasAddressDocument = false
                 this.form.selfieImageData = null
-                this.form.selfieImage.src = null
+                this.form.addressDocumentImage.src = null
 
                 this.$q.notify({
                     type: 'negative',
                     progress: true,
                     html: true,
                     message: `<span style="font-color: white;">Selfie removed.</span>`,
-                    position: 'top',
-                })
-            }else
-            if (imageType === 'id') {
-                this.form.hasId = false
-                this.form.idImageData = null
-                this.form.idImage.src = null
-
-                this.$q.notify({
-                    type: 'negative',
-                    progress: true,
-                    html: true,
-                    message: `<span style="font-color: white;">ID removed.</span>`,
                     position: 'top',
                 })
             }
@@ -217,36 +153,27 @@ export default {
             let imageRef;
             console.log(imageType)
 
-            if (imageType === 'selfie') {
-                input = this.$refs.selfieFile;
-                imageRef = 'previewSelfie';
-                this.form.hasSelfie = true;
-            }else
-            if (imageType === 'id') {
-                input = this.$refs.idFile;
-                imageRef = 'previewId';
-                this.form.hasId = true;
+            if (imageType === 'addressDocument') {
+                input = this.$refs.addressDocumentFile;
+                imageRef = 'previewAddressDocument';
+                this.form.hasAddressDocument = true;
             }
             
             const files = input.files;
             const reader = new FileReader();
             
             reader.onload = e => {
-                if (imageType === 'selfie') {
-                    this.form.selfieImage.src =  e.target.result;
+                if (imageType === 'addressDocument') {
+                    this.form.addressDocumentImage.src =  e.target.result;
                     this.form.selfieImageData = e.target.result;
-                }else
-                if (imageType === 'id') {
-                    this.form.idImage.src =  e.target.result;
-                    this.form.idImageData = e.target.result;
                 }
-                this.$refs[imageRef].appendChild(imageType === 'selfie' ? this.form.selfieImage : imageType === 'id' ? this.form.idImage : null)
+                this.$refs[imageRef].appendChild(this.form.addressDocumentImage)
 
                 this.$q.notify({
                     type: 'positive',
                     progress: true,
                     html: true,
-                    message: `<span style="font-color: white;">${imageType === 'selfie' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                    message: `<span style="font-color: white;">${imageType === 'addressDocument' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
                     position: 'top',
                 })
             }
@@ -257,15 +184,10 @@ export default {
         },
         async savePhoto (val) {
             let imageRef;
-            if (val.imageType === 'selfie') {
-                this.form.hasSelfie = true;
+            if (val.imageType === 'addressDocument') {
+                this.form.hasAddressDocument = true;
                 this.form.selfieImageData = val.base64;
-                imageRef = 'previewSelfie'
-            }else
-            if (val.imageType === 'id') {
-                this.form.hasId = true;
-                this.form.idImageData = val.base64;
-                imageRef = 'previewId'
+                imageRef = 'previewAddressDocument'
             }
             this.form[val.imageType + 'Image'].src =  val.base64;
             this.$refs[imageRef].appendChild(this.form[val.imageType + 'Image'])
@@ -274,7 +196,7 @@ export default {
                 type: 'positive',
                 progress: true,
                 html: true,
-                message: `<span style="font-color: white;">${val.imageType === 'selfie' ? 'Selfie' : val.imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                message: `<span style="font-color: white;">Address document uploaded.</span>`,
                 position: 'top',
             })
 
@@ -291,7 +213,7 @@ export default {
         min-height: 25vh;
         border-radius: 10px;
 
-        #identity-verification-form {
+        #proof-of-address-form {
             padding: 10px;
 
             .header .q-icon {
@@ -301,12 +223,12 @@ export default {
                 -webkit-text-fill-color: transparent;
             }
 
-            .selfie-form, .id-form {
+            .address-form {
                 background: #10122d;
                 text-align: center;
             }
             
-            .selfie-form .q-card, .id-form .q-card {
+            .address-form .q-card {
                 background: transparent;
                 box-shadow: none;
                 border: 1px dashed #1c1e47;
@@ -314,7 +236,7 @@ export default {
                 cursor: pointer;
             }
 
-            .selfie-form .q-icon, .id-form .q-icon {
+            .address-form .q-icon {
                 display: block;
                 margin: auto;
                 background: -webkit-linear-gradient(left, #2D5EF5 2%, #44B6F4 100%);
@@ -323,15 +245,15 @@ export default {
                 -webkit-text-fill-color: transparent;
             }
 
-            .selfie-form h6, .id-form h6 {
+            .address-form h6 {
                 margin: 0;
             }
 
-            .selfie-image-container .q-img, .id-image-container .q-img {
+            .address-document-image-container .q-img {
                 height: 50vh;
                 
             }
-            .selfie-image-container :deep img, .id-image-container :deep img {
+            .address-document-image-container :deep img {
                 object-fit: contain !important;
                 width: 100%;
             }
@@ -357,9 +279,9 @@ export default {
     .camera-modal {
         .footer {
             text-align: center !important;
-            // .q-card__section {
-            //     margin: inherit 0 !important;
-            // }
+            .q-card__section {
+                margin: inherit 0 !important;
+            }
             .take-picture-btn, .save-picture-btn, .close-camera-btn {
                 // width: 25%;
                 color: #FBFBFB;
@@ -380,7 +302,7 @@ export default {
                 }
             }
 
-            #identity-verification-form .body {
+            #proof-of-address-form .body {
                 .row > div {
                     padding-bottom: 5px;
                 }
@@ -422,15 +344,15 @@ export default {
                     font-size: 7rem;
                 }
             }
-            #identity-verification-form .body {
-                .selfie-form .q-icon, .id-form .q-icon {
+            #proof-of-address-form .body {
+                .address-form .q-icon {
                     font-size: 7rem
                 }
 
-                .selfie-image-container, .id-image-container {
+                .address-document-image-container, .id-image-container {
                     margin: auto;
                 }
-                .selfie-image-container img, .is-image-container img {
+                .address-document-image-container img, .is-image-container img {
                     width: 200px !important;
                 }
             }

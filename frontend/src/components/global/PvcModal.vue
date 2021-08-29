@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
     .q-card {
         min-width: 560px;
-        background-color: #79ceff;
+        background-color: #1c1e47;
     }
     .close-btn {
         font-size: 1.4rem;

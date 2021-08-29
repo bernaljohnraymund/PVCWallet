@@ -58,7 +58,7 @@ export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 3
+            kycLevel: 2
         }
     })
 }

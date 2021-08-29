@@ -6,6 +6,7 @@
             <q-badge
                 color="negative"
                 class="profile-badge"
+                @click="$router.push({ name: 'ProfileRoot' })"
             >
                 <q-icon name="warning" />
                 <label>Not Verified</label>

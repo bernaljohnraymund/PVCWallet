@@ -80,7 +80,7 @@
             </template>
             <template v-slot:footer>
                 <div class="footer">
-                    <q-btn type="button" :icon="$refs.camera && $refs.camera.isPhotoTaken ? 'cameraswitch' : 'photo_camera'" :label="$refs.camera && $refs.camera.isPhotoTaken ? 'take again' : 'take a picture'" flat @click="$refs.camera && $refs.camera.isPhotoTaken ? $refs.camera.isPhotoTaken = false : $refs.camera.takePhoto()" v-if="$refs.camera" class="take-picture-btn" />
+                    <q-btn type="button" :icon="$refs.camera && $refs.camera.isPhotoTaken ? 'cameraswitch' : 'photo_camera'" :label="$refs.camera && $refs.camera.isPhotoTaken ? 'take again' : 'take a photo'" flat @click="$refs.camera && $refs.camera.isPhotoTaken ? $refs.camera.isPhotoTaken = false : $refs.camera.takePhoto()" v-if="$refs.camera" class="take-picture-btn" />
                     <q-btn type="button" :icon="'save'" label="save" flat @click="$refs.camera.savePhoto" v-if="$refs.camera && $refs.camera.isPhotoTaken" class="save-picture-btn" />
                     <q-btn type="button" label="close" flat @click="$refs.cameraModal.hide()" class="close-camera-btn" />
                 </div>
@@ -110,7 +110,7 @@ export default {
             idImage: new Image()
         },
         cameraModal: {
-            isHeaderEnabled: false,
+            isHeaderEnabled: true,
             isCloseBtnEnable: false,
             isFooterEnabled: true,
             isPersistent: true
@@ -286,6 +286,7 @@ export default {
                 // width: 25%;
                 color: #FBFBFB;
                 background-color: #2D5EF5;
+                background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
                 height: 7vh;
                 margin: 0 2px;
                 // width: 30%;

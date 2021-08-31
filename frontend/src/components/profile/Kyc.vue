@@ -1,40 +1,40 @@
 <template>
   <div id="root" class="row">
       <div class="col-10 col-md-6">
-          <q-card :class="`kyc-card ${user.kycLevel > 1 ? 'verified' : 'unverified'} basic`">
+          <q-card :class="`kyc-card ${user.kycStatus === 'not verified' || user.kycStatus === 'basic information failed' && user.kycLevel < 1 ? 'unverified' : user.kycStatus === 'basic information pending' && user.kycLevel < 1 ? 'verifying' : user.kycLevel > 0 ? 'verified': '' } basic`">
                 <q-card-section class="header">
                     <label for="">Personal Information</label>
                 </q-card-section>
                 <q-card-section class="body text-center">
-                    <q-icon name="perm_identity" :color="user.kycLevel > 1 ? 'green' : 'white'" />
-                    <q-icon name="verified" color="green" v-if="user.kycLevel > 1" />
+                    <q-icon name="perm_identity" :color="user.kycLevel > 0 ? 'green' : 'white'" />
+                    <q-icon name="verified" color="green" v-if="user.kycLevel > 0" />
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :label="user.kycLevel > 1 ? 'verified' : 'verify'" flat @click="user.kycLevel <= 1 ? $router.push({ name: 'BasicInformation' }) : ''" />
+                        <q-btn type="button" :label="user.kycStatus === 'not verified' || user.kycStatus === 'basic information failed' && user.kycLevel < 1 ? 'verify' : user.kycStatus === 'basic information pending' && user.kycLevel < 1 ? 'verifying' : user.kycLevel > 0 ? 'verified': ''" flat @click="user.kycLevel < 1 && user.kycStatus === 'not verified' || user.kycStatus === 'basic information failed' ? $router.push({ name: 'BasicInformation' }) : ''" />
                     </div>
                 </q-card-section>
             </q-card>
       </div>
       <div class="col-10 col-md-6">
-          <q-card :class="`kyc-card ${user.kycLevel > 2 ? 'verified' : 'unverified'} intermidiate`">
+          <q-card :class="`kyc-card ${user.kycStatus === 'identity information pending' && user.kycLevel < 2 ? 'verifying' : user.kycLevel < 2 ? 'unverified' : user.kycLevel >= 2 ? 'verified': ''} intermidiate`">
                 <q-card-section class="header">
                     <!-- <img src="/icons/wallet.png" class="img-icon" /> -->
                     <label>Identity Verification</label>
                 </q-card-section>
                 <q-card-section class="body text-center">
-                    <q-icon name="fingerprint" :color="user.kycLevel > 2 ? 'green' : 'white'" />
-                    <q-icon name="verified" color="green" v-if="user.kycLevel > 2" />
+                    <q-icon name="fingerprint" :color="user.kycLevel > 1 ? 'green' : 'white'" />
+                    <q-icon name="verified" color="green" v-if="user.kycLevel > 1" />
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :disabled="user.kycLevel < 2" :label="user.kycLevel > 2 ? 'verified' : 'verify'" flat @click="user.kycLevel === 2 ? $router.push({ name: 'IdentityInformation' }) : ''"/>
+                        <q-btn type="button" :disabled="user.kycLevel < 1" :label="user.kycStatus === 'identity information pending' && user.kycLevel < 2 ? 'verifying' : user.kycLevel < 2 ? 'verify' : user.kycLevel >= 2 ? 'verified': ''" flat @click="(user.kycLevel < 2 && user.kycStatus === 'not verified') || (user.kycLevel < 2 && user.kycStatus === 'identity information failed') ? $router.push({ name: 'IdentityInformation' }) : ''"/>
                     </div>
                 </q-card-section>
             </q-card>
       </div>
       <div class="col-10 col-md-6">
-          <q-card :class="`kyc-card ${user.kycLevel > 3 ? 'verified' : 'unverified'} advance`">
+          <q-card :class="`kyc-card ${user.kycStatus === 'proof of address pending' && user.kycLevel < 3 ? 'verifying' : user.kycLevel < 3 ? 'unverified' : user.kycLevel >= 3 ? 'verified': ''} advance`">
                 <q-card-section class="header">
                     <label>Proof of Address</label>
                 </q-card-section>
@@ -44,7 +44,7 @@
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :disabled="user.kycLevel < 3" :label="user.kycLevel > 3 ? 'verified' : 'verify'" flat @click="user.kycLevel === 3 ? $router.push({ name: 'ProofOfAddress' }) : ''"/>
+                        <q-btn type="button" :disabled="user.kycLevel < 2" :label="user.kycStatus === 'proof of address pending' && user.kycLevel < 3 ? 'verifying' : user.kycLevel < 3 ? 'verify' : user.kycLevel >= 3 ? 'verified': ''" flat @click="(user.kycLevel < 3 && user.kycStatus === 'identity information success') || (user.kycLevel < 3 && user.kycStatus === 'proof of address failed') ? $router.push({ name: 'ProofOfAddress' }) : ''"/>
                     </div>
                 </q-card-section>
             </q-card>
@@ -54,13 +54,17 @@
 </template>
 
 <script>
+import kycStatus from '../../utils/data/array/kycStatus'
 export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 2
+            kycLevel: 2,
+            kycStatus: 'proof of address pending',
         }
-    })
+    }),
+    mounted () {
+    }
 }
 </script>
 
@@ -81,6 +85,11 @@ export default {
         .kyc-card.verified {
             .footer button {
                 background-color: #00e676;
+            }
+        }
+        .kyc-card.verifying {
+            .footer button {
+                background-image: linear-gradient(to right, #f5ef2d, #f4de44);
             }
         }
     }

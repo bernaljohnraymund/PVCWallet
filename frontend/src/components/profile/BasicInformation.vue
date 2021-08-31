@@ -8,14 +8,13 @@
                         <q-icon name="perm_identity" />
                     </div>
                     Basic Information
-                    <!-- {{form.countryOpts}} -->
                 </div>
                 <div class="body">
                     <div class="row">
                         <div class="col-12">
                             <q-select
                                 outlined
-                                label="Nationality"
+                                label="Country of residence"
                                 v-model="form.country"
                                 use-input
                                 hide-selected

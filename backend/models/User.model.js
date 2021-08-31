@@ -35,9 +35,15 @@ const schema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    identityVerified: {
-        type: Boolean,
-        default: false
+    verificationStatus: {
+        type: String,
+        enum: ['not verified', 'basic information pending', 'basic information failed', 'basic information success', 'identity information pending', 'identity information failed', 'identity information success', 'proof of address pending', 'proof of address failed', 'proof of address success'],
+        default: 'not verified'
+    },
+    verificationLevel: {
+        type: Number,
+        min: 0, max: 3,
+        default: 0
     },
     isEmailAuthEnabled: {
         type: Boolean,

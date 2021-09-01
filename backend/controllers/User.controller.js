@@ -363,6 +363,10 @@ const Users = {
         }
 
         res.json( { ...jsonResponse } );
+    },
+
+    async getKyc (req, res) {
+        console.log('getKyc')
     }
 }
 

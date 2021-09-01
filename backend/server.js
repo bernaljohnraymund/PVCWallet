@@ -2,6 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const app = express();
+const authentication = require('./utils/Authentication');
 
 const Users = require('./controllers/User.controller');
 
@@ -14,6 +15,7 @@ app.post('/api/verify/email', Users.verifyEmail)
 app.post('/api/user/login', Users.login)
 app.post('/api/user/generateotp', Users.generateOtp)
 app.post('/api/user/verifyotp', Users.verifyOtp)
+app.get('/api/user/kyc', authentication.verify, Users.getKyc)
 
 app.listen({
     host: process.env.SERVER_HOST,

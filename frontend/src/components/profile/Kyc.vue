@@ -28,7 +28,7 @@
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
-                        <q-btn type="button" :disabled="user.kycLevel < 1" :label="user.kycStatus === 'identity information pending' && user.kycLevel < 2 ? 'verifying' : user.kycLevel < 2 ? 'verify' : user.kycLevel >= 2 ? 'verified': ''" flat @click="(user.kycLevel < 2 && user.kycStatus === 'not verified') || (user.kycLevel < 2 && user.kycStatus === 'identity information failed') ? $router.push({ name: 'IdentityInformation' }) : ''"/>
+                        <q-btn type="button" :disabled="user.kycLevel < 1" :label="user.kycStatus === 'identity information pending' && user.kycLevel < 2 ? 'verifying' : user.kycLevel < 2 ? 'verify' : user.kycLevel >= 2 ? 'verified': ''" flat @click="(user.kycLevel < 2 && user.kycStatus === 'basic information success') || (user.kycLevel < 2 && user.kycStatus === 'identity information failed') ? $router.push({ name: 'IdentityInformation' }) : ''"/>
                     </div>
                 </q-card-section>
             </q-card>
@@ -39,8 +39,8 @@
                     <label>Proof of Address</label>
                 </q-card-section>
                 <q-card-section class="body text-center">
-                    <q-icon name="place" :color="user.kycLevel > 3 ? 'green' : 'white'" />
-                    <q-icon name="verified" color="green" v-if="user.kycLevel > 3" />
+                    <q-icon name="place" :color="user.kycLevel >= 3 ? 'green' : 'white'" />
+                    <q-icon name="verified" color="green" v-if="user.kycLevel >= 3" />
                 </q-card-section>
                 <q-card-section class="row footer">
                     <div class="col-12">
@@ -54,16 +54,29 @@
 </template>
 
 <script>
-import kycStatus from '../../utils/data/array/kycStatus'
 export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 2,
-            kycStatus: 'proof of address pending',
+            kycLevel: 3,
+            kycStatus: 'proof of address success',
         }
     }),
-    mounted () {
+    async beforeMount () {
+        await this.getUserKyc()
+    },
+    async mounted () {
+    },
+    methods: {
+        async getUserKyc () {
+            const encUser = await this.$getUser()
+            console.log(encUser.token)
+            await this.$api({
+                url: '/user/kyc',
+                method: 'GET'
+                    
+            })
+        }
     }
 }
 </script>

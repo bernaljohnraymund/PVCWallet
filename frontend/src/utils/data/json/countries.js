@@ -1,1750 +1,1750 @@
 export default {
     "AD":{
-        "countryCode": "AD",
-        "countryName": "Andorra",
+        "code": "AD",
+        "name": "Andorra",
         "currencyCode": "EUR",
         "capital": "Andorra la Vella",
         "continentName": "Europe"
     },
     "AE":{
-        "countryCode": "AE",
-        "countryName": "United Arab Emirates",
+        "code": "AE",
+        "name": "United Arab Emirates",
         "currencyCode": "AED",
         "capital": "Abu Dhabi",
         "continentName": "Asia"
     },
     "AF":{
-        "countryCode": "AF",
-        "countryName": "Afghanistan",
+        "code": "AF",
+        "name": "Afghanistan",
         "currencyCode": "AFN",
         "capital": "Kabul",
         "continentName": "Asia"
     },
     "AG":{
-        "countryCode": "AG",
-        "countryName": "Antigua and Barbuda",
+        "code": "AG",
+        "name": "Antigua and Barbuda",
         "currencyCode": "XCD",
         "capital": "St. John's",
         "continentName": "North America"
     },
     "AI":{
-        "countryCode": "AI",
-        "countryName": "Anguilla",
+        "code": "AI",
+        "name": "Anguilla",
         "currencyCode": "XCD",
         "capital": "The Valley",
         "continentName": "North America"
     },
     "AL":{
-        "countryCode": "AL",
-        "countryName": "Albania",
+        "code": "AL",
+        "name": "Albania",
         "currencyCode": "ALL",
         "capital": "Tirana",
         "continentName": "Europe"
     },
     "AM":{
-        "countryCode": "AM",
-        "countryName": "Armenia",
+        "code": "AM",
+        "name": "Armenia",
         "currencyCode": "AMD",
         "capital": "Yerevan",
         "continentName": "Asia"
     },
     "AO":{
-        "countryCode": "AO",
-        "countryName": "Angola",
+        "code": "AO",
+        "name": "Angola",
         "currencyCode": "AOA",
         "capital": "Luanda",
         "continentName": "Africa"
     },
     "AQ":{
-        "countryCode": "AQ",
-        "countryName": "Antarctica",
+        "code": "AQ",
+        "name": "Antarctica",
         "currencyCode": "",
         "capital": "",
         "continentName": "Antarctica"
     },
     "AR":{
-        "countryCode": "AR",
-        "countryName": "Argentina",
+        "code": "AR",
+        "name": "Argentina",
         "currencyCode": "ARS",
         "capital": "Buenos Aires",
         "continentName": "South America"
     },
     "AS":{
-        "countryCode": "AS",
-        "countryName": "American Samoa",
+        "code": "AS",
+        "name": "American Samoa",
         "currencyCode": "USD",
         "capital": "Pago Pago",
         "continentName": "Oceania"
     },
     "AT":{
-        "countryCode": "AT",
-        "countryName": "Austria",
+        "code": "AT",
+        "name": "Austria",
         "currencyCode": "EUR",
         "capital": "Vienna",
         "continentName": "Europe"
     },
     "AU":{
-        "countryCode": "AU",
-        "countryName": "Australia",
+        "code": "AU",
+        "name": "Australia",
         "currencyCode": "AUD",
         "capital": "Canberra",
         "continentName": "Oceania"
     },
     "AW":{
-        "countryCode": "AW",
-        "countryName": "Aruba",
+        "code": "AW",
+        "name": "Aruba",
         "currencyCode": "AWG",
         "capital": "Oranjestad",
         "continentName": "North America"
     },
     "AX":{
-        "countryCode": "AX",
-        "countryName": "Åland",
+        "code": "AX",
+        "name": "Åland",
         "currencyCode": "EUR",
         "capital": "Mariehamn",
         "continentName": "Europe"
     },
     "AZ":{
-        "countryCode": "AZ",
-        "countryName": "Azerbaijan",
+        "code": "AZ",
+        "name": "Azerbaijan",
         "currencyCode": "AZN",
         "capital": "Baku",
         "continentName": "Asia"
     },
     "BA":{
-        "countryCode": "BA",
-        "countryName": "Bosnia and Herzegovina",
+        "code": "BA",
+        "name": "Bosnia and Herzegovina",
         "currencyCode": "BAM",
         "capital": "Sarajevo",
         "continentName": "Europe"
     },
     "BB":{
-        "countryCode": "BB",
-        "countryName": "Barbados",
+        "code": "BB",
+        "name": "Barbados",
         "currencyCode": "BBD",
         "capital": "Bridgetown",
         "continentName": "North America"
     },
     "BD":{
-        "countryCode": "BD",
-        "countryName": "Bangladesh",
+        "code": "BD",
+        "name": "Bangladesh",
         "currencyCode": "BDT",
         "capital": "Dhaka",
         "continentName": "Asia"
     },
     "BE":{
-        "countryCode": "BE",
-        "countryName": "Belgium",
+        "code": "BE",
+        "name": "Belgium",
         "currencyCode": "EUR",
         "capital": "Brussels",
         "continentName": "Europe"
     },
     "BF":{
-        "countryCode": "BF",
-        "countryName": "Burkina Faso",
+        "code": "BF",
+        "name": "Burkina Faso",
         "currencyCode": "XOF",
         "capital": "Ouagadougou",
         "continentName": "Africa"
     },
     "BG":{
-        "countryCode": "BG",
-        "countryName": "Bulgaria",
+        "code": "BG",
+        "name": "Bulgaria",
         "currencyCode": "BGN",
         "capital": "Sofia",
         "continentName": "Europe"
     },
     "BH":{
-        "countryCode": "BH",
-        "countryName": "Bahrain",
+        "code": "BH",
+        "name": "Bahrain",
         "currencyCode": "BHD",
         "capital": "Manama",
         "continentName": "Asia"
     },
     "BI":{
-        "countryCode": "BI",
-        "countryName": "Burundi",
+        "code": "BI",
+        "name": "Burundi",
         "currencyCode": "BIF",
         "capital": "Bujumbura",
         "continentName": "Africa"
     },
     "BJ":{
-        "countryCode": "BJ",
-        "countryName": "Benin",
+        "code": "BJ",
+        "name": "Benin",
         "currencyCode": "XOF",
         "capital": "Porto-Novo",
         "continentName": "Africa"
     },
     "BL":{
-        "countryCode": "BL",
-        "countryName": "Saint Barthélemy",
+        "code": "BL",
+        "name": "Saint Barthélemy",
         "currencyCode": "EUR",
         "capital": "Gustavia",
         "continentName": "North America"
     },
     "BM":{
-        "countryCode": "BM",
-        "countryName": "Bermuda",
+        "code": "BM",
+        "name": "Bermuda",
         "currencyCode": "BMD",
         "capital": "Hamilton",
         "continentName": "North America"
     },
     "BN":{
-        "countryCode": "BN",
-        "countryName": "Brunei",
+        "code": "BN",
+        "name": "Brunei",
         "currencyCode": "BND",
         "capital": "Bandar Seri Begawan",
         "continentName": "Asia"
     },
     "BO":{
-        "countryCode": "BO",
-        "countryName": "Bolivia",
+        "code": "BO",
+        "name": "Bolivia",
         "currencyCode": "BOB",
         "capital": "Sucre",
         "continentName": "South America"
     },
     "BQ":{
-        "countryCode": "BQ",
-        "countryName": "Bonaire",
+        "code": "BQ",
+        "name": "Bonaire",
         "currencyCode": "USD",
         "capital": "Kralendijk",
         "continentName": "North America"
     },
     "BR":{
-        "countryCode": "BR",
-        "countryName": "Brazil",
+        "code": "BR",
+        "name": "Brazil",
         "currencyCode": "BRL",
         "capital": "Brasília",
         "continentName": "South America"
     },
     "BS":{
-        "countryCode": "BS",
-        "countryName": "Bahamas",
+        "code": "BS",
+        "name": "Bahamas",
         "currencyCode": "BSD",
         "capital": "Nassau",
         "continentName": "North America"
     },
     "BT":{
-        "countryCode": "BT",
-        "countryName": "Bhutan",
+        "code": "BT",
+        "name": "Bhutan",
         "currencyCode": "BTN",
         "capital": "Thimphu",
         "continentName": "Asia"
     },
     "BV":{
-        "countryCode": "BV",
-        "countryName": "Bouvet Island",
+        "code": "BV",
+        "name": "Bouvet Island",
         "currencyCode": "NOK",
         "capital": "",
         "continentName": "Antarctica"
     },
     "BW":{
-        "countryCode": "BW",
-        "countryName": "Botswana",
+        "code": "BW",
+        "name": "Botswana",
         "currencyCode": "BWP",
         "capital": "Gaborone",
         "continentName": "Africa"
     },
     "BY":{
-        "countryCode": "BY",
-        "countryName": "Belarus",
+        "code": "BY",
+        "name": "Belarus",
         "currencyCode": "BYR",
         "capital": "Minsk",
         "continentName": "Europe"
     },
     "BZ":{
-        "countryCode": "BZ",
-        "countryName": "Belize",
+        "code": "BZ",
+        "name": "Belize",
         "currencyCode": "BZD",
         "capital": "Belmopan",
         "continentName": "North America"
     },
     "CA":{
-        "countryCode": "CA",
-        "countryName": "Canada",
+        "code": "CA",
+        "name": "Canada",
         "currencyCode": "CAD",
         "capital": "Ottawa",
         "continentName": "North America"
     },
     "CC":{
-        "countryCode": "CC",
-        "countryName": "Cocos [Keeling] Islands",
+        "code": "CC",
+        "name": "Cocos [Keeling] Islands",
         "currencyCode": "AUD",
         "capital": "West Island",
         "continentName": "Asia"
     },
     "CD":{
-        "countryCode": "CD",
-        "countryName": "Democratic Republic of the Congo",
+        "code": "CD",
+        "name": "Democratic Republic of the Congo",
         "currencyCode": "CDF",
         "capital": "Kinshasa",
         "continentName": "Africa"
     },
     "CF":{
-        "countryCode": "CF",
-        "countryName": "Central African Republic",
+        "code": "CF",
+        "name": "Central African Republic",
         "currencyCode": "XAF",
         "capital": "Bangui",
         "continentName": "Africa"
     },
     "CG":{
-        "countryCode": "CG",
-        "countryName": "Republic of the Congo",
+        "code": "CG",
+        "name": "Republic of the Congo",
         "currencyCode": "XAF",
         "capital": "Brazzaville",
         "continentName": "Africa"
     },
     "CH":{
-        "countryCode": "CH",
-        "countryName": "Switzerland",
+        "code": "CH",
+        "name": "Switzerland",
         "currencyCode": "CHF",
         "capital": "Bern",
         "continentName": "Europe"
     },
     "CI":{
-        "countryCode": "CI",
-        "countryName": "Ivory Coast",
+        "code": "CI",
+        "name": "Ivory Coast",
         "currencyCode": "XOF",
         "capital": "Yamoussoukro",
         "continentName": "Africa"
     },
     "CK":{
-        "countryCode": "CK",
-        "countryName": "Cook Islands",
+        "code": "CK",
+        "name": "Cook Islands",
         "currencyCode": "NZD",
         "capital": "Avarua",
         "continentName": "Oceania"
     },
     "CL":{
-        "countryCode": "CL",
-        "countryName": "Chile",
+        "code": "CL",
+        "name": "Chile",
         "currencyCode": "CLP",
         "capital": "Santiago",
         "continentName": "South America"
     },
     "CM":{
-        "countryCode": "CM",
-        "countryName": "Cameroon",
+        "code": "CM",
+        "name": "Cameroon",
         "currencyCode": "XAF",
         "capital": "Yaoundé",
         "continentName": "Africa"
     },
     "CN":{
-        "countryCode": "CN",
-        "countryName": "China",
+        "code": "CN",
+        "name": "China",
         "currencyCode": "CNY",
         "capital": "Beijing",
         "continentName": "Asia"
     },
     "CO":{
-        "countryCode": "CO",
-        "countryName": "Colombia",
+        "code": "CO",
+        "name": "Colombia",
         "currencyCode": "COP",
         "capital": "Bogotá",
         "continentName": "South America"
     },
     "CR":{
-        "countryCode": "CR",
-        "countryName": "Costa Rica",
+        "code": "CR",
+        "name": "Costa Rica",
         "currencyCode": "CRC",
         "capital": "San José",
         "continentName": "North America"
     },
     "CU":{
-        "countryCode": "CU",
-        "countryName": "Cuba",
+        "code": "CU",
+        "name": "Cuba",
         "currencyCode": "CUP",
         "capital": "Havana",
         "continentName": "North America"
     },
     "CV":{
-        "countryCode": "CV",
-        "countryName": "Cape Verde",
+        "code": "CV",
+        "name": "Cape Verde",
         "currencyCode": "CVE",
         "capital": "Praia",
         "continentName": "Africa"
     },
     "CW":{
-        "countryCode": "CW",
-        "countryName": "Curacao",
+        "code": "CW",
+        "name": "Curacao",
         "currencyCode": "ANG",
         "capital": "Willemstad",
         "continentName": "North America"
     },
     "CX":{
-        "countryCode": "CX",
-        "countryName": "Christmas Island",
+        "code": "CX",
+        "name": "Christmas Island",
         "currencyCode": "AUD",
         "capital": "Flying Fish Cove",
         "continentName": "Asia"
     },
     "CY":{
-        "countryCode": "CY",
-        "countryName": "Cyprus",
+        "code": "CY",
+        "name": "Cyprus",
         "currencyCode": "EUR",
         "capital": "Nicosia",
         "continentName": "Europe"
     },
     "CZ":{
-        "countryCode": "CZ",
-        "countryName": "Czechia",
+        "code": "CZ",
+        "name": "Czechia",
         "currencyCode": "CZK",
         "capital": "Prague",
         "continentName": "Europe"
     },
     "DE":{
-        "countryCode": "DE",
-        "countryName": "Germany",
+        "code": "DE",
+        "name": "Germany",
         "currencyCode": "EUR",
         "capital": "Berlin",
         "continentName": "Europe"
     },
     "DJ":{
-        "countryCode": "DJ",
-        "countryName": "Djibouti",
+        "code": "DJ",
+        "name": "Djibouti",
         "currencyCode": "DJF",
         "capital": "Djibouti",
         "continentName": "Africa"
     },
     "DK":{
-        "countryCode": "DK",
-        "countryName": "Denmark",
+        "code": "DK",
+        "name": "Denmark",
         "currencyCode": "DKK",
         "capital": "Copenhagen",
         "continentName": "Europe"
     },
     "DM":{
-        "countryCode": "DM",
-        "countryName": "Dominica",
+        "code": "DM",
+        "name": "Dominica",
         "currencyCode": "XCD",
         "capital": "Roseau",
         "continentName": "North America"
     },
     "DO":{
-        "countryCode": "DO",
-        "countryName": "Dominican Republic",
+        "code": "DO",
+        "name": "Dominican Republic",
         "currencyCode": "DOP",
         "capital": "Santo Domingo",
         "continentName": "North America"
     },
     "DZ":{
-        "countryCode": "DZ",
-        "countryName": "Algeria",
+        "code": "DZ",
+        "name": "Algeria",
         "currencyCode": "DZD",
         "capital": "Algiers",
         "continentName": "Africa"
     },
     "EC":{
-        "countryCode": "EC",
-        "countryName": "Ecuador",
+        "code": "EC",
+        "name": "Ecuador",
         "currencyCode": "USD",
         "capital": "Quito",
         "continentName": "South America"
     },
     "EE":{
-        "countryCode": "EE",
-        "countryName": "Estonia",
+        "code": "EE",
+        "name": "Estonia",
         "currencyCode": "EUR",
         "capital": "Tallinn",
         "continentName": "Europe"
     },
     "EG":{
-        "countryCode": "EG",
-        "countryName": "Egypt",
+        "code": "EG",
+        "name": "Egypt",
         "currencyCode": "EGP",
         "capital": "Cairo",
         "continentName": "Africa"
     },
     "EH":{
-        "countryCode": "EH",
-        "countryName": "Western Sahara",
+        "code": "EH",
+        "name": "Western Sahara",
         "currencyCode": "MAD",
         "capital": "Laâyoune / El Aaiún",
         "continentName": "Africa"
     },
     "ER":{
-        "countryCode": "ER",
-        "countryName": "Eritrea",
+        "code": "ER",
+        "name": "Eritrea",
         "currencyCode": "ERN",
         "capital": "Asmara",
         "continentName": "Africa"
     },
     "ES":{
-        "countryCode": "ES",
-        "countryName": "Spain",
+        "code": "ES",
+        "name": "Spain",
         "currencyCode": "EUR",
         "capital": "Madrid",
         "continentName": "Europe"
     },
     "ET":{
-        "countryCode": "ET",
-        "countryName": "Ethiopia",
+        "code": "ET",
+        "name": "Ethiopia",
         "currencyCode": "ETB",
         "capital": "Addis Ababa",
         "continentName": "Africa"
     },
     "FI":{
-        "countryCode": "FI",
-        "countryName": "Finland",
+        "code": "FI",
+        "name": "Finland",
         "currencyCode": "EUR",
         "capital": "Helsinki",
         "continentName": "Europe"
     },
     "FJ":{
-        "countryCode": "FJ",
-        "countryName": "Fiji",
+        "code": "FJ",
+        "name": "Fiji",
         "currencyCode": "FJD",
         "capital": "Suva",
         "continentName": "Oceania"
     },
     "FK":{
-        "countryCode": "FK",
-        "countryName": "Falkland Islands",
+        "code": "FK",
+        "name": "Falkland Islands",
         "currencyCode": "FKP",
         "capital": "Stanley",
         "continentName": "South America"
     },
     "FM":{
-        "countryCode": "FM",
-        "countryName": "Micronesia",
+        "code": "FM",
+        "name": "Micronesia",
         "currencyCode": "USD",
         "capital": "Palikir",
         "continentName": "Oceania"
     },
     "FO":{
-        "countryCode": "FO",
-        "countryName": "Faroe Islands",
+        "code": "FO",
+        "name": "Faroe Islands",
         "currencyCode": "DKK",
         "capital": "Tórshavn",
         "continentName": "Europe"
     },
     "FR":{
-        "countryCode": "FR",
-        "countryName": "France",
+        "code": "FR",
+        "name": "France",
         "currencyCode": "EUR",
         "capital": "Paris",
         "continentName": "Europe"
     },
     "GA":{
-        "countryCode": "GA",
-        "countryName": "Gabon",
+        "code": "GA",
+        "name": "Gabon",
         "currencyCode": "XAF",
         "capital": "Libreville",
         "continentName": "Africa"
     },
     "GB":{
-        "countryCode": "GB",
-        "countryName": "United Kingdom",
+        "code": "GB",
+        "name": "United Kingdom",
         "currencyCode": "GBP",
         "capital": "London",
         "continentName": "Europe"
     },
     "GD":{
-        "countryCode": "GD",
-        "countryName": "Grenada",
+        "code": "GD",
+        "name": "Grenada",
         "currencyCode": "XCD",
         "capital": "St. George's",
         "continentName": "North America"
     },
     "GE":{
-        "countryCode": "GE",
-        "countryName": "Georgia",
+        "code": "GE",
+        "name": "Georgia",
         "currencyCode": "GEL",
         "capital": "Tbilisi",
         "continentName": "Asia"
     },
     "GF":{
-        "countryCode": "GF",
-        "countryName": "French Guiana",
+        "code": "GF",
+        "name": "French Guiana",
         "currencyCode": "EUR",
         "capital": "Cayenne",
         "continentName": "South America"
     },
     "GG":{
-        "countryCode": "GG",
-        "countryName": "Guernsey",
+        "code": "GG",
+        "name": "Guernsey",
         "currencyCode": "GBP",
         "capital": "St Peter Port",
         "continentName": "Europe"
     },
     "GH":{
-        "countryCode": "GH",
-        "countryName": "Ghana",
+        "code": "GH",
+        "name": "Ghana",
         "currencyCode": "GHS",
         "capital": "Accra",
         "continentName": "Africa"
     },
     "GI":{
-        "countryCode": "GI",
-        "countryName": "Gibraltar",
+        "code": "GI",
+        "name": "Gibraltar",
         "currencyCode": "GIP",
         "capital": "Gibraltar",
         "continentName": "Europe"
     },
     "GL":{
-        "countryCode": "GL",
-        "countryName": "Greenland",
+        "code": "GL",
+        "name": "Greenland",
         "currencyCode": "DKK",
         "capital": "Nuuk",
         "continentName": "North America"
     },
     "GM":{
-        "countryCode": "GM",
-        "countryName": "Gambia",
+        "code": "GM",
+        "name": "Gambia",
         "currencyCode": "GMD",
         "capital": "Bathurst",
         "continentName": "Africa"
     },
     "GN":{
-        "countryCode": "GN",
-        "countryName": "Guinea",
+        "code": "GN",
+        "name": "Guinea",
         "currencyCode": "GNF",
         "capital": "Conakry",
         "continentName": "Africa"
     },
     "GP":{
-        "countryCode": "GP",
-        "countryName": "Guadeloupe",
+        "code": "GP",
+        "name": "Guadeloupe",
         "currencyCode": "EUR",
         "capital": "Basse-Terre",
         "continentName": "North America"
     },
     "GQ":{
-        "countryCode": "GQ",
-        "countryName": "Equatorial Guinea",
+        "code": "GQ",
+        "name": "Equatorial Guinea",
         "currencyCode": "XAF",
         "capital": "Malabo",
         "continentName": "Africa"
     },
     "GR":{
-        "countryCode": "GR",
-        "countryName": "Greece",
+        "code": "GR",
+        "name": "Greece",
         "currencyCode": "EUR",
         "capital": "Athens",
         "continentName": "Europe"
     },
     "GS":{
-        "countryCode": "GS",
-        "countryName": "South Georgia and the South Sandwich Islands",
+        "code": "GS",
+        "name": "South Georgia and the South Sandwich Islands",
         "currencyCode": "GBP",
         "capital": "Grytviken",
         "continentName": "Antarctica"
     },
     "GT":{
-        "countryCode": "GT",
-        "countryName": "Guatemala",
+        "code": "GT",
+        "name": "Guatemala",
         "currencyCode": "GTQ",
         "capital": "Guatemala City",
         "continentName": "North America"
     },
     "GU":{
-        "countryCode": "GU",
-        "countryName": "Guam",
+        "code": "GU",
+        "name": "Guam",
         "currencyCode": "USD",
         "capital": "Hagåtña",
         "continentName": "Oceania"
     },
     "GW":{
-        "countryCode": "GW",
-        "countryName": "Guinea-Bissau",
+        "code": "GW",
+        "name": "Guinea-Bissau",
         "currencyCode": "XOF",
         "capital": "Bissau",
         "continentName": "Africa"
     },
     "GY":{
-        "countryCode": "GY",
-        "countryName": "Guyana",
+        "code": "GY",
+        "name": "Guyana",
         "currencyCode": "GYD",
         "capital": "Georgetown",
         "continentName": "South America"
     },
     "HK":{
-        "countryCode": "HK",
-        "countryName": "Hong Kong",
+        "code": "HK",
+        "name": "Hong Kong",
         "currencyCode": "HKD",
         "capital": "Hong Kong",
         "continentName": "Asia"
     },
     "HM":{
-        "countryCode": "HM",
-        "countryName": "Heard Island and McDonald Islands",
+        "code": "HM",
+        "name": "Heard Island and McDonald Islands",
         "currencyCode": "AUD",
         "capital": "",
         "continentName": "Antarctica"
     },
     "HN":{
-        "countryCode": "HN",
-        "countryName": "Honduras",
+        "code": "HN",
+        "name": "Honduras",
         "currencyCode": "HNL",
         "capital": "Tegucigalpa",
         "continentName": "North America"
     },
     "HR":{
-        "countryCode": "HR",
-        "countryName": "Croatia",
+        "code": "HR",
+        "name": "Croatia",
         "currencyCode": "HRK",
         "capital": "Zagreb",
         "continentName": "Europe"
     },
     "HT":{
-        "countryCode": "HT",
-        "countryName": "Haiti",
+        "code": "HT",
+        "name": "Haiti",
         "currencyCode": "HTG",
         "capital": "Port-au-Prince",
         "continentName": "North America"
     },
     "HU":{
-        "countryCode": "HU",
-        "countryName": "Hungary",
+        "code": "HU",
+        "name": "Hungary",
         "currencyCode": "HUF",
         "capital": "Budapest",
         "continentName": "Europe"
     },
     "ID":{
-        "countryCode": "ID",
-        "countryName": "Indonesia",
+        "code": "ID",
+        "name": "Indonesia",
         "currencyCode": "IDR",
         "capital": "Jakarta",
         "continentName": "Asia"
     },
     "IE":{
-        "countryCode": "IE",
-        "countryName": "Ireland",
+        "code": "IE",
+        "name": "Ireland",
         "currencyCode": "EUR",
         "capital": "Dublin",
         "continentName": "Europe"
     },
     "IL":{
-        "countryCode": "IL",
-        "countryName": "Israel",
+        "code": "IL",
+        "name": "Israel",
         "currencyCode": "ILS",
         "capital": "",
         "continentName": "Asia"
     },
     "IM":{
-        "countryCode": "IM",
-        "countryName": "Isle of Man",
+        "code": "IM",
+        "name": "Isle of Man",
         "currencyCode": "GBP",
         "capital": "Douglas",
         "continentName": "Europe"
     },
     "IN":{
-        "countryCode": "IN",
-        "countryName": "India",
+        "code": "IN",
+        "name": "India",
         "currencyCode": "INR",
         "capital": "New Delhi",
         "continentName": "Asia"
     },
     "IO":{
-        "countryCode": "IO",
-        "countryName": "British Indian Ocean Territory",
+        "code": "IO",
+        "name": "British Indian Ocean Territory",
         "currencyCode": "USD",
         "capital": "",
         "continentName": "Asia"
     },
     "IQ":{
-        "countryCode": "IQ",
-        "countryName": "Iraq",
+        "code": "IQ",
+        "name": "Iraq",
         "currencyCode": "IQD",
         "capital": "Baghdad",
         "continentName": "Asia"
     },
     "IR":{
-        "countryCode": "IR",
-        "countryName": "Iran",
+        "code": "IR",
+        "name": "Iran",
         "currencyCode": "IRR",
         "capital": "Tehran",
         "continentName": "Asia"
     },
     "IS":{
-        "countryCode": "IS",
-        "countryName": "Iceland",
+        "code": "IS",
+        "name": "Iceland",
         "currencyCode": "ISK",
         "capital": "Reykjavik",
         "continentName": "Europe"
     },
     "IT":{
-        "countryCode": "IT",
-        "countryName": "Italy",
+        "code": "IT",
+        "name": "Italy",
         "currencyCode": "EUR",
         "capital": "Rome",
         "continentName": "Europe"
     },
     "JE":{
-        "countryCode": "JE",
-        "countryName": "Jersey",
+        "code": "JE",
+        "name": "Jersey",
         "currencyCode": "GBP",
         "capital": "Saint Helier",
         "continentName": "Europe"
     },
     "JM":{
-        "countryCode": "JM",
-        "countryName": "Jamaica",
+        "code": "JM",
+        "name": "Jamaica",
         "currencyCode": "JMD",
         "capital": "Kingston",
         "continentName": "North America"
     },
     "JO":{
-        "countryCode": "JO",
-        "countryName": "Jordan",
+        "code": "JO",
+        "name": "Jordan",
         "currencyCode": "JOD",
         "capital": "Amman",
         "continentName": "Asia"
     },
     "JP":{
-        "countryCode": "JP",
-        "countryName": "Japan",
+        "code": "JP",
+        "name": "Japan",
         "currencyCode": "JPY",
         "capital": "Tokyo",
         "continentName": "Asia"
     },
     "KE":{
-        "countryCode": "KE",
-        "countryName": "Kenya",
+        "code": "KE",
+        "name": "Kenya",
         "currencyCode": "KES",
         "capital": "Nairobi",
         "continentName": "Africa"
     },
     "KG":{
-        "countryCode": "KG",
-        "countryName": "Kyrgyzstan",
+        "code": "KG",
+        "name": "Kyrgyzstan",
         "currencyCode": "KGS",
         "capital": "Bishkek",
         "continentName": "Asia"
     },
     "KH":{
-        "countryCode": "KH",
-        "countryName": "Cambodia",
+        "code": "KH",
+        "name": "Cambodia",
         "currencyCode": "KHR",
         "capital": "Phnom Penh",
         "continentName": "Asia"
     },
     "KI":{
-        "countryCode": "KI",
-        "countryName": "Kiribati",
+        "code": "KI",
+        "name": "Kiribati",
         "currencyCode": "AUD",
         "capital": "Tarawa",
         "continentName": "Oceania"
     },
     "KM":{
-        "countryCode": "KM",
-        "countryName": "Comoros",
+        "code": "KM",
+        "name": "Comoros",
         "currencyCode": "KMF",
         "capital": "Moroni",
         "continentName": "Africa"
     },
     "KN":{
-        "countryCode": "KN",
-        "countryName": "Saint Kitts and Nevis",
+        "code": "KN",
+        "name": "Saint Kitts and Nevis",
         "currencyCode": "XCD",
         "capital": "Basseterre",
         "continentName": "North America"
     },
     "KP":{
-        "countryCode": "KP",
-        "countryName": "North Korea",
+        "code": "KP",
+        "name": "North Korea",
         "currencyCode": "KPW",
         "capital": "Pyongyang",
         "continentName": "Asia"
     },
     "KR":{
-        "countryCode": "KR",
-        "countryName": "South Korea",
+        "code": "KR",
+        "name": "South Korea",
         "currencyCode": "KRW",
         "capital": "Seoul",
         "continentName": "Asia"
     },
     "KW":{
-        "countryCode": "KW",
-        "countryName": "Kuwait",
+        "code": "KW",
+        "name": "Kuwait",
         "currencyCode": "KWD",
         "capital": "Kuwait City",
         "continentName": "Asia"
     },
     "KY":{
-        "countryCode": "KY",
-        "countryName": "Cayman Islands",
+        "code": "KY",
+        "name": "Cayman Islands",
         "currencyCode": "KYD",
         "capital": "George Town",
         "continentName": "North America"
     },
     "KZ":{
-        "countryCode": "KZ",
-        "countryName": "Kazakhstan",
+        "code": "KZ",
+        "name": "Kazakhstan",
         "currencyCode": "KZT",
         "capital": "Astana",
         "continentName": "Asia"
     },
     "LA":{
-        "countryCode": "LA",
-        "countryName": "Laos",
+        "code": "LA",
+        "name": "Laos",
         "currencyCode": "LAK",
         "capital": "Vientiane",
         "continentName": "Asia"
     },
     "LB":{
-        "countryCode": "LB",
-        "countryName": "Lebanon",
+        "code": "LB",
+        "name": "Lebanon",
         "currencyCode": "LBP",
         "capital": "Beirut",
         "continentName": "Asia"
     },
     "LC":{
-        "countryCode": "LC",
-        "countryName": "Saint Lucia",
+        "code": "LC",
+        "name": "Saint Lucia",
         "currencyCode": "XCD",
         "capital": "Castries",
         "continentName": "North America"
     },
     "LI":{
-        "countryCode": "LI",
-        "countryName": "Liechtenstein",
+        "code": "LI",
+        "name": "Liechtenstein",
         "currencyCode": "CHF",
         "capital": "Vaduz",
         "continentName": "Europe"
     },
     "LK":{
-        "countryCode": "LK",
-        "countryName": "Sri Lanka",
+        "code": "LK",
+        "name": "Sri Lanka",
         "currencyCode": "LKR",
         "capital": "Colombo",
         "continentName": "Asia"
     },
     "LR":{
-        "countryCode": "LR",
-        "countryName": "Liberia",
+        "code": "LR",
+        "name": "Liberia",
         "currencyCode": "LRD",
         "capital": "Monrovia",
         "continentName": "Africa"
     },
     "LS":{
-        "countryCode": "LS",
-        "countryName": "Lesotho",
+        "code": "LS",
+        "name": "Lesotho",
         "currencyCode": "LSL",
         "capital": "Maseru",
         "continentName": "Africa"
     },
     "LT":{
-        "countryCode": "LT",
-        "countryName": "Lithuania",
+        "code": "LT",
+        "name": "Lithuania",
         "currencyCode": "EUR",
         "capital": "Vilnius",
         "continentName": "Europe"
     },
     "LU":{
-        "countryCode": "LU",
-        "countryName": "Luxembourg",
+        "code": "LU",
+        "name": "Luxembourg",
         "currencyCode": "EUR",
         "capital": "Luxembourg",
         "continentName": "Europe"
     },
     "LV":{
-        "countryCode": "LV",
-        "countryName": "Latvia",
+        "code": "LV",
+        "name": "Latvia",
         "currencyCode": "EUR",
         "capital": "Riga",
         "continentName": "Europe"
     },
     "LY":{
-        "countryCode": "LY",
-        "countryName": "Libya",
+        "code": "LY",
+        "name": "Libya",
         "currencyCode": "LYD",
         "capital": "Tripoli",
         "continentName": "Africa"
     },
     "MA":{
-        "countryCode": "MA",
-        "countryName": "Morocco",
+        "code": "MA",
+        "name": "Morocco",
         "currencyCode": "MAD",
         "capital": "Rabat",
         "continentName": "Africa"
     },
     "MC":{
-        "countryCode": "MC",
-        "countryName": "Monaco",
+        "code": "MC",
+        "name": "Monaco",
         "currencyCode": "EUR",
         "capital": "Monaco",
         "continentName": "Europe"
     },
     "MD":{
-        "countryCode": "MD",
-        "countryName": "Moldova",
+        "code": "MD",
+        "name": "Moldova",
         "currencyCode": "MDL",
         "capital": "Chişinău",
         "continentName": "Europe"
     },
     "ME":{
-        "countryCode": "ME",
-        "countryName": "Montenegro",
+        "code": "ME",
+        "name": "Montenegro",
         "currencyCode": "EUR",
         "capital": "Podgorica",
         "continentName": "Europe"
     },
     "MF":{
-        "countryCode": "MF",
-        "countryName": "Saint Martin",
+        "code": "MF",
+        "name": "Saint Martin",
         "currencyCode": "EUR",
         "capital": "Marigot",
         "continentName": "North America"
     },
     "MG":{
-        "countryCode": "MG",
-        "countryName": "Madagascar",
+        "code": "MG",
+        "name": "Madagascar",
         "currencyCode": "MGA",
         "capital": "Antananarivo",
         "continentName": "Africa"
     },
     "MH":{
-        "countryCode": "MH",
-        "countryName": "Marshall Islands",
+        "code": "MH",
+        "name": "Marshall Islands",
         "currencyCode": "USD",
         "capital": "Majuro",
         "continentName": "Oceania"
     },
     "MK":{
-        "countryCode": "MK",
-        "countryName": "Macedonia",
+        "code": "MK",
+        "name": "Macedonia",
         "currencyCode": "MKD",
         "capital": "Skopje",
         "continentName": "Europe"
     },
     "ML":{
-        "countryCode": "ML",
-        "countryName": "Mali",
+        "code": "ML",
+        "name": "Mali",
         "currencyCode": "XOF",
         "capital": "Bamako",
         "continentName": "Africa"
     },
     "MM":{
-        "countryCode": "MM",
-        "countryName": "Myanmar [Burma]",
+        "code": "MM",
+        "name": "Myanmar [Burma]",
         "currencyCode": "MMK",
         "capital": "Naypyitaw",
         "continentName": "Asia"
     },
     "MN":{
-        "countryCode": "MN",
-        "countryName": "Mongolia",
+        "code": "MN",
+        "name": "Mongolia",
         "currencyCode": "MNT",
         "capital": "Ulan Bator",
         "continentName": "Asia"
     },
     "MO":{
-        "countryCode": "MO",
-        "countryName": "Macao",
+        "code": "MO",
+        "name": "Macao",
         "currencyCode": "MOP",
         "capital": "Macao",
         "continentName": "Asia"
     },
     "MP":{
-        "countryCode": "MP",
-        "countryName": "Northern Mariana Islands",
+        "code": "MP",
+        "name": "Northern Mariana Islands",
         "currencyCode": "USD",
         "capital": "Saipan",
         "continentName": "Oceania"
     },
     "MQ":{
-        "countryCode": "MQ",
-        "countryName": "Martinique",
+        "code": "MQ",
+        "name": "Martinique",
         "currencyCode": "EUR",
         "capital": "Fort-de-France",
         "continentName": "North America"
     },
     "MR":{
-        "countryCode": "MR",
-        "countryName": "Mauritania",
+        "code": "MR",
+        "name": "Mauritania",
         "currencyCode": "MRO",
         "capital": "Nouakchott",
         "continentName": "Africa"
     },
     "MS":{
-        "countryCode": "MS",
-        "countryName": "Montserrat",
+        "code": "MS",
+        "name": "Montserrat",
         "currencyCode": "XCD",
         "capital": "Plymouth",
         "continentName": "North America"
     },
     "MT":{
-        "countryCode": "MT",
-        "countryName": "Malta",
+        "code": "MT",
+        "name": "Malta",
         "currencyCode": "EUR",
         "capital": "Valletta",
         "continentName": "Europe"
     },
     "MU":{
-        "countryCode": "MU",
-        "countryName": "Mauritius",
+        "code": "MU",
+        "name": "Mauritius",
         "currencyCode": "MUR",
         "capital": "Port Louis",
         "continentName": "Africa"
     },
     "MV":{
-        "countryCode": "MV",
-        "countryName": "Maldives",
+        "code": "MV",
+        "name": "Maldives",
         "currencyCode": "MVR",
         "capital": "Malé",
         "continentName": "Asia"
     },
     "MW":{
-        "countryCode": "MW",
-        "countryName": "Malawi",
+        "code": "MW",
+        "name": "Malawi",
         "currencyCode": "MWK",
         "capital": "Lilongwe",
         "continentName": "Africa"
     },
     "MX":{
-        "countryCode": "MX",
-        "countryName": "Mexico",
+        "code": "MX",
+        "name": "Mexico",
         "currencyCode": "MXN",
         "capital": "Mexico City",
         "continentName": "North America"
     },
     "MY":{
-        "countryCode": "MY",
-        "countryName": "Malaysia",
+        "code": "MY",
+        "name": "Malaysia",
         "currencyCode": "MYR",
         "capital": "Kuala Lumpur",
         "continentName": "Asia"
     },
     "MZ":{
-        "countryCode": "MZ",
-        "countryName": "Mozambique",
+        "code": "MZ",
+        "name": "Mozambique",
         "currencyCode": "MZN",
         "capital": "Maputo",
         "continentName": "Africa"
     },
     "NA":{
-        "countryCode": "NA",
-        "countryName": "Namibia",
+        "code": "NA",
+        "name": "Namibia",
         "currencyCode": "NAD",
         "capital": "Windhoek",
         "continentName": "Africa"
     },
     "NC":{
-        "countryCode": "NC",
-        "countryName": "New Caledonia",
+        "code": "NC",
+        "name": "New Caledonia",
         "currencyCode": "XPF",
         "capital": "Noumea",
         "continentName": "Oceania"
     },
     "NE":{
-        "countryCode": "NE",
-        "countryName": "Niger",
+        "code": "NE",
+        "name": "Niger",
         "currencyCode": "XOF",
         "capital": "Niamey",
         "continentName": "Africa"
     },
     "NF":{
-        "countryCode": "NF",
-        "countryName": "Norfolk Island",
+        "code": "NF",
+        "name": "Norfolk Island",
         "currencyCode": "AUD",
         "capital": "Kingston",
         "continentName": "Oceania"
     },
     "NG":{
-        "countryCode": "NG",
-        "countryName": "Nigeria",
+        "code": "NG",
+        "name": "Nigeria",
         "currencyCode": "NGN",
         "capital": "Abuja",
         "continentName": "Africa"
     },
     "NI":{
-        "countryCode": "NI",
-        "countryName": "Nicaragua",
+        "code": "NI",
+        "name": "Nicaragua",
         "currencyCode": "NIO",
         "capital": "Managua",
         "continentName": "North America"
     },
     "NL":{
-        "countryCode": "NL",
-        "countryName": "Netherlands",
+        "code": "NL",
+        "name": "Netherlands",
         "currencyCode": "EUR",
         "capital": "Amsterdam",
         "continentName": "Europe"
     },
     "NO":{
-        "countryCode": "NO",
-        "countryName": "Norway",
+        "code": "NO",
+        "name": "Norway",
         "currencyCode": "NOK",
         "capital": "Oslo",
         "continentName": "Europe"
     },
     "NP":{
-        "countryCode": "NP",
-        "countryName": "Nepal",
+        "code": "NP",
+        "name": "Nepal",
         "currencyCode": "NPR",
         "capital": "Kathmandu",
         "continentName": "Asia"
     },
     "NR":{
-        "countryCode": "NR",
-        "countryName": "Nauru",
+        "code": "NR",
+        "name": "Nauru",
         "currencyCode": "AUD",
         "capital": "Yaren",
         "continentName": "Oceania"
     },
     "NU":{
-        "countryCode": "NU",
-        "countryName": "Niue",
+        "code": "NU",
+        "name": "Niue",
         "currencyCode": "NZD",
         "capital": "Alofi",
         "continentName": "Oceania"
     },
     "NZ":{
-        "countryCode": "NZ",
-        "countryName": "New Zealand",
+        "code": "NZ",
+        "name": "New Zealand",
         "currencyCode": "NZD",
         "capital": "Wellington",
         "continentName": "Oceania"
     },
     "OM":{
-        "countryCode": "OM",
-        "countryName": "Oman",
+        "code": "OM",
+        "name": "Oman",
         "currencyCode": "OMR",
         "capital": "Muscat",
         "continentName": "Asia"
     },
     "PA":{
-        "countryCode": "PA",
-        "countryName": "Panama",
+        "code": "PA",
+        "name": "Panama",
         "currencyCode": "PAB",
         "capital": "Panama City",
         "continentName": "North America"
     },
     "PE":{
-        "countryCode": "PE",
-        "countryName": "Peru",
+        "code": "PE",
+        "name": "Peru",
         "currencyCode": "PEN",
         "capital": "Lima",
         "continentName": "South America"
     },
     "PF":{
-        "countryCode": "PF",
-        "countryName": "French Polynesia",
+        "code": "PF",
+        "name": "French Polynesia",
         "currencyCode": "XPF",
         "capital": "Papeete",
         "continentName": "Oceania"
     },
     "PG":{
-        "countryCode": "PG",
-        "countryName": "Papua New Guinea",
+        "code": "PG",
+        "name": "Papua New Guinea",
         "currencyCode": "PGK",
         "capital": "Port Moresby",
         "continentName": "Oceania"
     },
     "PH":{
-        "countryCode": "PH",
-        "countryName": "Philippines",
+        "code": "PH",
+        "name": "Philippines",
         "currencyCode": "PHP",
         "capital": "Manila",
         "continentName": "Asia"
     },
     "PK":{
-        "countryCode": "PK",
-        "countryName": "Pakistan",
+        "code": "PK",
+        "name": "Pakistan",
         "currencyCode": "PKR",
         "capital": "Islamabad",
         "continentName": "Asia"
     },
     "PL":{
-        "countryCode": "PL",
-        "countryName": "Poland",
+        "code": "PL",
+        "name": "Poland",
         "currencyCode": "PLN",
         "capital": "Warsaw",
         "continentName": "Europe"
     },
     "PM":{
-        "countryCode": "PM",
-        "countryName": "Saint Pierre and Miquelon",
+        "code": "PM",
+        "name": "Saint Pierre and Miquelon",
         "currencyCode": "EUR",
         "capital": "Saint-Pierre",
         "continentName": "North America"
     },
     "PN":{
-        "countryCode": "PN",
-        "countryName": "Pitcairn Islands",
+        "code": "PN",
+        "name": "Pitcairn Islands",
         "currencyCode": "NZD",
         "capital": "Adamstown",
         "continentName": "Oceania"
     },
     "PR":{
-        "countryCode": "PR",
-        "countryName": "Puerto Rico",
+        "code": "PR",
+        "name": "Puerto Rico",
         "currencyCode": "USD",
         "capital": "San Juan",
         "continentName": "North America"
     },
     "PS":{
-        "countryCode": "PS",
-        "countryName": "Palestine",
+        "code": "PS",
+        "name": "Palestine",
         "currencyCode": "ILS",
         "capital": "",
         "continentName": "Asia"
     },
     "PT":{
-        "countryCode": "PT",
-        "countryName": "Portugal",
+        "code": "PT",
+        "name": "Portugal",
         "currencyCode": "EUR",
         "capital": "Lisbon",
         "continentName": "Europe"
     },
     "PW":{
-        "countryCode": "PW",
-        "countryName": "Palau",
+        "code": "PW",
+        "name": "Palau",
         "currencyCode": "USD",
         "capital": "Melekeok",
         "continentName": "Oceania"
     },
     "PY":{
-        "countryCode": "PY",
-        "countryName": "Paraguay",
+        "code": "PY",
+        "name": "Paraguay",
         "currencyCode": "PYG",
         "capital": "Asunción",
         "continentName": "South America"
     },
     "QA":{
-        "countryCode": "QA",
-        "countryName": "Qatar",
+        "code": "QA",
+        "name": "Qatar",
         "currencyCode": "QAR",
         "capital": "Doha",
         "continentName": "Asia"
     },
     "RE":{
-        "countryCode": "RE",
-        "countryName": "Réunion",
+        "code": "RE",
+        "name": "Réunion",
         "currencyCode": "EUR",
         "capital": "Saint-Denis",
         "continentName": "Africa"
     },
     "RO":{
-        "countryCode": "RO",
-        "countryName": "Romania",
+        "code": "RO",
+        "name": "Romania",
         "currencyCode": "RON",
         "capital": "Bucharest",
         "continentName": "Europe"
     },
     "RS":{
-        "countryCode": "RS",
-        "countryName": "Serbia",
+        "code": "RS",
+        "name": "Serbia",
         "currencyCode": "RSD",
         "capital": "Belgrade",
         "continentName": "Europe"
     },
     "RU":{
-        "countryCode": "RU",
-        "countryName": "Russia",
+        "code": "RU",
+        "name": "Russia",
         "currencyCode": "RUB",
         "capital": "Moscow",
         "continentName": "Europe"
     },
     "RW":{
-        "countryCode": "RW",
-        "countryName": "Rwanda",
+        "code": "RW",
+        "name": "Rwanda",
         "currencyCode": "RWF",
         "capital": "Kigali",
         "continentName": "Africa"
     },
     "SA":{
-        "countryCode": "SA",
-        "countryName": "Saudi Arabia",
+        "code": "SA",
+        "name": "Saudi Arabia",
         "currencyCode": "SAR",
         "capital": "Riyadh",
         "continentName": "Asia"
     },
     "SB":{
-        "countryCode": "SB",
-        "countryName": "Solomon Islands",
+        "code": "SB",
+        "name": "Solomon Islands",
         "currencyCode": "SBD",
         "capital": "Honiara",
         "continentName": "Oceania"
     },
     "SC":{
-        "countryCode": "SC",
-        "countryName": "Seychelles",
+        "code": "SC",
+        "name": "Seychelles",
         "currencyCode": "SCR",
         "capital": "Victoria",
         "continentName": "Africa"
     },
     "SD":{
-        "countryCode": "SD",
-        "countryName": "Sudan",
+        "code": "SD",
+        "name": "Sudan",
         "currencyCode": "SDG",
         "capital": "Khartoum",
         "continentName": "Africa"
     },
     "SE":{
-        "countryCode": "SE",
-        "countryName": "Sweden",
+        "code": "SE",
+        "name": "Sweden",
         "currencyCode": "SEK",
         "capital": "Stockholm",
         "continentName": "Europe"
     },
     "SG":{
-        "countryCode": "SG",
-        "countryName": "Singapore",
+        "code": "SG",
+        "name": "Singapore",
         "currencyCode": "SGD",
         "capital": "Singapore",
         "continentName": "Asia"
     },
     "SH":{
-        "countryCode": "SH",
-        "countryName": "Saint Helena",
+        "code": "SH",
+        "name": "Saint Helena",
         "currencyCode": "SHP",
         "capital": "Jamestown",
         "continentName": "Africa"
     },
     "SI":{
-        "countryCode": "SI",
-        "countryName": "Slovenia",
+        "code": "SI",
+        "name": "Slovenia",
         "currencyCode": "EUR",
         "capital": "Ljubljana",
         "continentName": "Europe"
     },
     "SJ":{
-        "countryCode": "SJ",
-        "countryName": "Svalbard and Jan Mayen",
+        "code": "SJ",
+        "name": "Svalbard and Jan Mayen",
         "currencyCode": "NOK",
         "capital": "Longyearbyen",
         "continentName": "Europe"
     },
     "SK":{
-        "countryCode": "SK",
-        "countryName": "Slovakia",
+        "code": "SK",
+        "name": "Slovakia",
         "currencyCode": "EUR",
         "capital": "Bratislava",
         "continentName": "Europe"
     },
     "SL":{
-        "countryCode": "SL",
-        "countryName": "Sierra Leone",
+        "code": "SL",
+        "name": "Sierra Leone",
         "currencyCode": "SLL",
         "capital": "Freetown",
         "continentName": "Africa"
     },
     "SM":{
-        "countryCode": "SM",
-        "countryName": "San Marino",
+        "code": "SM",
+        "name": "San Marino",
         "currencyCode": "EUR",
         "capital": "San Marino",
         "continentName": "Europe"
     },
     "SN":{
-        "countryCode": "SN",
-        "countryName": "Senegal",
+        "code": "SN",
+        "name": "Senegal",
         "currencyCode": "XOF",
         "capital": "Dakar",
         "continentName": "Africa"
     },
     "SO":{
-        "countryCode": "SO",
-        "countryName": "Somalia",
+        "code": "SO",
+        "name": "Somalia",
         "currencyCode": "SOS",
         "capital": "Mogadishu",
         "continentName": "Africa"
     },
     "SR":{
-        "countryCode": "SR",
-        "countryName": "Suriname",
+        "code": "SR",
+        "name": "Suriname",
         "currencyCode": "SRD",
         "capital": "Paramaribo",
         "continentName": "South America"
     },
     "SS":{
-        "countryCode": "SS",
-        "countryName": "South Sudan",
+        "code": "SS",
+        "name": "South Sudan",
         "currencyCode": "SSP",
         "capital": "Juba",
         "continentName": "Africa"
     },
     "ST":{
-        "countryCode": "ST",
-        "countryName": "São Tomé and Príncipe",
+        "code": "ST",
+        "name": "São Tomé and Príncipe",
         "currencyCode": "STD",
         "capital": "São Tomé",
         "continentName": "Africa"
     },
     "SV":{
-        "countryCode": "SV",
-        "countryName": "El Salvador",
+        "code": "SV",
+        "name": "El Salvador",
         "currencyCode": "USD",
         "capital": "San Salvador",
         "continentName": "North America"
     },
     "SX":{
-        "countryCode": "SX",
-        "countryName": "Sint Maarten",
+        "code": "SX",
+        "name": "Sint Maarten",
         "currencyCode": "ANG",
         "capital": "Philipsburg",
         "continentName": "North America"
     },
     "SY":{
-        "countryCode": "SY",
-        "countryName": "Syria",
+        "code": "SY",
+        "name": "Syria",
         "currencyCode": "SYP",
         "capital": "Damascus",
         "continentName": "Asia"
     },
     "SZ":{
-        "countryCode": "SZ",
-        "countryName": "Swaziland",
+        "code": "SZ",
+        "name": "Swaziland",
         "currencyCode": "SZL",
         "capital": "Mbabane",
         "continentName": "Africa"
     },
     "TC":{
-        "countryCode": "TC",
-        "countryName": "Turks and Caicos Islands",
+        "code": "TC",
+        "name": "Turks and Caicos Islands",
         "currencyCode": "USD",
         "capital": "Cockburn Town",
         "continentName": "North America"
     },
     "TD":{
-        "countryCode": "TD",
-        "countryName": "Chad",
+        "code": "TD",
+        "name": "Chad",
         "currencyCode": "XAF",
         "capital": "N'Djamena",
         "continentName": "Africa"
     },
     "TF":{
-        "countryCode": "TF",
-        "countryName": "French Southern Territories",
+        "code": "TF",
+        "name": "French Southern Territories",
         "currencyCode": "EUR",
         "capital": "Port-aux-Français",
         "continentName": "Antarctica"
     },
     "TG":{
-        "countryCode": "TG",
-        "countryName": "Togo",
+        "code": "TG",
+        "name": "Togo",
         "currencyCode": "XOF",
         "capital": "Lomé",
         "continentName": "Africa"
     },
     "TH":{
-        "countryCode": "TH",
-        "countryName": "Thailand",
+        "code": "TH",
+        "name": "Thailand",
         "currencyCode": "THB",
         "capital": "Bangkok",
         "continentName": "Asia"
     },
     "TJ":{
-        "countryCode": "TJ",
-        "countryName": "Tajikistan",
+        "code": "TJ",
+        "name": "Tajikistan",
         "currencyCode": "TJS",
         "capital": "Dushanbe",
         "continentName": "Asia"
     },
     "TK":{
-        "countryCode": "TK",
-        "countryName": "Tokelau",
+        "code": "TK",
+        "name": "Tokelau",
         "currencyCode": "NZD",
         "capital": "",
         "continentName": "Oceania"
     },
     "TL":{
-        "countryCode": "TL",
-        "countryName": "East Timor",
+        "code": "TL",
+        "name": "East Timor",
         "currencyCode": "USD",
         "capital": "Dili",
         "continentName": "Oceania"
     },
     "TM":{
-        "countryCode": "TM",
-        "countryName": "Turkmenistan",
+        "code": "TM",
+        "name": "Turkmenistan",
         "currencyCode": "TMT",
         "capital": "Ashgabat",
         "continentName": "Asia"
     },
     "TN":{
-        "countryCode": "TN",
-        "countryName": "Tunisia",
+        "code": "TN",
+        "name": "Tunisia",
         "currencyCode": "TND",
         "capital": "Tunis",
         "continentName": "Africa"
     },
     "TO":{
-        "countryCode": "TO",
-        "countryName": "Tonga",
+        "code": "TO",
+        "name": "Tonga",
         "currencyCode": "TOP",
         "capital": "Nuku'alofa",
         "continentName": "Oceania"
     },
     "TR":{
-        "countryCode": "TR",
-        "countryName": "Turkey",
+        "code": "TR",
+        "name": "Turkey",
         "currencyCode": "TRY",
         "capital": "Ankara",
         "continentName": "Asia"
     },
     "TT":{
-        "countryCode": "TT",
-        "countryName": "Trinidad and Tobago",
+        "code": "TT",
+        "name": "Trinidad and Tobago",
         "currencyCode": "TTD",
         "capital": "Port of Spain",
         "continentName": "North America"
     },
     "TV":{
-        "countryCode": "TV",
-        "countryName": "Tuvalu",
+        "code": "TV",
+        "name": "Tuvalu",
         "currencyCode": "AUD",
         "capital": "Funafuti",
         "continentName": "Oceania"
     },
     "TW":{
-        "countryCode": "TW",
-        "countryName": "Taiwan",
+        "code": "TW",
+        "name": "Taiwan",
         "currencyCode": "TWD",
         "capital": "Taipei",
         "continentName": "Asia"
     },
     "TZ":{
-        "countryCode": "TZ",
-        "countryName": "Tanzania",
+        "code": "TZ",
+        "name": "Tanzania",
         "currencyCode": "TZS",
         "capital": "Dodoma",
         "continentName": "Africa"
     },
     "UA":{
-        "countryCode": "UA",
-        "countryName": "Ukraine",
+        "code": "UA",
+        "name": "Ukraine",
         "currencyCode": "UAH",
         "capital": "Kiev",
         "continentName": "Europe"
     },
     "UG":{
-        "countryCode": "UG",
-        "countryName": "Uganda",
+        "code": "UG",
+        "name": "Uganda",
         "currencyCode": "UGX",
         "capital": "Kampala",
         "continentName": "Africa"
     },
     "UM":{
-        "countryCode": "UM",
-        "countryName": "U.S. Minor Outlying Islands",
+        "code": "UM",
+        "name": "U.S. Minor Outlying Islands",
         "currencyCode": "USD",
         "capital": "",
         "continentName": "Oceania"
     },
     "US":{
-        "countryCode": "US",
-        "countryName": "United States",
+        "code": "US",
+        "name": "United States",
         "currencyCode": "USD",
         "capital": "Washington",
         "continentName": "North America"
     },
     "UY":{
-        "countryCode": "UY",
-        "countryName": "Uruguay",
+        "code": "UY",
+        "name": "Uruguay",
         "currencyCode": "UYU",
         "capital": "Montevideo",
         "continentName": "South America"
     },
     "UZ":{
-        "countryCode": "UZ",
-        "countryName": "Uzbekistan",
+        "code": "UZ",
+        "name": "Uzbekistan",
         "currencyCode": "UZS",
         "capital": "Tashkent",
         "continentName": "Asia"
     },
     "VA":{
-        "countryCode": "VA",
-        "countryName": "Vatican City",
+        "code": "VA",
+        "name": "Vatican City",
         "currencyCode": "EUR",
         "capital": "Vatican City",
         "continentName": "Europe"
     },
     "VC":{
-        "countryCode": "VC",
-        "countryName": "Saint Vincent and the Grenadines",
+        "code": "VC",
+        "name": "Saint Vincent and the Grenadines",
         "currencyCode": "XCD",
         "capital": "Kingstown",
         "continentName": "North America"
     },
     "VE":{
-        "countryCode": "VE",
-        "countryName": "Venezuela",
+        "code": "VE",
+        "name": "Venezuela",
         "currencyCode": "VEF",
         "capital": "Caracas",
         "continentName": "South America"
     },
     "VG":{
-        "countryCode": "VG",
-        "countryName": "British Virgin Islands",
+        "code": "VG",
+        "name": "British Virgin Islands",
         "currencyCode": "USD",
         "capital": "Road Town",
         "continentName": "North America"
     },
     "VI":{
-        "countryCode": "VI",
-        "countryName": "U.S. Virgin Islands",
+        "code": "VI",
+        "name": "U.S. Virgin Islands",
         "currencyCode": "USD",
         "capital": "Charlotte Amalie",
         "continentName": "North America"
     },
     "VN":{
-        "countryCode": "VN",
-        "countryName": "Vietnam",
+        "code": "VN",
+        "name": "Vietnam",
         "currencyCode": "VND",
         "capital": "Hanoi",
         "continentName": "Asia"
     },
     "VU":{
-        "countryCode": "VU",
-        "countryName": "Vanuatu",
+        "code": "VU",
+        "name": "Vanuatu",
         "currencyCode": "VUV",
         "capital": "Port Vila",
         "continentName": "Oceania"
     },
     "WF":{
-        "countryCode": "WF",
-        "countryName": "Wallis and Futuna",
+        "code": "WF",
+        "name": "Wallis and Futuna",
         "currencyCode": "XPF",
         "capital": "Mata-Utu",
         "continentName": "Oceania"
     },
     "WS":{
-        "countryCode": "WS",
-        "countryName": "Samoa",
+        "code": "WS",
+        "name": "Samoa",
         "currencyCode": "WST",
         "capital": "Apia",
         "continentName": "Oceania"
     },
     "XK":{
-        "countryCode": "XK",
-        "countryName": "Kosovo",
+        "code": "XK",
+        "name": "Kosovo",
         "currencyCode": "EUR",
         "capital": "Pristina",
         "continentName": "Europe"
     },
     "YE":{
-        "countryCode": "YE",
-        "countryName": "Yemen",
+        "code": "YE",
+        "name": "Yemen",
         "currencyCode": "YER",
         "capital": "Sanaa",
         "continentName": "Asia"
     },
     "YT":{
-        "countryCode": "YT",
-        "countryName": "Mayotte",
+        "code": "YT",
+        "name": "Mayotte",
         "currencyCode": "EUR",
         "capital": "Mamoudzou",
         "continentName": "Africa"
     },
     "ZA":{
-        "countryCode": "ZA",
-        "countryName": "South Africa",
+        "code": "ZA",
+        "name": "South Africa",
         "currencyCode": "ZAR",
         "capital": "Pretoria",
         "continentName": "Africa"
     },
     "ZM":{
-        "countryCode": "ZM",
-        "countryName": "Zambia",
+        "code": "ZM",
+        "name": "Zambia",
         "currencyCode": "ZMW",
         "capital": "Lusaka",
         "continentName": "Africa"
     },
     "ZW":{
-        "countryCode": "ZW",
-        "countryName": "Zimbabwe",
+        "code": "ZW",
+        "name": "Zimbabwe",
         "currencyCode": "ZWL",
         "capital": "Harare",
         "continentName": "Africa"

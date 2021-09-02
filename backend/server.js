@@ -15,7 +15,8 @@ app.post('/api/verify/email', Users.verifyEmail)
 app.post('/api/user/login', Users.login)
 app.post('/api/user/generateotp', Users.generateOtp)
 app.post('/api/user/verifyotp', Users.verifyOtp)
-app.get('/api/user/kyc', authentication.verify, Users.getKyc)
+app.post('/api/user/kyc/basic', authentication.verify, Users.submitKycBasicInfo)
+app.get('/api/user/kyc', authentication.verify, Users.getKycVerification)
 
 app.listen({
     host: process.env.SERVER_HOST,

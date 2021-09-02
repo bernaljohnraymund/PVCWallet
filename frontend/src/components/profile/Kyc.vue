@@ -58,8 +58,8 @@ export default {
     name: 'Kyc',
     data: () => ({
         user: {
-            kycLevel: 3,
-            kycStatus: 'proof of address success',
+            kycLevel: null,
+            kycStatus: '',
         }
     }),
     async beforeMount () {
@@ -70,12 +70,12 @@ export default {
     methods: {
         async getUserKyc () {
             const encUser = await this.$getUser()
-            console.log(encUser.token)
-            await this.$api({
+            const kycRes = await this.$api({
                 url: '/user/kyc',
                 method: 'GET'
-                    
             })
+            this.user.kycLevel = kycRes.data.payload.verificationLevel
+            this.user.kycStatus = kycRes.data.payload.verificationStatus
         }
     }
 }

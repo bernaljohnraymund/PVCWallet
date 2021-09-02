@@ -10,15 +10,20 @@ const Authentication = {
             if (err) {
                 return {status: 'fail', message: err}
             } else {
-                return {status: 'success', data}
+                return {status: 'success', ...data}
             }
         })
 
-        if (tokenVerification.status === 'success') {
-            next()
-        }else {
+        if (tokenVerification.status !== 'success') {
             return tokenVerification
         }
+
+        req.user = {
+            ...tokenVerification.data
+        }
+        delete tokenVerification.status
+
+        next()
      }
 }
 

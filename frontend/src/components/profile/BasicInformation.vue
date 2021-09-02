@@ -2,7 +2,7 @@
   
     <div id="root" class="row">
         <div class="col-12">
-            <q-form id="basic-information-form">
+            <q-form id="basic-information-form" @submit="submitBasicInfoForm">
                 <div class="text-h4 text-center header">
                     <div>
                         <q-icon name="perm_identity" />
@@ -14,36 +14,34 @@
                         <div class="col-12">
                             <q-select
                                 outlined
-                                label="Country of residence"
+                                label="Country of Residence"
                                 v-model="form.country"
                                 use-input
                                 hide-selected
                                 fill-input
                                 input-debounce="0"
                                 :options="form.countryOpts"
-                                option-label="countryName"
-                                :loading="countryLoading"
+                                option-label="name"
                                 @filter="filterCountry"
-                                @virtual-scroll="loadCountry"
                                 clearable
                                 class="select"
                             >
                             <template v-slot:prepend>
-                                    <q-avatar v-if="form.country.countryCode">
-                                        <q-img :src="'/icons/flags/png/' + form.country.countryCode + '.png'" />
+                                    <q-avatar v-if="form.country.code">
+                                        <q-img :src="'/icons/flags/png/' + form.country.code + '.png'" />
                                     </q-avatar>
                                     <q-avatar icon="flag" v-else />
                                 </template>
                                 <template v-slot:selected-item="scope">
-                                    {{ scope.opt.countryName }}
+                                    {{ scope.opt.name }}
                                 </template>
                                 <template v-slot:option="scope">
                                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                                         <q-item-section avatar>
-                                            <q-img :src="'/icons/flags/png/' + scope.opt.countryCode + '.png'" />
+                                            <q-img :src="'/icons/flags/png/' + scope.opt.code + '.png'" />
                                         </q-item-section>
                                         <q-item-section>
-                                        <q-item-label v-html="scope.opt.countryName"></q-item-label>
+                                        <q-item-label v-html="scope.opt.name"></q-item-label>
                                         </q-item-section>
                                     </q-item>
                                 </template>
@@ -66,8 +64,8 @@
                             <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate" label="Birthdate" mask="date" >
                                 <template v-slot:append>
                                     <q-icon name="event" class="cursor-pointer">
-                                        <q-popup-proxy breakpoint="99999">
-                                            <q-date v-model="form.birthDate" ></q-date>
+                                        <q-popup-proxy breakpoint="99999" ref="popupDate">
+                                            <q-date v-model="form.birthDate" @update:model-value="onUpdateBirthDate" ></q-date>
                                         </q-popup-proxy>
                                     </q-icon>
                                 </template>
@@ -94,7 +92,7 @@
                 <div class="footer">
                     <div class="row">
                         <div class="col-12">
-                            <q-btn label="save" class="save-btn" flat />
+                            <q-btn type="submit" label="save" class="save-btn" flat />
                             <span class="btn-margin"></span>
                             <q-btn label="cancel" class="cancel-btn" flat />
                         </div>
@@ -115,19 +113,22 @@ export default {
     data: () => ({
         form: {
             countryOpts: [],
+            // countryLoading: false,
+            // loadCountry: false,
             country: '',
-            countryLoading: false,
-            birthDate: ''
+            birthDate: '',
+            firstName: '',
+            lastName: '',
+            middleName: '',
+            houseNumber: '',
+            postal: '',
+            city: '',
         }
     }),
     async mounted () {
         this.form.countryOpts = ref(countries)
-        this.form.lastPage = Math.ceil(this.form.countryOpts.length / this.form.pageSize)
     },
     methods: {
-        getC () {
-            console.log(this.form.country)
-        },
         filterCountry (val, update, abort) {
                 let updatedCountryList = []
                 if (val === '') {
@@ -140,13 +141,33 @@ export default {
                 update(() => {
                     const needle = val.toLowerCase()
                     this.form.countryOpts = countries.filter(v => {
-                        if (v.countryName.toLowerCase().indexOf(needle) > -1) {
+                        if (v.name.toLowerCase().indexOf(needle) > -1) {
                             updatedCountryList.push(v)
                             return updatedCountryList;
                         }
                     })
                 })
         },
+        async onUpdateBirthDate (value, reason, details) {
+            this.$refs['popupDate'].hide()
+        },
+        async submitBasicInfoForm () {
+
+            const submitFormInfoRes = await this.$api({
+                method: 'POST',
+                url: '/user/kyc/basic',
+                data: {
+                    country: this.form.country,
+                    birthDate: this.form.birthDate,
+                    firstName: this.form.firstName,
+                    lastName: this.form.lastName,
+                    middleName: this.form.middleName,
+                    houseNumber: this.form.houseNumber,
+                    postal: this.form.postal,
+                    city: this.form.city
+                }
+            })
+        }
     },
 }
 </script>

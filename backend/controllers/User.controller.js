@@ -365,8 +365,40 @@ const Users = {
         res.json( { ...jsonResponse } );
     },
 
-    async getKyc (req, res) {
-        console.log('getKyc')
+    async getKycVerification (req, res) {
+        let errors = []
+        const user = await UserModel.findOne({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            verificationStatus: 1,
+            verificationLevel: 1,
+            _id: 0
+        })
+
+        if (!user || user === '') {
+            errors.push('no user found')
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        if (errors.length === 0) {
+            res.json({
+                status: 'success',
+                payload: user
+            })
+        }
+    },
+
+    async submitKycBasicInfo (req, res) {
+        console.log(req.body)
     }
 }
 

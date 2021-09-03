@@ -61,11 +61,11 @@
                             <q-input type="text" outlined label="Middle Name" v-model="form.middleName" name="middleName" />
                         </div>
                         <div class="col-12 col-md-6">
-                            <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate" label="Birthdate" mask="date" >
+                            <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate.val" label="Birthdate" mask="date" >
                                 <template v-slot:append>
                                     <q-icon name="event" class="cursor-pointer">
                                         <q-popup-proxy breakpoint="99999" ref="popupDate">
-                                            <q-date v-model="form.birthDate" @update:model-value="onUpdateBirthDate" ></q-date>
+                                            <q-date @update:model-value="onUpdateBirthDate" ></q-date>
                                         </q-popup-proxy>
                                     </q-icon>
                                 </template>
@@ -116,14 +116,17 @@ export default {
             // countryLoading: false,
             // loadCountry: false,
             country: '',
-            birthDate: '',
+            birthDate: {
+                val: '',
+                details: {}
+            },
             firstName: '',
             lastName: '',
             middleName: '',
             houseNumber: '',
             postal: '',
             city: '',
-        }
+        },
     }),
     async mounted () {
         this.form.countryOpts = ref(countries)
@@ -149,6 +152,8 @@ export default {
                 })
         },
         async onUpdateBirthDate (value, reason, details) {
+            this.form.birthDate.val = value
+            this.form.birthDate.details = details
             this.$refs['popupDate'].hide()
         },
         async submitBasicInfoForm () {
@@ -167,6 +172,22 @@ export default {
                     city: this.form.city
                 }
             })
+
+            console.log(submitFormInfoRes.data)
+
+            if (submitFormInfoRes.data.status === 'fail') {
+
+                submitFormInfoRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top',
+                    })
+                })
+            }
         }
     },
 }

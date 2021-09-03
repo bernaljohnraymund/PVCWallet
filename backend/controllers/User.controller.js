@@ -398,7 +398,102 @@ const Users = {
     },
 
     async submitKycBasicInfo (req, res) {
-        console.log(req.body)
+        let errors = []
+        const RegEx = /[~`@#$%^&*()_+\[\]{}:;|\\"=\/'<,>.?]/g
+        let basicInfoForm = req.body
+
+        basicInfoForm.firstName = basicInfoForm.firstName.replace(/\s+/g,' ').trim();
+        basicInfoForm.middleName = basicInfoForm.middleName.replace(/\s+/g,' ').trim();
+        basicInfoForm.lastName = basicInfoForm.lastName.replace(/\s+/g,' ').trim();
+        basicInfoForm.houseNumber = basicInfoForm.houseNumber.replace(/\s+/g,'').trim();
+        basicInfoForm.postal = basicInfoForm.postal.replace(/\s+/g,'').trim();
+        basicInfoForm.city = basicInfoForm.city.replace(/\s+/g,' ').trim();
+
+        // validate first name
+        if (basicInfoForm.firstName === '') {
+            errors.push('First name can not be empty')
+        }else
+        if (basicInfoForm.firstName.match(RegEx)) {
+            errors.push('First name can not contain special characters')
+        }
+        // validate last name
+        if (basicInfoForm.lastName === '') {
+            errors.push('Last name can not be empty')
+        }else
+        if (basicInfoForm.lastName.match(RegEx)) {
+            errors.push('Last name can not contain special characters')
+        }
+        // validate middle name
+        if (basicInfoForm.middleName === '') {
+            errors.push('Middle name can not be empty')
+        }else
+        if (basicInfoForm.middleName.match(RegEx)) {
+            errors.push('Middle name can not contain special characters')
+        }
+        // validate birthdate
+        if (typeof basicInfoForm.birthDate !== 'object') {
+            errors.push('Birthdate can not be empty')
+        }
+        // validate house number
+        if (basicInfoForm.houseNumber === '') {
+            errors.push('House number can not be empty')
+        }else
+        if (!basicInfoForm.houseNumber.match(/^[0-9]+$/)) {
+            errors.push('Invalid house number')
+        }
+        // validate postal
+        if (basicInfoForm.postal === '') {
+            errors.push('Postal can not be empty')
+        }else
+        if (!basicInfoForm.postal.match(/^[0-9]+$/)) {
+            errors.push('Invalid postal')
+        }
+        // validate city
+        if (basicInfoForm.city === '') {
+            errors.push('City can not be empty')
+        }
+        // validate residence of address
+        if (typeof basicInfoForm.country !== 'object') {
+            errors.push('Residence of address can not be empty')
+        }
+
+        console.log(req.user)
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+            return
+        }
+
+        // if no errors then perform queries
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            firstName: basicInfoForm.firstName,
+            middleName: basicInfoForm.middleName,
+            lastName: basicInfoForm.lastName,
+            birthDate: basicInfoForm.birthDate.val,
+            houseNumber: basicInfoForm.houseNumber,
+            postal: basicInfoForm.postal,
+            city: basicInfoForm.city,
+            countryName: basicInfoForm.country.name,
+            countryCode: basicInfoForm.country.code,
+            currency: basicInfoForm.country.currency,
+            verificationStatus: 'verifying'
+        },
+        {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'basic info submitted successfully',
+            payload: {}
+        })
     }
 }
 

@@ -2,49 +2,46 @@
   
     <div id="root" class="row">
         <div class="col-12">
-            <q-form id="basic-information-form">
+            <q-form id="basic-information-form" @submit="submitBasicInfoForm">
                 <div class="text-h4 text-center header">
                     <div>
                         <q-icon name="perm_identity" />
                     </div>
                     Basic Information
-                    <!-- {{form.countryOpts}} -->
                 </div>
                 <div class="body">
                     <div class="row">
                         <div class="col-12">
                             <q-select
                                 outlined
-                                label="Nationality"
+                                label="Country of Residence"
                                 v-model="form.country"
                                 use-input
                                 hide-selected
                                 fill-input
                                 input-debounce="0"
                                 :options="form.countryOpts"
-                                option-label="countryName"
-                                :loading="countryLoading"
+                                option-label="name"
                                 @filter="filterCountry"
-                                @virtual-scroll="loadCountry"
                                 clearable
                                 class="select"
                             >
                             <template v-slot:prepend>
-                                    <q-avatar v-if="form.country.countryCode">
-                                        <q-img :src="'/icons/flags/png/' + form.country.countryCode + '.png'" />
+                                    <q-avatar v-if="form.country.code">
+                                        <q-img :src="'/icons/flags/png/' + form.country.code + '.png'" />
                                     </q-avatar>
                                     <q-avatar icon="flag" v-else />
                                 </template>
                                 <template v-slot:selected-item="scope">
-                                    {{ scope.opt.countryName }}
+                                    {{ scope.opt.name }}
                                 </template>
                                 <template v-slot:option="scope">
                                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                                         <q-item-section avatar>
-                                            <q-img :src="'/icons/flags/png/' + scope.opt.countryCode + '.png'" />
+                                            <q-img :src="'/icons/flags/png/' + scope.opt.code + '.png'" />
                                         </q-item-section>
                                         <q-item-section>
-                                        <q-item-label v-html="scope.opt.countryName"></q-item-label>
+                                        <q-item-label v-html="scope.opt.name"></q-item-label>
                                         </q-item-section>
                                     </q-item>
                                 </template>
@@ -64,11 +61,11 @@
                             <q-input type="text" outlined label="Middle Name" v-model="form.middleName" name="middleName" />
                         </div>
                         <div class="col-12 col-md-6">
-                            <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate" label="Birthdate" mask="date" >
+                            <q-input outlined placeholder="YYYY/DD/MM" v-model="form.birthDate.val" label="Birthdate" mask="date" >
                                 <template v-slot:append>
                                     <q-icon name="event" class="cursor-pointer">
-                                        <q-popup-proxy breakpoint="99999">
-                                            <q-date v-model="form.birthDate" ></q-date>
+                                        <q-popup-proxy breakpoint="99999" ref="popupDate">
+                                            <q-date @update:model-value="onUpdateBirthDate" ></q-date>
                                         </q-popup-proxy>
                                     </q-icon>
                                 </template>
@@ -95,7 +92,7 @@
                 <div class="footer">
                     <div class="row">
                         <div class="col-12">
-                            <q-btn label="save" class="save-btn" flat />
+                            <q-btn type="submit" label="save" class="save-btn" flat />
                             <span class="btn-margin"></span>
                             <q-btn label="cancel" class="cancel-btn" flat />
                         </div>
@@ -116,19 +113,28 @@ export default {
     data: () => ({
         form: {
             countryOpts: [],
+            // countryLoading: false,
+            // loadCountry: false,
             country: '',
-            countryLoading: false,
-            birthDate: ''
-        }
+            birthDate: {
+                val: '',
+                details: {}
+            },
+            firstName: '',
+            lastName: '',
+            middleName: '',
+            houseNumber: '',
+            postal: '',
+            city: '',
+        },
     }),
+    async beforeMount () {
+        await this.kycSecurity()
+    },
     async mounted () {
         this.form.countryOpts = ref(countries)
-        this.form.lastPage = Math.ceil(this.form.countryOpts.length / this.form.pageSize)
     },
     methods: {
-        getC () {
-            console.log(this.form.country)
-        },
         filterCountry (val, update, abort) {
                 let updatedCountryList = []
                 if (val === '') {
@@ -141,13 +147,72 @@ export default {
                 update(() => {
                     const needle = val.toLowerCase()
                     this.form.countryOpts = countries.filter(v => {
-                        if (v.countryName.toLowerCase().indexOf(needle) > -1) {
+                        if (v.name.toLowerCase().indexOf(needle) > -1) {
                             updatedCountryList.push(v)
                             return updatedCountryList;
                         }
                     })
                 })
         },
+        async onUpdateBirthDate (value, reason, details) {
+            this.form.birthDate.val = value
+            this.form.birthDate.details = details
+            this.$refs['popupDate'].hide()
+        },
+        async submitBasicInfoForm () {
+
+            const submitFormInfoRes = await this.$api({
+                method: 'POST',
+                url: '/user/kyc/basic',
+                data: {
+                    country: this.form.country,
+                    birthDate: this.form.birthDate,
+                    firstName: this.form.firstName,
+                    lastName: this.form.lastName,
+                    middleName: this.form.middleName,
+                    houseNumber: this.form.houseNumber,
+                    postal: this.form.postal,
+                    city: this.form.city
+                }
+            })
+
+            console.log(submitFormInfoRes.data)
+
+            if (submitFormInfoRes.data.status === 'fail') {
+
+                submitFormInfoRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top',
+                    })
+                })
+            }else
+            if (submitFormInfoRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
+                    position: 'top',
+                })
+                this.$router.push({ name: 'ProfileRoot'})
+            }
+        },
+        async kycSecurity () {
+            const kycRes = await this.$api({
+                url: '/user/kyc',
+                method: 'GET'
+            })
+            
+            if (kycRes.data.payload.verificationStatus === 'basic information pending' || kycRes.data.payload.verificationLevel >= 1) {
+                this.$router.push({ name: 'ProfileRoot'})
+            }
+        }
     },
 }
 </script>

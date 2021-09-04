@@ -363,6 +363,225 @@ const Users = {
         }
 
         res.json( { ...jsonResponse } );
+    },
+
+    async getKycVerification (req, res) {
+        let errors = []
+        const user = await UserModel.findOne({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            verificationStatus: 1,
+            verificationLevel: 1,
+            _id: 0
+        })
+
+        if (!user || user === '') {
+            errors.push('no user found')
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        if (errors.length === 0) {
+            res.json({
+                status: 'success',
+                payload: user
+            })
+        }
+    },
+
+    async submitKycBasicInfo (req, res) {
+        let errors = []
+        const RegEx = /[~`@#$%^&*()_+\[\]{}:;|\\"=\/'<,>.?]/g
+        let basicInfoForm = req.body
+
+        basicInfoForm.firstName = basicInfoForm.firstName.replace(/\s+/g,' ').trim();
+        basicInfoForm.middleName = basicInfoForm.middleName.replace(/\s+/g,' ').trim();
+        basicInfoForm.lastName = basicInfoForm.lastName.replace(/\s+/g,' ').trim();
+        basicInfoForm.houseNumber = basicInfoForm.houseNumber.replace(/\s+/g,'').trim();
+        basicInfoForm.postal = basicInfoForm.postal.replace(/\s+/g,'').trim();
+        basicInfoForm.city = basicInfoForm.city.replace(/\s+/g,' ').trim();
+
+        // validate first name
+        if (basicInfoForm.firstName === '') {
+            errors.push('First name can not be empty')
+        }else
+        if (basicInfoForm.firstName.match(RegEx)) {
+            errors.push('First name can not contain special characters')
+        }
+        // validate last name
+        if (basicInfoForm.lastName === '') {
+            errors.push('Last name can not be empty')
+        }else
+        if (basicInfoForm.lastName.match(RegEx)) {
+            errors.push('Last name can not contain special characters')
+        }
+        // validate middle name
+        if (basicInfoForm.middleName === '') {
+            errors.push('Middle name can not be empty')
+        }else
+        if (basicInfoForm.middleName.match(RegEx)) {
+            errors.push('Middle name can not contain special characters')
+        }
+        // validate birthdate
+        const dToday = moment()
+        const dBirthDate = moment(basicInfoForm.birthDate.val, 'YYYY/MM/DD')
+
+        if (typeof basicInfoForm.birthDate !== 'object') {
+            errors.push('Birthdate can not be empty')
+        }else
+        if (dToday.diff(dBirthDate, 'years') < 18) {
+            errors.push('Only 18 years old or above are allowed')
+        }
+        // validate house number
+        if (basicInfoForm.houseNumber === '') {
+            errors.push('House number can not be empty')
+        }else
+        if (!basicInfoForm.houseNumber.match(/^[0-9]+$/)) {
+            errors.push('Invalid house number')
+        }
+        // validate postal
+        if (basicInfoForm.postal === '') {
+            errors.push('Postal can not be empty')
+        }else
+        if (!basicInfoForm.postal.match(/^[0-9]+$/)) {
+            errors.push('Invalid postal')
+        }
+        // validate city
+        if (basicInfoForm.city === '') {
+            errors.push('City can not be empty')
+        }
+        // validate residence of address
+        if (typeof basicInfoForm.country !== 'object') {
+            errors.push('Residence of address can not be empty')
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+            return
+        }
+
+        // if no errors then perform queries
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            firstName: basicInfoForm.firstName,
+            middleName: basicInfoForm.middleName,
+            lastName: basicInfoForm.lastName,
+            birthDate: basicInfoForm.birthDate.val,
+            houseNumber: basicInfoForm.houseNumber,
+            postal: basicInfoForm.postal,
+            city: basicInfoForm.city,
+            countryName: basicInfoForm.country.name,
+            countryCode: basicInfoForm.country.code,
+            currency: basicInfoForm.country.currency,
+            verificationStatus: 'basic information pending'
+        },
+        {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'basic info submitted successfully',
+            payload: {}
+        })
+    },
+    async submitKycIdentityInfo (req, res) {
+        const reqPayload = req.body
+        const errors = []
+        const expectedType = ['data:image/jpeg;base64', 'data:image/jpg;base64', 'data:image/gif;base64', 'data:image/png;base64']
+
+        let isValidSelfieImage = expectedType.some((val) => {
+            return reqPayload.selfieImage.match(val)
+        })
+
+        let isValidIdmage = expectedType.some((val) => {
+            return reqPayload.idImage.match(val)
+        })
+
+        if (!isValidSelfieImage) {
+            errors.push('Selfie is not valid image')
+        }
+
+        if (!isValidIdmage) {
+            errors.push('ID is not valid image')
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            selfieImage: reqPayload.selfieImage,
+            idImage: reqPayload.idImage,
+            verificationStatus: 'identity information pending',
+        }, {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'Identity info submitted successfully',
+            payload: {}
+        })
+    },
+    async submitKycProofOfAddressInfo (req, res) {
+        const reqPayload = req.body
+        const errors = []
+        const expectedType = ['data:image/jpeg;base64', 'data:image/jpg;base64', 'data:image/gif;base64', 'data:image/png;base64']
+
+        let isValidAddressImage = expectedType.some((val) => {
+            return reqPayload.addressImage.match(val)
+        })
+        if (!isValidAddressImage) {
+            errors.push('Document is not valid image')
+        }
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            addressImage: reqPayload.addressImage,
+            verificationStatus: 'proof of address pending',
+        }, {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'Proof of address info submitted successfully',
+            payload: {}
+        })
     }
 }
 

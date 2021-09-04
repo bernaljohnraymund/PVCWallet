@@ -3,14 +3,27 @@ const jwt = require('jsonwebtoken');
 const Authentication = {
     async sign (payload)  { return await jwt.sign(payload, process.env.AUTH_SIGN) },
 
-    async verify (payload) { 
-        return jwt.verify(payload, process.env.AUTH_SIGN, function (err, data) {
+    async verify (req, res, next) {
+        const token = req.headers['auth-token']
+        
+        const tokenVerification = await jwt.verify(token, process.env.AUTH_SIGN, function (err, data) {
             if (err) {
                 return {status: 'fail', message: err}
             } else {
-                return {status: 'success', data}
+                return {status: 'success', ...data}
             }
         })
+
+        if (tokenVerification.status !== 'success') {
+            return tokenVerification
+        }
+
+        req.user = {
+            ...tokenVerification.data
+        }
+        delete tokenVerification.status
+
+        next()
      }
 }
 

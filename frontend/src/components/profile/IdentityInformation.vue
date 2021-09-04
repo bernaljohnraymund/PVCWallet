@@ -2,7 +2,7 @@
     <div id="root">
         <div class="row">
             <div class="col-12">
-                <q-form id="identity-verification-form">
+                <q-form id="identity-verification-form" @submit="submitIdentityInfoForm">
                     <div class="text-h4 text-center header">
                         <div>
                             <q-icon name="fingerprint" />
@@ -33,6 +33,7 @@
                                                 <input
                                                     type="file"
                                                     ref="selfieFile"
+                                                    accept="image/png, image/gif, image/jpeg, image/pdf"
                                                     @input="showUploadedImage('selfie')"
                                                     hidden
                                                 />
@@ -83,6 +84,7 @@
                                                     type="file"
                                                     ref="idFile"
                                                     @input="showUploadedImage('id')"
+                                                    accept="image/png, image/gif, image/jpeg, image/pdf"
                                                     hidden
                                                 />
                                                 <q-icon name="image" />
@@ -114,9 +116,9 @@
                     <div class="footer">
                         <div class="row">
                             <div class="col-12">
-                                <!-- <q-btn label="save" class="save-btn" flat />
+                                <q-btn type="submit" label="save" class="save-btn" flat />
                                 <span class="btn-margin"></span>
-                                <q-btn label="cancel" class="cancel-btn" flat /> -->
+                                <q-btn label="cancel" class="cancel-btn" flat />
                             </div>
                         </div>
                     </div>
@@ -166,6 +168,9 @@ export default {
             isPersistent: true
         }
     }),
+    async beforeMount () {
+        await this.kycSecurity()
+    },
     async mounted () {
     },
     methods: {
@@ -214,7 +219,6 @@ export default {
         showUploadedImage (imageType) {
             let input;
             let imageRef;
-            console.log(imageType)
 
             if (imageType === 'selfie') {
                 input = this.$refs.selfieFile;
@@ -252,7 +256,6 @@ export default {
             reader.readAsDataURL(files[0])
         },
         async takePhoto (val) {
-            console.log(val)
         },
         async savePhoto (val) {
             let imageRef;
@@ -279,6 +282,50 @@ export default {
 
 
             this.$refs.cameraModal.hide();
+        },
+        async submitIdentityInfoForm () {
+            const submitFormInfoRes = await this.$api({
+                method: 'POST',
+                url: '/user/kyc/identity',
+                data: {
+                    selfieImage: this.form.selfieImageData,
+                    idImage: this.form.idImageData
+                }
+            })
+
+            if (submitFormInfoRes.data.status === 'fail') {
+                submitFormInfoRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top',
+                    })
+                })
+            }else
+            if (submitFormInfoRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
+                    position: 'top',
+                })
+                this.$router.push({ name: 'ProfileRoot'})
+            }
+        },
+        async kycSecurity () {
+            const kycRes = await this.$api({
+                url: '/user/kyc',
+                method: 'GET'
+            })
+            
+            if (kycRes.data.payload.verificationStatus === 'identity information pending' || kycRes.data.payload.verificationLevel >= 2) {
+                this.$router.push({ name: 'ProfileRoot'})
+            }
         }
     }
 }

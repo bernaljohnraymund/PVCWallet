@@ -69,7 +69,6 @@ export default {
     },
     methods: {
         async getUserKyc () {
-            const encUser = await this.$getUser()
             const kycRes = await this.$api({
                 url: '/user/kyc',
                 method: 'GET'

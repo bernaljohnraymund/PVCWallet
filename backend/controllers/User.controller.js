@@ -431,8 +431,14 @@ const Users = {
             errors.push('Middle name can not contain special characters')
         }
         // validate birthdate
+        const dToday = moment()
+        const dBirthDate = moment(basicInfoForm.birthDate.val, 'YYYY/MM/DD')
+
         if (typeof basicInfoForm.birthDate !== 'object') {
             errors.push('Birthdate can not be empty')
+        }else
+        if (dToday.diff(dBirthDate, 'years') < 18) {
+            errors.push('Only 18 years old or above are allowed')
         }
         // validate house number
         if (basicInfoForm.houseNumber === '') {
@@ -457,7 +463,6 @@ const Users = {
             errors.push('Residence of address can not be empty')
         }
 
-        console.log(req.user)
         if (errors.length > 0) {
             res.json({
                 status: 'fail',
@@ -483,7 +488,7 @@ const Users = {
             countryName: basicInfoForm.country.name,
             countryCode: basicInfoForm.country.code,
             currency: basicInfoForm.country.currency,
-            verificationStatus: 'verifying'
+            verificationStatus: 'basic information pending'
         },
         {
             new: true
@@ -492,6 +497,89 @@ const Users = {
         res.json({
             status: 'success',
             message: 'basic info submitted successfully',
+            payload: {}
+        })
+    },
+    async submitKycIdentityInfo (req, res) {
+        const reqPayload = req.body
+        const errors = []
+        const expectedType = ['data:image/jpeg;base64', 'data:image/jpg;base64', 'data:image/gif;base64', 'data:image/png;base64']
+
+        let isValidSelfieImage = expectedType.some((val) => {
+            return reqPayload.selfieImage.match(val)
+        })
+
+        let isValidIdmage = expectedType.some((val) => {
+            return reqPayload.idImage.match(val)
+        })
+
+        if (!isValidSelfieImage) {
+            errors.push('Selfie is not valid image')
+        }
+
+        if (!isValidIdmage) {
+            errors.push('ID is not valid image')
+        }
+
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            selfieImage: reqPayload.selfieImage,
+            idImage: reqPayload.idImage,
+            verificationStatus: 'identity information pending',
+        }, {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'Identity info submitted successfully',
+            payload: {}
+        })
+    },
+    async submitKycProofOfAddressInfo (req, res) {
+        const reqPayload = req.body
+        const errors = []
+        const expectedType = ['data:image/jpeg;base64', 'data:image/jpg;base64', 'data:image/gif;base64', 'data:image/png;base64']
+
+        let isValidAddressImage = expectedType.some((val) => {
+            return reqPayload.addressImage.match(val)
+        })
+        if (!isValidAddressImage) {
+            errors.push('Document is not valid image')
+        }
+        if (errors.length > 0) {
+            res.json({
+                status: 'fail',
+                errors
+            })
+        }
+
+        const user = await UserModel.findOneAndUpdate({
+            $or: [
+                { username: req.user.username },
+                { email: req.user.email }
+            ]
+        }, {
+            addressImage: reqPayload.addressImage,
+            verificationStatus: 'proof of address pending',
+        }, {
+            new: true
+        })
+
+        res.json({
+            status: 'success',
+            message: 'Proof of address info submitted successfully',
             payload: {}
         })
     }

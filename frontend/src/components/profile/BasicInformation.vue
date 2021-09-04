@@ -128,6 +128,9 @@ export default {
             city: '',
         },
     }),
+    async beforeMount () {
+        await this.kycSecurity()
+    },
     async mounted () {
         this.form.countryOpts = ref(countries)
     },
@@ -187,6 +190,27 @@ export default {
                         position: 'top',
                     })
                 })
+            }else
+            if (submitFormInfoRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
+                    position: 'top',
+                })
+                this.$router.push({ name: 'ProfileRoot'})
+            }
+        },
+        async kycSecurity () {
+            const kycRes = await this.$api({
+                url: '/user/kyc',
+                method: 'GET'
+            })
+            
+            if (kycRes.data.payload.verificationStatus === 'basic information pending' || kycRes.data.payload.verificationLevel >= 1) {
+                this.$router.push({ name: 'ProfileRoot'})
             }
         }
     },

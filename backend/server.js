@@ -1,14 +1,15 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express();
 const authentication = require('./utils/Authentication');
 
 const Users = require('./controllers/User.controller');
 
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '25mb'}))
+app.use(express.urlencoded({ extended: true, limit: '25mb'}));
 
 app.post('/api/register', Users.register)
 app.post('/api/verify/email', Users.verifyEmail)
@@ -16,6 +17,8 @@ app.post('/api/user/login', Users.login)
 app.post('/api/user/generateotp', Users.generateOtp)
 app.post('/api/user/verifyotp', Users.verifyOtp)
 app.post('/api/user/kyc/basic', authentication.verify, Users.submitKycBasicInfo)
+app.post('/api/user/kyc/identity', authentication.verify, Users.submitKycIdentityInfo)
+app.post('/api/user/kyc/address', authentication.verify, Users.submitKycProofOfAddressInfo)
 app.get('/api/user/kyc', authentication.verify, Users.getKycVerification)
 
 app.listen({

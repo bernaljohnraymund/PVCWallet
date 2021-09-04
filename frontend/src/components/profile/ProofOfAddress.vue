@@ -2,7 +2,7 @@
     <div id="root">
         <div class="row">
             <div class="col-12">
-                <q-form id="proof-of-address-form">
+                <q-form id="proof-of-address-form" @submit="submitProofOfAddressInfoForm">
                     <div class="text-h4 text-center header">
                         <div>
                             <q-icon name="place" />
@@ -27,13 +27,14 @@
                                         </q-card>
                                     </div>
                                     <div class="col-12 col-md-6" v-if="form.hasAddressDocument === false">
-                                        <q-card @click="openSelfieUpload">
+                                        <q-card @click="openDocumentUpload">
                                             <q-card-section></q-card-section>
                                             <q-card-section>
                                                 <input
                                                     type="file"
                                                     ref="addressDocumentFile"
                                                     @input="showUploadedImage('addressDocument')"
+                                                    accept="image/png, image/gif, image/jpeg, image/pdf"
                                                     hidden
                                                 />
                                                 <q-icon name="image" />
@@ -65,9 +66,9 @@
                     <div class="footer">
                         <div class="row">
                             <div class="col-12">
-                                <!-- <q-btn label="save" class="save-btn" flat />
+                                <q-btn type="submit" label="save" class="save-btn" flat />
                                 <span class="btn-margin"></span>
-                                <q-btn label="cancel" class="cancel-btn" flat /> -->
+                                <q-btn label="cancel" class="cancel-btn" flat />
                             </div>
                         </div>
                     </div>
@@ -93,9 +94,6 @@
 import PvcModal from '../global/PvcModal.vue'
 import PvcCamera from '../global/PvcCamera.vue'
 
-
-let addressDocumentImage = new Image();
-
 export default {
     name: 'ProofOfAddress',
     components: {
@@ -105,7 +103,7 @@ export default {
     data: () => ({
         form: {
             hasAddressDocument: false,
-            idImageData: null,
+            addressImageData: null,
             addressDocumentImage: new Image(),
             idImage: new Image()
         },
@@ -116,26 +114,26 @@ export default {
             isPersistent: true
         }
     }),
+    async beforeMount () {
+        await this.kycSecurity()
+    },
     async mounted () {
     },
     methods: {
-        openSelfieUpload () {
+        openDocumentUpload () {
             this.$refs.addressDocumentFile.click();
-        },
-        openIdUpload () {
-            this.$refs.idFile.click();
         },
         removeUploadedImage (imageType) {
             if (imageType === 'addressDocument') {
                 this.form.hasAddressDocument = false
-                this.form.selfieImageData = null
+                this.form.addressImageData = null
                 this.form.addressDocumentImage.src = null
 
                 this.$q.notify({
                     type: 'negative',
                     progress: true,
                     html: true,
-                    message: `<span style="font-color: white;">Selfie removed.</span>`,
+                    message: `<span style="font-color: white;">Document removed.</span>`,
                     position: 'top',
                 })
             }
@@ -165,7 +163,7 @@ export default {
             reader.onload = e => {
                 if (imageType === 'addressDocument') {
                     this.form.addressDocumentImage.src =  e.target.result;
-                    this.form.selfieImageData = e.target.result;
+                    this.form.addressImageData = e.target.result;
                 }
                 this.$refs[imageRef].appendChild(this.form.addressDocumentImage)
 
@@ -173,7 +171,7 @@ export default {
                     type: 'positive',
                     progress: true,
                     html: true,
-                    message: `<span style="font-color: white;">${imageType === 'addressDocument' ? 'Selfie' : imageType === 'id' ? 'ID' : ''} uploaded.</span>`,
+                    message: `<span style="font-color: white;">Document uploaded.</span>`,
                     position: 'top',
                 })
             }
@@ -186,7 +184,7 @@ export default {
             let imageRef;
             if (val.imageType === 'addressDocument') {
                 this.form.hasAddressDocument = true;
-                this.form.selfieImageData = val.base64;
+                this.form.addressImageData = val.base64;
                 imageRef = 'previewAddressDocument'
             }
             this.form[val.imageType + 'Image'].src =  val.base64;
@@ -202,6 +200,49 @@ export default {
 
 
             this.$refs.cameraModal.hide();
+        },
+        async submitProofOfAddressInfoForm () {
+            const submitFormInfoRes = await this.$api({
+                method: 'POST',
+                url: '/user/kyc/address',
+                data: {
+                    addressImage: this.form.addressImageData,
+                }
+            })
+
+            if (submitFormInfoRes.data.status === 'fail') {
+                submitFormInfoRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top',
+                    })
+                })
+            }else
+            if (submitFormInfoRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    icon: 'warning',
+                    message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
+                    position: 'top',
+                })
+                this.$router.push({ name: 'ProfileRoot'})
+            }
+        },
+        async kycSecurity () {
+            const kycRes = await this.$api({
+                url: '/user/kyc',
+                method: 'GET'
+            })
+
+            if (kycRes.data.payload.verificationStatus === 'proof of address pending' || kycRes.data.payload.verificationLevel >= 3) {
+                this.$router.push({ name: 'ProfileRoot'})
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 Open the terminal in the project directory and run the following commands:
 
 # ensure first that nodejs and npm is installed on your machine
+https://nodejs.org/en/download/
 
 # ensure that quasar CLI is installed
 npm install -g @quasar/cli

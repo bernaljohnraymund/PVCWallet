@@ -12,7 +12,7 @@ cd ./{project_directory}/frontend/
 # install all frontend dependencies (skip this step if dependencies already installed)
 npm install
 
-#run frontend server
+# run frontend server
 quasar dev
 
 # open another terminal and go to the backend

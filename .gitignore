@@ -1,9 +1,16 @@
-# frontend
-frontend/node_modules/
-frontend/public
-frontend/.quasar/
-frontend/dist
-frontend/.env
+# wallet frontend
+walletFrontend/node_modules/
+walletFrontend/public
+walletFrontend/.quasar/
+walletFrontend/dist
+walletFrontend/.env
+
+# admin frontend
+adminFrontend/node_modules/
+adminFrontend/public
+adminFrontend/.quasar/
+adminFrontend/dist
+adminFrontend/.env
 
 # backend
 backend/node_modules/

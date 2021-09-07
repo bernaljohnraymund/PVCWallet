@@ -1,1 +1,0 @@
-export default ['not verified', 'basic information pending', 'basic information failed', 'basic information success', 'identity information pending', 'identity information failed', 'identity information success', 'proof of address pending', 'proof of address failed', 'proof of address success']

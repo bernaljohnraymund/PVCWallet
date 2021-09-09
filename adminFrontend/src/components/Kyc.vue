@@ -3,13 +3,11 @@
         <div class="col-12">
             <pvc-table :tbl="userTable" v-if="userTable.data.length > 0">
                 <template v-slot:row="props">
-                    <q-td key="date">{{ props.data.date }}</q-td>
-                    <q-td key="txid" class="txid"><a href="#" @click.prevent="visitLink">{{ props.data.txid }}</a></q-td>
-                    <q-td key="from" class="from"><a href="#" @click.prevent="visitLink">{{ props.data.from }}</a></q-td>
-                    <q-td key="to" class="to"><a href="#" @click.prevent="visitLink">{{ props.data.to }}</a></q-td>
-                    <q-td key="amount">{{ props.data.amount }}</q-td>
-                    <q-td key="value">{{ props.data.value }} {{ props.data.currency }}</q-td>
-                    <q-td key="token">{{ props.data.token }}</q-td>
+                    <q-td key="date">{{ moment(props.data.updatedAt).format('DD MMM YYYY') }}</q-td>
+                    <q-td key="firstName" style="text-transform: uppercase;">{{ props.data.firstName }}</q-td>
+                    <q-td key="lastName" style="text-transform: uppercase;">{{ props.data.lastName }}</q-td>
+                    <q-td key="type" style="text-transform: uppercase;">{{ props.data.verificationStatus === 'basic information pending' ? 'basic information' : props.data.verificationStatus === 'identity information pending' ? 'identity information pending' : props.data.verificationStatus === 'proof of address pending' ? 'proof of address' : ''}}</q-td>
+                    <q-td align="center" key="view" style="text-transform: uppercase;"><q-avatar icon="visibility" color="green" text-color="white" style="cursor: pointer;" @click="viewUserKyc(props.data._id)" /></q-td>
                 </template>
             </pvc-table>
         </div>
@@ -25,173 +23,72 @@ export default {
         PvcTable
     },
     data: () => ({
+        moment,
         userTable: {
             title: 'KYC',
-            data: [
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '500',
-                        value: '500',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '200',
-                        value: '200',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '500',
-                        value: '500',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '200',
-                        value: '200',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '500',
-                        value: '500',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '200',
-                        value: '200',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '500',
-                        value: '500',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '200',
-                        value: '200',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '500',
-                        value: '500',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    },
-                    {
-                        date: moment(moment.now()).format('MM/DD/yyyy'),
-                        txid: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        from: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        to: '0xe53a38570CAd259E5F600BFA504fFFA9598fEf83',
-                        amount: '200',
-                        value: '200',
-                        currency: 'USD',
-                        token: 'pvc',
-                        type: 'out'
-                    }
-                ],
+            data: [],
             columns: [
                 {
-                    name: 'date',
+                    name: 'updatedAt',
                     label: 'date ',
-                    field: 'date',
+                    field: 'updatedAt',
                     align: 'left',
                     sortable: false,
+                    required: true
                 },
                 {
-                    name: 'txid',
-                    label: 'txid ',
-                    field: 'txid',
+                    name: 'firstName',
+                    label: 'first name ',
+                    field: 'firstName',
                     align: 'left',
                     sortable: false,
+                    required: true
                 },
                 {
-                    name: 'from',
-                    label: 'from ',
-                    field: 'from',
+                    name: 'lastName',
+                    label: 'last name',
+                    field: 'lastName',
                     align: 'left',
                     sortable: false,
+                    required: true
                 },
                 {
-                    name: 'to',
-                    label: 'to ',
-                    field: 'to',
+                    name: 'type',
+                    label: 'type',
+                    field: 'verificationStatus',
                     align: 'left',
                     sortable: false,
+                    required: true
                 },
                 {
-                    name: 'amount',
-                    label: 'amount ',
-                    field: 'amount',
-                    align: 'left',
-                    sortable: false,
-                },
-                {
-                    name: 'value',
-                    label: 'value ',
-                    field: 'value',
-                    align: 'left',
-                    sortable: false,
-                },
-                {
-                    name: 'token',
-                    label: 'token ',
-                    field: 'token',
-                    align: 'left',
-                    sortable: false,
+                    name: 'view',
+                    label: 'view',
+                    align: 'center',
+                    required: true
                 }
             ]
         }
     }),
+    async mounted () {
+        await this.getAllUserKyc()
+    },
+    methods: {
+        async getAllUserKyc () {
+            const kycRes = await this.$api({
+                method: "GET",
+                url: "admin/user/all",
+            })
+
+            console.log(kycRes.data.payload)
+
+            this.userTable.data = kycRes.data.payload
+        },
+        async viewUserKyc (id) {
+            console.log(id)
+        }
+    }
+
+
 }
 </script>
 

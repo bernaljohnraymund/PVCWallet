@@ -253,14 +253,14 @@ export default {
 
         }
 
-        :deep .q-field {
+        :deep(.q-field) {
             background-color: #10122d;
             .q-field__prepend, .q-field__append {
                 color: #FBFBFB !important;
             }
         }
 
-        :deep input, :deep .q-field__label {
+        :deep(input), :deep(.q-field__label) {
             color: #FBFBFB;
         }
     }

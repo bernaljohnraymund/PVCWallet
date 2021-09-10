@@ -60,25 +60,31 @@ export default {
 
 <style lang="scss" scoped>
     #table {
-      :deep .q-table__top, :deep thead, :deep .q-table__bottom {
+      :deep(.q-table__top), :deep(thead), :deep(.q-table__bottom) {
         background-color: #0b0c22;
       }
-      :deep h5 {
+      :deep(h5) {
         margin: 0;
         color: #FBFBFB;
       }
-      :deep .q-table__top > div:nth-of-type(3) > label > div > div {
+      :deep(.q-table__top > div:nth-of-type(3) > label > div > div) {
         background: #e6f3fb !important;
       }
-      :deep thead {
+      :deep(thead) {
         text-transform: uppercase !important;
         color: #FBFBFB;
       }
-      :deep tbody {
+      :deep(tbody) {
         background-color: #43b2f4
       }
-      :deep .q-table__bottom, :deep .q-table__control {
+      :deep(.q-table__bottom), :deep(.q-table__control) {
         color: #FBFBFB !important;
+        span {
+          color: #FBFBFB !important;
+        }
+        .q-field__append {
+          color: #FBFBFB !important;
+        }
       }
     }
 </style>

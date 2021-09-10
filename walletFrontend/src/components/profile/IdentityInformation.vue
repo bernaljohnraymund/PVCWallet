@@ -377,7 +377,7 @@ export default {
                 height: 50vh;
                 
             }
-            .selfie-image-container :deep img, .id-image-container :deep img {
+            .selfie-image-container :deep(img), .id-image-container :deep(img) {
                 object-fit: contain !important;
                 width: 100%;
             }

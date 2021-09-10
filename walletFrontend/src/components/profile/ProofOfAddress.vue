@@ -294,7 +294,7 @@ export default {
                 height: 50vh;
                 
             }
-            .address-document-image-container :deep img {
+            .address-document-image-container :deep(img) {
                 object-fit: contain !important;
                 width: 100%;
             }

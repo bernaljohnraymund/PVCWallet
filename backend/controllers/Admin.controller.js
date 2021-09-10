@@ -17,7 +17,7 @@ const Admin = {
                 }]
             })
         } else {
-            const user = await UserModel.findOne({
+            user = await UserModel.findOne({
                 _id: req.params.id
             })
         }

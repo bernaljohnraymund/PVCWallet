@@ -206,7 +206,7 @@ export default {
 <style lang="scss" scoped>
     #root {
         #table {
-            :deep tbody td {
+            :deep(tbody td) {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -217,14 +217,9 @@ export default {
                     text-decoration: none;
                 }
             }
-            :deep tbody td:last-of-type {
+            :deep(tbody td:last-of-type) {
                 text-transform: uppercase;
             }
-        }
-        
-        :deep .q-field__control-container > .q-field__native,
-        :deep .q-field__append > i.q-select__dropdown-icon {
-            color: #FBFBFB !important;
         }
     }
 </style>

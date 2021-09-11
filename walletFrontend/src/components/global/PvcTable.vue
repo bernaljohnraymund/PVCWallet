@@ -8,6 +8,7 @@
       :filter="filter"
       :fullscreen="false"
       :auto-width="false"
+      no-data-label="No available data"
       id="table"
     >
       <template v-slot:top-right>

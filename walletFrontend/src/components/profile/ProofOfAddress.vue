@@ -202,6 +202,7 @@ export default {
             this.$refs.cameraModal.hide();
         },
         async submitProofOfAddressInfoForm () {
+            this.$q.loading.show()
             const submitFormInfoRes = await this.$api({
                 method: 'POST',
                 url: '/user/kyc/address',
@@ -233,6 +234,7 @@ export default {
                 })
                 this.$router.push({ name: 'ProfileRoot'})
             }
+            this.$q.loading.hide()
         },
         async kycSecurity () {
             const kycRes = await this.$api({

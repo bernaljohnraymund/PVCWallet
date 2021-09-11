@@ -23,6 +23,7 @@ app.post('/api/user/kyc/address', authentication.verify, User.submitKycProofOfAd
 app.get('/api/user/kyc', authentication.verify, User.getKycVerification)
 
 app.get('/api/admin/user/:id', Admin.getUserKyc)
+app.put('/api/admin/user/:id', Admin.putUserKyc)
 
 app.listen({
     host: process.env.SERVER_HOST,

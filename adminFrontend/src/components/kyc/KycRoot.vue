@@ -1,14 +1,13 @@
 <template>
     <div class="row" id="root">
         <div class="col-12">
-            <pvc-table :tbl="userTable" v-if="userTable.data.length > 0">
+            <pvc-table :tbl="userTable">
                 <template v-slot:row="props" >
                         <q-td key="date">{{ moment(props.data.updatedAt).format('DD MMM YYYY') }}</q-td>
                         <q-td key="firstName" style="text-transform: uppercase;">{{ props.data.firstName }}</q-td>
                         <q-td key="lastName" style="text-transform: uppercase;">{{ props.data.lastName }}</q-td>
                         <q-td key="type" style="text-transform: uppercase;">{{ props.data.verificationStatus === 'basic information pending' ? 'basic information' : props.data.verificationStatus === 'identity information pending' ? 'identity information pending' : props.data.verificationStatus === 'proof of address pending' ? 'proof of address' : ''}}</q-td>
                         <q-td align="center" key="view" style="text-transform: uppercase;"><q-avatar icon="visibility" color="green" text-color="white" style="cursor: pointer;" @click="viewUserKyc(props.data._id)" /></q-td>
-                    
                 </template>
             </pvc-table>
         </div>

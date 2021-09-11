@@ -160,7 +160,7 @@ export default {
             this.$refs['popupDate'].hide()
         },
         async submitBasicInfoForm () {
-
+            this.$q.loading.show()
             const submitFormInfoRes = await this.$api({
                 method: 'POST',
                 url: '/user/kyc/basic',
@@ -202,6 +202,7 @@ export default {
                 })
                 this.$router.push({ name: 'ProfileRoot'})
             }
+            this.$q.loading.hide()
         },
         async kycSecurity () {
             const kycRes = await this.$api({

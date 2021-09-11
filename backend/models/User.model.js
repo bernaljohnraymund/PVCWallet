@@ -72,6 +72,11 @@ const schema = new mongoose.Schema({
         min: 0, max: 3,
         default: 0
     },
+    userType: {
+        type: String,
+        enum: ['member', 'admin'],
+        default: 'member'
+    },
     isEmailAuthEnabled: {
         type: Boolean,
         default: true

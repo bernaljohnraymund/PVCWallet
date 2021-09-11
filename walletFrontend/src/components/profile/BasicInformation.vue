@@ -160,7 +160,7 @@ export default {
             this.$refs['popupDate'].hide()
         },
         async submitBasicInfoForm () {
-
+            this.$q.loading.show()
             const submitFormInfoRes = await this.$api({
                 method: 'POST',
                 url: '/user/kyc/basic',
@@ -202,6 +202,7 @@ export default {
                 })
                 this.$router.push({ name: 'ProfileRoot'})
             }
+            this.$q.loading.hide()
         },
         async kycSecurity () {
             const kycRes = await this.$api({
@@ -253,14 +254,14 @@ export default {
 
         }
 
-        :deep .q-field {
+        :deep(.q-field) {
             background-color: #10122d;
             .q-field__prepend, .q-field__append {
                 color: #FBFBFB !important;
             }
         }
 
-        :deep input, :deep .q-field__label {
+        :deep(input), :deep(.q-field__label) {
             color: #FBFBFB;
         }
     }

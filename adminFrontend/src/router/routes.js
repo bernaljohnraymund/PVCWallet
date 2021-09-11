@@ -7,8 +7,21 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       {
         path: 'kyc',
+        name: 'Kyc',
         component: () => import('pages/Kyc.vue'),
-        meta: true
+        meta: true,
+        children: [
+          {
+            path: '',
+            name: 'KycRoot',
+            component: () => import('pages/kyc/KycRoot.vue')
+          },
+          {
+            path: ':id',
+            name: 'UserKycInfo',
+            component: () => import('pages/kyc/UserKycInfo.vue')
+          }
+        ]
       }
     ]
   },

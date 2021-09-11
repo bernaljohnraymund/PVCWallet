@@ -284,6 +284,7 @@ export default {
             this.$refs.cameraModal.hide();
         },
         async submitIdentityInfoForm () {
+            this.$q.loading.show()
             const submitFormInfoRes = await this.$api({
                 method: 'POST',
                 url: '/user/kyc/identity',
@@ -316,6 +317,7 @@ export default {
                 })
                 this.$router.push({ name: 'ProfileRoot'})
             }
+            this.$q.loading.hide()
         },
         async kycSecurity () {
             const kycRes = await this.$api({
@@ -377,7 +379,7 @@ export default {
                 height: 50vh;
                 
             }
-            .selfie-image-container :deep img, .id-image-container :deep img {
+            .selfie-image-container :deep(img), .id-image-container :deep(img) {
                 object-fit: contain !important;
                 width: 100%;
             }

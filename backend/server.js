@@ -5,21 +5,25 @@ const bodyParser = require("body-parser");
 const app = express();
 const authentication = require('./utils/Authentication');
 
-const Users = require('./controllers/User.controller');
+const User = require('./controllers/User.controller');
+const Admin = require('./controllers/Admin.controller');
 
 app.use(cors())
 app.use(express.json({limit: '25mb'}))
 app.use(express.urlencoded({ extended: true, limit: '25mb'}));
 
-app.post('/api/register', Users.register)
-app.post('/api/verify/email', Users.verifyEmail)
-app.post('/api/user/login', Users.login)
-app.post('/api/user/generateotp', Users.generateOtp)
-app.post('/api/user/verifyotp', Users.verifyOtp)
-app.post('/api/user/kyc/basic', authentication.verify, Users.submitKycBasicInfo)
-app.post('/api/user/kyc/identity', authentication.verify, Users.submitKycIdentityInfo)
-app.post('/api/user/kyc/address', authentication.verify, Users.submitKycProofOfAddressInfo)
-app.get('/api/user/kyc', authentication.verify, Users.getKycVerification)
+app.post('/api/register', User.register)
+app.post('/api/verify/email', User.verifyEmail)
+app.post('/api/user/login', User.login)
+app.post('/api/user/generateotp', User.generateOtp)
+app.post('/api/user/verifyotp', User.verifyOtp)
+app.post('/api/user/kyc/basic', authentication.verify, User.submitKycBasicInfo)
+app.post('/api/user/kyc/identity', authentication.verify, User.submitKycIdentityInfo)
+app.post('/api/user/kyc/address', authentication.verify, User.submitKycProofOfAddressInfo)
+app.get('/api/user/kyc', authentication.verify, User.getKycVerification)
+
+app.get('/api/admin/user/:id', Admin.getUserKyc)
+app.put('/api/admin/user/:id', Admin.putUserKyc)
 
 app.listen({
     host: process.env.SERVER_HOST,

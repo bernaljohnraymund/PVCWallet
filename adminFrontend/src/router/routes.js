@@ -4,7 +4,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      {
+        path: '',
+        name: 'Index',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          auth: false
+        }
+      },
       {
         path: 'kyc',
         name: 'Kyc',

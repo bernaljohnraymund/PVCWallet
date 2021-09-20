@@ -1,12 +1,12 @@
 <template>
     <div id="root">
-        <router-view></router-view>
+        root
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Settings',
+    name: 'Root',
     mounted () {
     }
 }

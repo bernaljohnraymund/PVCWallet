@@ -9,6 +9,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/WalletLayout.vue'),
     children: [
+      // login
       {
         path: '',
         name: 'Index',
@@ -17,6 +18,7 @@ const routes = [
           auth: false
         }
       },
+      // email verification
       {
         path: 'email-verification',
         name: 'EmailVerification',
@@ -25,6 +27,7 @@ const routes = [
           auth: false
         }
       },
+      // dashboard
       {
         path: 'dashboard',
         name: 'Dashboard',
@@ -33,43 +36,31 @@ const routes = [
           auth: true
         }
       },
+      // profile
       {
         path: 'profile',
         name: 'Profile',
         component: () => import('pages/Profile.vue'),
-        children: [
-          {
-            path: '',
-            name: 'ProfileRoot',
-            component: () => import('pages/profile/Root.vue'),
-          },
-          {
-            path: 'basic-information',
-            name: 'BasicInformation',
-            component: () => import('pages/profile/BasicInformation.vue'),
-          },
-          {
-            path: 'identity-information',
-            name: 'IdentityInformation',
-            component: () => import('pages/profile/IdentityInformation.vue'),
-          },{
-            path: 'proof-of-address',
-            name: 'ProofOfAddress',
-            component: () => import('pages/profile/ProofOfAddress.vue'),
-          },
-        ]
+      },
+      {
+        path: 'profile/basic-information',
+        name: 'BasicInformation',
+        component: () => import('pages/profile/BasicInformation.vue'),
+      },
+      {
+        path: 'profile/identity-information',
+        name: 'IdentityInformation',
+        component: () => import('pages/profile/IdentityInformation.vue'),
+      },
+      {
+        path: 'profile/proof-of-address',
+        name: 'ProofOfAddress',
+        component: () => import('pages/profile/ProofOfAddress.vue'),
       },
       {
         path: 'settings',
         name: 'Settings',
         component: () => import('pages/Settings.vue'),
-        children: [
-          {
-            path: '',
-            name: 'SettingsRoot',
-            component: () => import('pages/settings/Root.vue'),
-          },
-        ],
         meta: {
           auth: true
         }

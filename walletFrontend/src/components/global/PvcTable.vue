@@ -11,6 +11,9 @@
       no-data-label="No available data"
       id="table"
     >
+      <template v-slot:top-left>
+        <h5>{{ $props.tbl.title }}</h5>
+      </template>
       <template v-slot:top-right>
         <q-input
           class="search-bar"
@@ -24,8 +27,11 @@
           debounce="300"
           placeholder="Search"
           v-model="filter"
+          id="search"
         >
-          <q-icon slot="prepend" style="color:black" name="search" />
+          <template v-slot:append>
+            <q-icon style="color:black" name="search" />
+          </template>
         </q-input>
       </template>
       <template v-slot:body="props">
@@ -72,7 +78,7 @@ export default {
       :deep(tbody) {
         background-color: #43b2f4
       }
-      :deep(.q-table__bottom) {
+      :deep(.q-table__bottom), :deep(.q-table__control) {
         color: #FBFBFB !important;
         span {
           color: #FBFBFB !important;

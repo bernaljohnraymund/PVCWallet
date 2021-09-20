@@ -16,7 +16,7 @@
 
 <script>
 import moment from 'moment'
-import PvcTable from '../global/PvcTable.vue'
+import PvcTable from './global/PvcTable.vue'
 export default {
     name: 'KycRoot',
     components: {

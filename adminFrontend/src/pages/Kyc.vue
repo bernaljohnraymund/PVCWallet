@@ -1,11 +1,14 @@
 <template>
-    <router-view />
+  <kyc-component />
 </template>
 
 <script>
+import Kyc from 'components/Kyc.vue'
 export default {
-    name: "Kyc",
-    data: () => ({})
+    name: 'Kyc',
+    components: {
+        'kyc-component': Kyc
+    }
 }
 </script>
 

@@ -12,23 +12,36 @@ const routes = [
           auth: false
         }
       },
+      // kyc
       {
         path: 'kyc',
         name: 'Kyc',
         component: () => import('pages/Kyc.vue'),
         meta: true,
-        children: [
-          {
-            path: '',
-            name: 'KycRoot',
-            component: () => import('pages/kyc/KycRoot.vue')
-          },
-          {
-            path: ':id',
-            name: 'UserKycInfo',
-            component: () => import('pages/kyc/UserKycInfo.vue')
-          }
-        ]
+      },
+      {
+        path: 'kyc/:id',
+        name: 'UserKycInfo',
+        component: () => import('pages/kyc/UserKycInfo.vue')
+      },
+      // accounts
+      {
+        path: 'accounts',
+        name: 'Accounts',
+        component: () => import('pages/Accounts.vue'),
+        meta: true,
+      },
+      {
+        path: 'accounts/admin',
+        name: 'Admin',
+        component: () => import('pages/accounts/Admin.vue'),
+        meta: true,
+      },
+      {
+        path: 'accounts/admin/add',
+        name: 'AddAdmin',
+        component: () => import('pages/accounts/Admin/AddAdmin.vue'),
+        meta: true,
       }
     ]
   },

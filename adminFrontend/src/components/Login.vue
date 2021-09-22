@@ -1,5 +1,7 @@
 <template>
   <div class="row" id="root">
+      <div class="background-image"></div>
+      <div class="background-overlay"></div>
       <div class="col-4 q-mx-auto">
           <q-card id="login">
               <q-card-section class="header">
@@ -81,9 +83,33 @@ export default {
 
 <style lang="scss" scoped>
     #root {
+        height: 100vh;
+
+        .background-image {
+            height: 100vh;
+            width: 100vw;
+            background-image: url('/backgrounds/login-bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            // filter: blur(1px);
+            position: fixed;
+            z-index: 1;
+        }
+        .background-overlay {
+            height: 100vh;
+            width: 100vw;
+            background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
+            opacity: 0.7;
+            position: fixed;
+            z-index: 2;
+        }
+
         #login {
-            background-color: #0b0c22;
+            background-color: rgba($color: #0b0c22, $alpha: 0.9);
             margin-top: 20vh;
+            padding: 1rem;
+            border-radius: 30px;
+            z-index: 999;
         }
 
         .login-btn {

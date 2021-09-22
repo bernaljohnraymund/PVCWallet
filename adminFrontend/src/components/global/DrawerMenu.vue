@@ -89,6 +89,7 @@ export default {
 <style lang="scss" scoped>
     #drawer-content {
       background-color: #0b0c22 !important;
+      // background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
       width: 100%;
       height: 100%;
       overflow-y: hidden !important;

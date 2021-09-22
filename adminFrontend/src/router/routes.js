@@ -40,7 +40,7 @@ const routes = [
       {
         path: 'accounts/admin/add',
         name: 'AddAdmin',
-        component: () => import('pages/accounts/Admin/AddAdmin.vue'),
+        component: () => import('pages/accounts/admin/AddAdmin.vue'),
         meta: true,
       }
     ]

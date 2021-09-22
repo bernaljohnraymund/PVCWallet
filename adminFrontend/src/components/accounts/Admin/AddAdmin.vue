@@ -1,6 +1,11 @@
 <template>
     <div class="row" id="root">
-        hellow
+        <div class="col-12">
+            <q-card id="admin-registration-form">
+                <q-card-section>teffff</q-card-section>
+                <h2>adddddd</h2>
+            </q-card>
+        </div>
     </div>
 </template>
 
@@ -9,12 +14,17 @@ export default {
     name: 'AddAdmin',
     data: () => ({}),
     async mounted () {
-        console.log('hey')
+        console.log('hi there')
     },
     methods: {}
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+#root {
+    #admin-registration-form {
+        background-color: #0b0c22;
+    }
+}
 
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <add-admin-component />
+  <div>
+    <add-admin-component />
+    ssssfffdddaa
+  </div>
 </template>
 
 <script>

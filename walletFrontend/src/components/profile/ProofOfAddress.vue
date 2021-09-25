@@ -232,7 +232,7 @@ export default {
                     message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
                     position: 'top',
                 })
-                this.$router.push({ name: 'ProfileRoot'})
+                this.$router.push({ name: 'Profile'})
             }
             this.$q.loading.hide()
         },
@@ -243,7 +243,7 @@ export default {
             })
 
             if (kycRes.data.payload.verificationStatus === 'proof of address pending' || kycRes.data.payload.verificationLevel >= 3) {
-                this.$router.push({ name: 'ProfileRoot'})
+                this.$router.push({ name: 'Profile'})
             }
         }
     }

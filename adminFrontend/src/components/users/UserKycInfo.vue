@@ -228,7 +228,7 @@ export default {
                         position: 'top',
                     })
                 }
-                this.$router.push({ name: 'KycRoot' })
+                this.$router.push({ name: 'Users' })
             }
             this.$q.loading.hide()
         }

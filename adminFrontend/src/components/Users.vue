@@ -18,14 +18,14 @@
 import moment from 'moment'
 import PvcTable from './global/PvcTable.vue'
 export default {
-    name: 'KycRoot',
+    name: 'Users',
     components: {
         PvcTable
     },
     data: () => ({
         moment,
         userTable: {
-            title: 'KYC',
+            title: 'Users',
             data: [],
             columns: [
                 {
@@ -95,6 +95,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+#root {
+    margin-top: 20px;
+}
 
 </style>

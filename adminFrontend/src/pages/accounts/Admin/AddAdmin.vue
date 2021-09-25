@@ -1,5 +1,7 @@
 <template>
-    <add-admin-component />
+    <div>
+        <add-admin-component />
+    </div>
 </template>
 
 <script>

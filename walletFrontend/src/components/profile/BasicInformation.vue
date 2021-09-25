@@ -1,5 +1,4 @@
 <template>
-  
     <div id="root" class="row">
         <div class="col-12">
             <q-form id="basic-information-form" @submit="submitBasicInfoForm">
@@ -27,7 +26,7 @@
                                 class="select"
                             >
                             <template v-slot:prepend>
-                                    <q-avatar v-if="form.country.code">
+                                    <q-avatar v-if="form.country && form.country.code">
                                         <q-img :src="'/icons/flags/png/' + form.country.code + '.png'" />
                                     </q-avatar>
                                     <q-avatar icon="flag" v-else />
@@ -200,7 +199,7 @@ export default {
                     message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
                     position: 'top',
                 })
-                this.$router.push({ name: 'ProfileRoot'})
+                this.$router.push({ name: 'Profile'})
             }
             this.$q.loading.hide()
         },

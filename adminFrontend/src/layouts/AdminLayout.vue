@@ -1,7 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div class="background-image"></div>
-    <div class="background-overlay"></div>
     <q-header
       v-if="!noGlobalComponentRoutes.header.includes($route.name)"
     >
@@ -41,7 +39,7 @@ import DrawerMenu from '../components/global/DrawerMenu.vue'
 import { ref } from 'vue'
 
 export default {
-  name: 'AdminLayout',
+  name: 'WalletLayout',
 
   components: {
     DrawerMenu
@@ -72,38 +70,15 @@ export default {
 <style lang="scss" scoped>
 
 .q-layout {
-  
-  background-image: linear-gradient(to right, #2D5EF5, #7a0fff);
-  // background-color: rgba(11, 12, 34, 0.7);
-  // #2D5EF5, #44B6F4
-  color: #FBFBFB;
-  .background-image {
-        height: 100vh;
-        width: 100vw;
-        background-image: url('/backgrounds/login-bg.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        // filter: blur(1px);
-        position: fixed;
-        z-index: 1;
-    }
-    .background-overlay {
-        height: 100vh;
-        width: 100vw;
-        background-image: linear-gradient(to right, #2D5EF5, #44B6F4);
-        opacity: 0.7;
-        position: fixed;
-        z-index: 2;
-    }
+    background-color: #10122d;
+    // background-image: linear-gradient(to right, #2D5EF5, #7a0fff);
+
+    color: #FBFBFB;
     header {
-      background-color: rgba(11, 12, 34, 0.7);
-      z-index: 999;
-    }
-    .q-page-container {
+      background-image: linear-gradient(to right, #2D5EF5, #7a0fff);
     }
     .q-page-container > div {
       padding: 20px;
-      z-index: 998 !important;
     }
 }
 

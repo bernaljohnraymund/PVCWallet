@@ -1,4 +1,4 @@
-# Quasar App (pvcadmin)
+# Quasar App (pvc-admin)
 
 A Quasar Framework app
 

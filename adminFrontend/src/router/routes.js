@@ -14,21 +14,21 @@ const routes = [
       },
       // kyc
       {
-        path: 'kyc',
-        name: 'Kyc',
-        component: () => import('pages/Kyc.vue'),
-        meta: true,
-      },
-      {
         path: 'kyc/:id',
         name: 'UserKycInfo',
-        component: () => import('pages/kyc/UserKycInfo.vue')
+        component: () => import('pages/users/UserKycInfo.vue')
       },
       // accounts
       {
         path: 'accounts',
         name: 'Accounts',
         component: () => import('pages/Accounts.vue'),
+        meta: true,
+      },
+      {
+        path: 'accounts/users',
+        name: 'Users',
+        component: () => import('pages/Users.vue'),
         meta: true,
       },
       {
@@ -40,7 +40,7 @@ const routes = [
       {
         path: 'accounts/admin/add',
         name: 'AddAdmin',
-        component: () => import('pages/accounts/Admin/AddAdmin.vue'),
+        component: () => import('pages/accounts/admin/AddAdmin.vue'),
         meta: true,
       }
     ]

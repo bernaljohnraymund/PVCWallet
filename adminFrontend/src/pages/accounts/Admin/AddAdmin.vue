@@ -1,9 +1,11 @@
 <template>
-  <add-admin-component />
+    <div>
+        <add-admin-component />
+    </div>
 </template>
 
 <script>
-import AddAdmin from 'components/accounts/admin/addAdmin'
+import AddAdmin from 'components/accounts/admin/AddAdmin.vue'
 export default {
     name: 'AddAdmin',
     components: {
@@ -16,6 +18,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
 </style>

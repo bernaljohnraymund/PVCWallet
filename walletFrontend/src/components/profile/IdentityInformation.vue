@@ -315,7 +315,7 @@ export default {
                     message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
                     position: 'top',
                 })
-                this.$router.push({ name: 'ProfileRoot'})
+                this.$router.push({ name: 'Profile'})
             }
             this.$q.loading.hide()
         },

@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+    <div>
+        teshyod
+    </div>
 </template>
 
 <script>

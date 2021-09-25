@@ -39,7 +39,7 @@ import DrawerMenu from '../components/global/DrawerMenu.vue'
 import { ref } from 'vue'
 
 export default {
-  name: 'AdminLayout',
+  name: 'WalletLayout',
 
   components: {
     DrawerMenu
@@ -71,9 +71,11 @@ export default {
 
 .q-layout {
     background-color: #10122d;
+    // background-image: linear-gradient(to right, #2D5EF5, #7a0fff);
+
     color: #FBFBFB;
     header {
-      background-color: #00a1ff;
+      background-image: linear-gradient(to right, #2D5EF5, #7a0fff);
     }
     .q-page-container > div {
       padding: 20px;

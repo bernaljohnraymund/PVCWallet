@@ -437,6 +437,9 @@ const Users = {
         if (typeof basicInfoForm.birthDate !== 'object') {
             errors.push('Birthdate can not be empty')
         }else
+        if (basicInfoForm.birthDate.val === '') {
+            errors.push('Birthdate can not be empty')
+        }else
         if (dToday.diff(dBirthDate, 'years') < 18) {
             errors.push('Only 18 years old or above are allowed')
         }

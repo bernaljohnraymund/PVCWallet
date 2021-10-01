@@ -1,7 +1,7 @@
 <template>
     <div id="root" class="row">
         <div class="col-12">
-            <q-form id="admin-registration-form" @submit="submitBasicInfoForm">
+            <q-form id="admin-registration-form" @submit="createAdminAccount">
                 <div class="text-h4 text-center header">
                     <div>
                         <q-icon name="perm_identity" />
@@ -79,14 +79,14 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6"><q-input type="text" outlined label="Username" v-model="form.username" name="username"/></div>
-                        <div class="col-12 col-md-6"><q-input type="text" outlined label="Email" v-model="form.username" name="email"/></div>
+                        <div class="col-12 col-md-6"><q-input type="text" outlined label="Email" v-model="form.email" name="email"/></div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6">
-                            <q-input type="text" outlined label="Password" v-model="form.password" name="password"/>
+                            <q-input type="password" outlined label="Password" v-model="form.password" name="password"/>
                         </div>
                         <div class="col-12 col-md-6">
-                            <q-input type="text" outlined label="Confirm Password" v-model="form.confirmPassword" name="confirmPassword"/>
+                            <q-input type="password" outlined label="Confirm Password" v-model="form.confirmPassword" name="confirmPassword"/>
                         </div>
                     </div>
                     <div class="row">
@@ -137,7 +137,7 @@
                         <div class="col-12">
                             <q-btn type="submit" label="save" class="save-btn" flat />
                             <span class="btn-margin"></span>
-                            <q-btn label="cancel" class="cancel-btn" flat />
+                            <q-btn label="cancel" class="cancel-btn" flat @click="cancelAccountForm" />
                         </div>
                     </div>
                 </div>
@@ -161,8 +161,10 @@ export default {
         form: {
             role: '',
             countryOpts: [],
-            // countryLoading: false,
-            // loadCountry: false,
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
             country: '',
             birthDate: {
                 val: '',
@@ -171,13 +173,14 @@ export default {
             firstName: '',
             lastName: '',
             middleName: '',
+            street: '',
             houseNumber: '',
             postal: '',
             city: '',
         },
     }),
     async beforeMount () {
-        await this.kycSecurity()
+        // await this.kycSecurity()
     },
     async mounted () {
         this.form.countryOpts = ref(countries)
@@ -228,24 +231,28 @@ export default {
             this.form.birthDate.details = details
             this.$refs['popupDate'].hide()
         },
-        async submitBasicInfoForm () {
+        async createAdminAccount () {
             this.$q.loading.show()
             const submitFormInfoRes = await this.$api({
                 method: 'POST',
-                url: '/user/kyc/basic',
+                url: '/admin/add',
                 data: {
+                    role: this.form.role,
+                    username: this.form.username,
+                    email: this.form.email,
+                    password: this.form.password,
+                    confirmPassword: this.form.confirmPassword,
                     country: this.form.country,
                     birthDate: this.form.birthDate,
                     firstName: this.form.firstName,
                     lastName: this.form.lastName,
                     middleName: this.form.middleName,
+                    street: this.form.street,
                     houseNumber: this.form.houseNumber,
                     postal: this.form.postal,
                     city: this.form.city
                 }
             })
-
-            console.log(submitFormInfoRes.data)
 
             if (submitFormInfoRes.data.status === 'fail') {
 
@@ -269,21 +276,40 @@ export default {
                     message: `<span style="font-color: white;">${submitFormInfoRes.data.message}</span>`,
                     position: 'top',
                 })
-                this.$router.push({ name: 'ProfileRoot'})
+                this.$router.push({ name: 'Admin'})
             }
             this.$q.loading.hide()
         },
-        async kycSecurity () {
-            const kycRes = await this.$api({
-                url: '/user/kyc',
-                method: 'GET'
-            })
+        // async kycSecurity () {
+        //     const kycRes = await this.$api({
+        //         url: '/user/kyc',
+        //         method: 'GET'
+        //     })
             
-            if (kycRes.data.payload.verificationStatus === 'basic information pending' || kycRes.data.payload.verificationLevel >= 1) {
-                this.$router.push({ name: 'ProfileRoot'})
-            }
+        //     if (kycRes.data.payload.verificationStatus === 'basic information pending' || kycRes.data.payload.verificationLevel >= 1) {
+        //         this.$router.push({ name: 'ProfileRoot'})
+        //     }
+        // },
+        async cancelAccountForm () {
+            this.$router.push({ name: 'Admin'})
         }
     },
+    beforeDestroy () {
+        this.form.role = ''
+        this.form.username = ''
+        this.form.email = ''
+        this.form.password = ''
+        this.form.confirmPassword = ''
+        this.form.country = ''
+        this.form.birthDate = {}
+        this.form.firstName = ''
+        this.form.lastName = ''
+        this.form.middleName = ''
+        this.form.houseNumber = ''
+        this.form.street = ''
+        this.form.postal = ''
+        this.form.city = ''
+    }
 }
 </script>
 

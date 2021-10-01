@@ -55,7 +55,7 @@ export default {
         async verifyEmail (email, emailVerificationHashCode) {
             const emailVerificationRes = await this.$api({
                 method: 'post',
-                url: '/user/verify/email',
+                url: '/admin/verify/email',
                 data: {
                     emailVerificationHashCode,
                     email

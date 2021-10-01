@@ -42,7 +42,16 @@ const routes = [
         name: 'AddAdmin',
         component: () => import('pages/accounts/admin/AddAdmin.vue'),
         meta: true,
-      }
+      },
+      // email verification
+      {
+        path: 'email-verification',
+        name: 'EmailVerification',
+        component: () => import('pages/EmailVerification.vue'),
+        meta: {
+          auth: false
+        }
+      },
     ]
   },
 

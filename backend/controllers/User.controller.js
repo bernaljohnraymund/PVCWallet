@@ -33,7 +33,7 @@ const Users = {
             // console.log(user)
             const mailer = new Mailer();
 
-            await mailer.createEmail('emailVerification', user.email, 'Email verification', {
+            await mailer.createEmail('userEmailVerification', user.email, 'Email verification', {
                 title: "Email verfication",
                 description: 'Your email was used to create account to our platform. Click the verify link for your verification or just delete this message if you did not execute this.',
                 securityCode: emailVerificationHashCode,
@@ -406,6 +406,7 @@ const Users = {
         basicInfoForm.middleName = basicInfoForm.middleName.replace(/\s+/g,' ').trim();
         basicInfoForm.lastName = basicInfoForm.lastName.replace(/\s+/g,' ').trim();
         basicInfoForm.houseNumber = basicInfoForm.houseNumber.replace(/\s+/g,'').trim();
+        basicInfoForm.street = basicInfoForm.street.replace(/\s+/g,'').trim();
         basicInfoForm.postal = basicInfoForm.postal.replace(/\s+/g,'').trim();
         basicInfoForm.city = basicInfoForm.city.replace(/\s+/g,' ').trim();
 
@@ -449,6 +450,10 @@ const Users = {
         }else
         if (!basicInfoForm.houseNumber.match(/^[0-9]+$/)) {
             errors.push('Invalid house number')
+        }
+        // validate street
+        if (basicInfoForm.street === '') {
+            errors.push('street can not be empty')
         }
         // validate postal
         if (basicInfoForm.postal === '') {

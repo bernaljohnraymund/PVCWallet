@@ -13,7 +13,7 @@ app.use(express.json({limit: '25mb'}))
 app.use(express.urlencoded({ extended: true, limit: '25mb'}));
 
 app.post('/api/register', User.register)
-app.post('/api/verify/email', User.verifyEmail)
+app.post('/api/user/verify/email', User.verifyEmail)
 app.post('/api/user/login', User.login)
 app.post('/api/user/generateotp', User.generateOtp)
 app.post('/api/user/verifyotp', User.verifyOtp)
@@ -24,6 +24,9 @@ app.get('/api/user/kyc', authentication.verify, User.getKycVerification)
 
 app.get('/api/admin/user/:id', Admin.getUserKyc)
 app.put('/api/admin/user/:id', Admin.putUserKyc)
+app.post('/api/admin/add/', Admin.createAccount)
+app.post('/api/admin/verify/email', Admin.verifyEmail)
+app.post('/api/admin/login', Admin.login)
 
 app.listen({
     host: process.env.SERVER_HOST,

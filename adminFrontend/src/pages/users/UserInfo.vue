@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import UserKycInfo from 'components/users/UserKycInfo'
+import UserInfo from 'components/users/UserInfo'
 export default {
-    name: 'UserKycInfo',
+    name: 'UserInfo',
     components: {
-        "user-kyc-info-component": UserKycInfo,
+        "user-kyc-info-component": UserInfo,
     }
 }
 </script>

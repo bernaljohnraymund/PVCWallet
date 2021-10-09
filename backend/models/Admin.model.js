@@ -32,6 +32,9 @@ const schema = new mongoose.Schema({
         required: true,
         default: ''
     },
+    role: {
+        type: String,
+    },
     emailVerified: {
         type: Boolean,
         default: false
@@ -45,6 +48,7 @@ const schema = new mongoose.Schema({
     },
     street: {
         type: String,
+        default: '',
     },
     postal: {
         type: Number
@@ -112,6 +116,6 @@ const schema = new mongoose.Schema({
 
 schema.index({ expiresAt: 1 }, { expires: "1m" })
 
-const UserModel = mongoose.model('User', schema, 'users');
+const AdminModel = mongoose.model('Admin', schema, 'admins');
 
-module.exports = UserModel;
+module.exports = AdminModel;

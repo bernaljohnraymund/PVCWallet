@@ -123,6 +123,7 @@ export default {
             lastName: '',
             middleName: '',
             houseNumber: '',
+            street: '',
             postal: '',
             city: '',
         },
@@ -170,6 +171,7 @@ export default {
                     lastName: this.form.lastName,
                     middleName: this.form.middleName,
                     houseNumber: this.form.houseNumber,
+                    street: this.form.street,
                     postal: this.form.postal,
                     city: this.form.city
                 }
@@ -210,7 +212,7 @@ export default {
             })
             
             if (kycRes.data.payload.verificationStatus === 'basic information pending' || kycRes.data.payload.verificationLevel >= 1) {
-                this.$router.push({ name: 'ProfileRoot'})
+                // this.$router.push({ name: 'Profile'})
             }
         }
     },

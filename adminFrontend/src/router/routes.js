@@ -14,35 +14,52 @@ const routes = [
       },
       // kyc
       {
-        path: 'kyc/:id',
+        path: 'user/:id',
         name: 'UserKycInfo',
-        component: () => import('pages/users/UserKycInfo.vue')
+        component: () => import('pages/users/UserInfo.vue')
       },
       // accounts
       {
         path: 'accounts',
         name: 'Accounts',
         component: () => import('pages/Accounts.vue'),
-        meta: true,
+        meta: {
+          auth: true
+        }
       },
       {
         path: 'accounts/users',
         name: 'Users',
         component: () => import('pages/Users.vue'),
-        meta: true,
+        meta: {
+          auth: true
+        }
       },
       {
         path: 'accounts/admin',
         name: 'Admin',
         component: () => import('pages/accounts/Admin.vue'),
-        meta: true,
+        meta: {
+          auth: true
+        }
       },
       {
         path: 'accounts/admin/add',
         name: 'AddAdmin',
         component: () => import('pages/accounts/admin/AddAdmin.vue'),
-        meta: true,
-      }
+        meta: {
+          auth: true
+        }
+      },
+      // email verification
+      {
+        path: 'email-verification',
+        name: 'EmailVerification',
+        component: () => import('pages/EmailVerification.vue'),
+        meta: {
+          auth: false
+        }
+      },
     ]
   },
 

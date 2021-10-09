@@ -50,7 +50,7 @@
                         </template>
                     </q-input>
                     <q-space class="q-py-md" />
-                    <q-btn size="lg" flat type="submit" :disable="form.loading" dense class="login-btn">
+                    <q-btn size="lg" flat type="submit" :disable="form.loading" dense class="login-btn" @click="login">
                         <q-spinner-tail color="#FBFBFB" size="2rem" v-if="form.loading"></q-spinner-tail>
                         <span v-if="form.loading === false">LOGIN</span>
                     </q-btn>
@@ -77,6 +77,58 @@ export default {
         togglePasswordVisibility () {
             this.form.isPwd = !this.form.isPwd
         },
+        async login () {
+            this.form.loading = true;
+            let loginRes = await this.$api({
+                url: '/admin/login',
+                method: 'POST',
+                data: {
+                    username: this.form.username,
+                    password: this.form.password,
+                }
+            })
+
+            delete loginRes.config;
+
+            if (loginRes.data.status === 'fail') {
+                loginRes.data.errors.forEach((val) => {
+                    this.$q.notify({
+                        type: 'negative',
+                        progress: true,
+                        html: true,
+                        icon: 'warning',
+                        message: `<span style="font-color: white;">${val}</span>`,
+                        position: 'top-left',
+                    })
+                })
+            }else
+            if (loginRes.data.status === 'success') {
+                this.$q.notify({
+                    type: 'positive',
+                    progress: true,
+                    html: true,
+                    message: `<span style="font-color: white;">Login Successful</span>`,
+                    icon: 'lock',
+                    position: 'top',
+                })
+
+                // set token and redirect
+                const user = {
+                    token: loginRes.data.token,
+                    username: loginRes.data.username,
+                    email: loginRes.data.email,
+                    firstName: loginRes.data.firstName,
+                    middleName: loginRes.data.middleName,
+                    lastName: loginRes.data.lastName,
+                }
+                console.log(user.token)
+                console.log(this.$getUser())
+                this.$setUser(user)
+                console.log(this.$getUser())
+                location.reload();
+            }
+            this.form.loading = false;
+        }
     }
 }
 </script>

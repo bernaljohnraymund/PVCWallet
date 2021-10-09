@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const moment = require('../utils/moment');
-const authentication = require('../utils/Authentication')
+const authentication = require('../utils/Authentication');
 const UserModel = require('../models/User.model');
 const Mailer = require('../utils/Mailer');
 const Otp = require('../utils/Otp');
@@ -8,9 +8,9 @@ const OtpModel = require('../models/Otp.model');
 
 const GEN_SALT = process.env.GEN_SALT;
 
-const Users = {
+const User = {
     async register (req, res) {
-        const validateForm = await Users.validateForm(req.body.username, req.body.email, req.body.password1, req.body.password2)
+        const validateForm = await User.validateForm(req.body.username, req.body.email, req.body.password1, req.body.password2)
         let user;
 
         const dateNow = moment(Date.now()).format('X');
@@ -33,7 +33,7 @@ const Users = {
             // console.log(user)
             const mailer = new Mailer();
 
-            await mailer.createEmail('emailVerification', user.email, 'Email verification', {
+            await mailer.createEmail('userEmailVerification', user.email, 'Email verification', {
                 title: "Email verfication",
                 description: 'Your email was used to create account to our platform. Click the verify link for your verification or just delete this message if you did not execute this.',
                 securityCode: emailVerificationHashCode,
@@ -60,7 +60,7 @@ const Users = {
     async login (req, res) {
         let jsonResponse = {};
         if (req.url === '/api/user/login') {
-            jsonResponse = await Users.userLogin({ ...req.body })
+            jsonResponse = await User.userLogin({ ...req.body })
         }
         // console.log(jsonResponse)
         res.json({ ...jsonResponse })
@@ -100,7 +100,7 @@ const Users = {
                 errors
             }
         }
-        if (await Users.verifyPassword(user.password, userDoc.password) === false) {
+        if (await User.verifyPassword(user.password, userDoc.password) === false) {
             errors.push('username/email or password is incorrect')
             // console.log('in invalid password')
             return {
@@ -162,11 +162,9 @@ const Users = {
         }, {
             new: true
         })
-        console.log('found', otpDoc);
         // }else
         // if still no otpDoc, create one
         if (!otpDoc) {
-            console.log('otp created')
             otpDoc = await OtpModel.create({
                 username: userDoc.username,
                 operation: req.body.operation,
@@ -289,7 +287,7 @@ const Users = {
         if (email === '') {
             errors.push('email can not be empty');
         }else
-        if (Users.validateEmail(email) === 'invalid') {
+        if (User.validateEmail(email) === 'invalid') {
             errors.push('invalid email');
         }else
         if (emailDoc != null) {
@@ -406,6 +404,7 @@ const Users = {
         basicInfoForm.middleName = basicInfoForm.middleName.replace(/\s+/g,' ').trim();
         basicInfoForm.lastName = basicInfoForm.lastName.replace(/\s+/g,' ').trim();
         basicInfoForm.houseNumber = basicInfoForm.houseNumber.replace(/\s+/g,'').trim();
+        basicInfoForm.street = basicInfoForm.street.replace(/\s+/g,'').trim();
         basicInfoForm.postal = basicInfoForm.postal.replace(/\s+/g,'').trim();
         basicInfoForm.city = basicInfoForm.city.replace(/\s+/g,' ').trim();
 
@@ -437,6 +436,9 @@ const Users = {
         if (typeof basicInfoForm.birthDate !== 'object') {
             errors.push('Birthdate can not be empty')
         }else
+        if (basicInfoForm.birthDate.val === '') {
+            errors.push('Birthdate can not be empty')
+        }else
         if (dToday.diff(dBirthDate, 'years') < 18) {
             errors.push('Only 18 years old or above are allowed')
         }
@@ -446,6 +448,10 @@ const Users = {
         }else
         if (!basicInfoForm.houseNumber.match(/^[0-9]+$/)) {
             errors.push('Invalid house number')
+        }
+        // validate street
+        if (basicInfoForm.street === '') {
+            errors.push('street can not be empty')
         }
         // validate postal
         if (basicInfoForm.postal === '') {
@@ -472,6 +478,7 @@ const Users = {
         }
 
         // if no errors then perform queries
+        console.log(basicInfoForm.birthDate)
         const user = await UserModel.findOneAndUpdate({
             $or: [
                 { username: req.user.username },
@@ -483,6 +490,7 @@ const Users = {
             lastName: basicInfoForm.lastName,
             birthDate: basicInfoForm.birthDate.val,
             houseNumber: basicInfoForm.houseNumber,
+            street: basicInfoForm.street,
             postal: basicInfoForm.postal,
             city: basicInfoForm.city,
             countryName: basicInfoForm.country.name,
@@ -585,4 +593,4 @@ const Users = {
     }
 }
 
-module.exports = Users;
+module.exports = User;

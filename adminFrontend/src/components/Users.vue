@@ -6,7 +6,7 @@
                         <q-td key="date">{{ moment(props.data.updatedAt).format('DD MMM YYYY') }}</q-td>
                         <q-td key="firstName" style="text-transform: uppercase;">{{ props.data.firstName }}</q-td>
                         <q-td key="lastName" style="text-transform: uppercase;">{{ props.data.lastName }}</q-td>
-                        <q-td key="type" style="text-transform: uppercase;">{{ props.data.verificationStatus === 'basic information pending' ? 'basic information' : props.data.verificationStatus === 'identity information pending' ? 'identity information pending' : props.data.verificationStatus === 'proof of address pending' ? 'proof of address' : ''}}</q-td>
+                        <q-td key="status" style="text-transform: uppercase;">{{ props.data.verificationStatus === 'basic information pending' ? 'basic info verification' : props.data.verificationStatus === 'identity information pending' ? 'identity info verification' : props.data.verificationStatus === 'proof of address pending' ? 'proof of address verification' : ''}}</q-td>
                         <q-td align="center" key="view" style="text-transform: uppercase;"><q-avatar icon="visibility" color="green" text-color="white" style="cursor: pointer;" @click="viewUserKyc(props.data._id)" /></q-td>
                 </template>
             </pvc-table>
@@ -53,8 +53,8 @@ export default {
                     required: true
                 },
                 {
-                    name: 'type',
-                    label: 'type',
+                    name: 'status',
+                    label: 'status',
                     field: 'verificationStatus',
                     align: 'left',
                     sortable: false,
@@ -78,6 +78,8 @@ export default {
                 method: "GET",
                 url: "admin/user/all",
             })
+
+            console.log(kycRes.data)
 
             this.userTable.data = kycRes.data.payload
         },

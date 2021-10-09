@@ -43,6 +43,9 @@ const schema = new mongoose.Schema({
     houseNumber: {
         type: Number,
     },
+    street: {
+        type: String,
+    },
     postal: {
         type: Number
     },

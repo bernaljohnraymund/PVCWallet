@@ -26,10 +26,11 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach(function (to, from, next) {
-    console.log()
+    // if no token found
     if (to.meta.auth === true && (!$user.hasOwnProperty('token'))) {
       next('/?route=login')
     }else
+    // if there is token found
     if (to.meta.auth === false && ($user.hasOwnProperty('token') && $user.token.length > 0 && $user.token !== null)) {
       next('/dashboard')
     }else {

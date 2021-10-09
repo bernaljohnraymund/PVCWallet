@@ -1,10 +1,91 @@
 const bcrypt = require('bcrypt');
-const moment = require('../utils/moment')
+const moment = require('../utils/moment');
+const authentication = require('../utils/Authentication');
 const AdminModel = require('../models/Admin.model');
+const UserModel = require('../models/User.model');
 const Mailer = require('../utils/Mailer');
 // const GEN_SALT = process.env.GEN_SALT;
 
 const Admin = {
+    async login (req, res) {
+        let jsonResponse = {};
+        if (req.url === '/api/admin/login') {
+            jsonResponse = await Admin.adminLogin({ ...req.body })
+        }
+
+        res.json({ ...jsonResponse })
+    },
+
+    async adminLogin (adminUser = {}) {
+        let errors = [];
+
+        if (adminUser.username === '' || adminUser.password === '') {
+            errors.push('username/email or password is incorrect')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
+
+        const adminUserDoc = await AdminModel.findOne({
+            $or: [
+                { username: adminUser.username },
+                { email: adminUser.username }
+            ]
+        })
+
+        if (adminUserDoc == null) {
+            errors.push('username/email or password is incorrect')
+            // console.log('in null')
+            return {
+                status: 'fail',
+                errors
+            }
+        }else
+        if (!adminUserDoc.emailVerified) {
+            errors.push('username/email or password is incorrect')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
+        if (await Admin.verifyPassword(adminUser.password, adminUserDoc.password) === false) {
+            errors.push('username/email or password is incorrect')
+            return {
+                status: 'fail',
+                errors
+            }
+        }
+
+        let jsonResponse = {};
+
+        if (errors.length > 0) {
+            jsonResponse.status = 'fail';
+            jsonResponse.errors = errors;
+        }else {
+            let token = await authentication.sign({
+                data: {
+                    email: adminUserDoc.email,
+                    username: adminUserDoc.username,
+                    _id: adminUserDoc._id,
+                }
+            });
+            jsonResponse.status = 'success';
+            jsonResponse.message = 'success';
+            jsonResponse.token = token;
+            jsonResponse.username = adminUserDoc.username;
+            jsonResponse.email = adminUserDoc.email;
+            jsonResponse.firstName = adminUserDoc.firstName;
+            jsonResponse.middleName = adminUserDoc.middleName;
+            jsonResponse.lastName = adminUserDoc.lastName;
+        }
+
+        return jsonResponse;
+
+    },
+    async verifyPassword (password, hashedPassword) {
+        return bcrypt.compareSync(password, hashedPassword);
+    },
     async createAccount (req, res) {
         let errors = []
         const RegEx = /[~`@#$%^&*()_+\[\]{}:;|\\"=\/'<,>.?]/g
@@ -124,11 +205,12 @@ const Admin = {
         const dateNow = moment(Date.now()).format('X');
         let salt = bcrypt.genSaltSync(parseInt(process.env.GEN_SALT));
         let emailVerificationHashCode = bcrypt.hashSync(req.body.email, salt);
+        let hashPassword = bcrypt.hashSync(accountForm.password, salt);
 
         // if no errors then perform queries
         const admin = await AdminModel.create({
             username: accountForm.username,
-            password: accountForm.password,
+            password: hashPassword,
             email: accountForm.email,
             firstName: accountForm.firstName,
             middleName: accountForm.middleName,
@@ -167,8 +249,8 @@ const Admin = {
     //     let errors = [];
 
     //     // look for the same username and email
-    //     const emailDoc = await UserModel.findOne({ email });
-    //     const usernameDoc = await UserModel.findOne({ username });
+    //     const emailDoc = await AdminModel.findOne({ email });
+    //     const usernameDoc = await AdminModel.findOne({ username });
 
     //     if (username === '') {
     //         errors.push('username can not be empty');
@@ -257,7 +339,8 @@ const Admin = {
         let users;
         let errors = []
         if (req.params.id === 'all') {
-            users = await AdminModel.find({
+            console.log(req.params)
+            users = await UserModel.find({
                 $or: [{
                     verificationStatus: 'basic information pending'
                 },
@@ -271,7 +354,7 @@ const Admin = {
                 password: 0
             })
         } else {
-            user = await AdminModel.findOne({
+            user = await UserModel.findOne({
                 _id: req.params.id
             }, {
                 password: 0
@@ -301,7 +384,7 @@ const Admin = {
             let errors = []
             let user;
 
-            user = await AdminModel.findOne({
+            user = await UserModel.findOne({
                 _id: req.params.id
             })
 

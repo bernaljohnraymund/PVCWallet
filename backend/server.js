@@ -26,6 +26,7 @@ app.get('/api/admin/user/:id', Admin.getUserKyc)
 app.put('/api/admin/user/:id', Admin.putUserKyc)
 app.post('/api/admin/add/', Admin.createAccount)
 app.post('/api/admin/verify/email', Admin.verifyEmail)
+app.post('/api/admin/login', Admin.login)
 
 app.listen({
     host: process.env.SERVER_HOST,

@@ -29,7 +29,7 @@ const schema = new mongoose.Schema({
     },
     birthDate: {
         type: String,
-        required: true,
+        // required: true,
         default: ''
     },
     emailVerified: {

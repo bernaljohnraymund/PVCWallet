@@ -1,6 +1,6 @@
 <template>
     <div>
-        teshyod
+        test page
     </div>
 </template>
 

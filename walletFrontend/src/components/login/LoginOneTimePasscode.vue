@@ -26,7 +26,7 @@
             <template v-slot:append>
                 <q-btn size="md" flat class="otp-send-btn" type="button" @click="setOtp('email')" :disable="form.emailBtnLoading" >
                     <q-spinner-tail color="#FBFBFB" v-if="form.emailBtnLoading"></q-spinner-tail>
-                    <span v-if="form.emailBtnLoading === false">SEND</span>
+                    <span v-if="form.emailBtnLoading === false">GET CODE</span>
                 </q-btn>
             </template>
         </q-input>

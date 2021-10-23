@@ -1,115 +1,6 @@
 <template>
   <div class="row" id="root" v-if="user.verificationStatus === 'basic information pending' || user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending'">
-      <!-- <div class="col-12" v-if="user.verificationStatus === 'basic information pending' || user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending'">
-            <q-toolbar class="bg-primary text-white shadow-2">
-                <q-toolbar-title>Basic Information</q-toolbar-title>
-            </q-toolbar>
-            <q-list bordered>
-                <q-item>
-                    <q-item-section>
-                        First name
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.firstName }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        Middle name
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.middleName }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        Last name
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.lastName }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        Birthdate
-                    </q-item-section>
-                    <q-item-section>
-                        {{ moment(user.birthDate).format('DD MMM YYYY') }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        Country
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.countryName }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        House number
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.houseNumber }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        Postal
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.houseNumber }}
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        City
-                    </q-item-section>
-                    <q-item-section>
-                        {{ user.houseNumber }}
-                    </q-item-section>
-                </q-item>
-            </q-list>
-      </div> -->
-      <!-- <div class="col-12" v-if="user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending'">
-            <q-toolbar class="bg-primary text-white shadow-2">
-                <q-toolbar-title>Identity Information</q-toolbar-title>
-            </q-toolbar>
-            <q-list>
-                <q-item>
-                    <q-item-section>
-                        Selfie image
-                    </q-item-section>
-                    <q-item-section>
-                        <q-img :src="user.selfieImage" />
-                    </q-item-section>
-                </q-item>
-                <q-item>
-                    <q-item-section>
-                        ID image
-                    </q-item-section>
-                    <q-item-section>
-                        <q-img :src="user.idImage" />
-                    </q-item-section>
-                </q-item>
-            </q-list>
-      </div> -->
-      <!-- <div class="col-12" v-if="user.verificationStatus === 'proof of address pending'">
-            <q-toolbar class="bg-primary text-white shadow-2">
-                <q-toolbar-title>Proof of Address</q-toolbar-title>
-            </q-toolbar>
-            <q-list>
-                <q-item>
-                    <q-item-section>
-                        Address image
-                    </q-item-section>
-                    <q-item-section>
-                        <q-img :src="user.addressImage" />
-                    </q-item-section>
-                </q-item>
-            </q-list>
-      </div> -->
-      <div class="col-12 text-center">
+      <div class="col-12 text-center" id="user-info-col">
           <q-card id="user-info-card">
               <q-card-section class="body">
                   <div class="row">
@@ -144,21 +35,18 @@
           </q-card>
       </div>
       <div class="col-12" id="carousel-col" v-if="user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending'">
-          <q-card>
-              <q-card-section class="body">
-                <q-carousel
-                    swipeable
-                    animated
-                    v-model="carousel.slide"
-                    thumbnails
-                    infinite
-                    id="carousel"
-                >
-                    <q-carousel-slide :name="1" v-if="user.idImage && (user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending')" :img-src="user.idImage"/>
-                    <q-carousel-slide :name="2" v-if="user.selfieImage && (user.verificationStatus === 'identity information pending' || user.verificationStatus === 'proof of address pending')" :img-src="user.selfieImage"/>
-                    <q-carousel-slide :name="3" v-if="user.addressImage && user.verificationStatus === 'proof of address pending'" :img-src="user.addressImage" />
-                </q-carousel>
-              </q-card-section>
+          <q-card id="img-cards">
+            <div class="row">
+                <div class="col-4" v-for="(item, index) in user.lightbox.items" :key="index">
+                    <q-card class="img-card" @click="openLightBox(index)">
+                        <q-img :src="user.lightbox.items[index].src" v-if="user.lightbox.items[0].src !== undefined || user.lightbox.items[index].src !== null">
+                            <div class="absolute-bottom text-subtitle2 text-center">
+                            {{ user.lightbox.items[index].title }}
+                            </div>
+                        </q-img>
+                    </q-card>
+                </div>
+            </div>
           </q-card>
       </div>
       <div class="col-12 text-center">
@@ -179,16 +67,26 @@
                 </div>
             </template>
       </pvc-modal>
+
+      <vue-easy-lightbox
+        scrollDisabled
+        :visible="user.lightbox.visible"
+        :imgs="user.lightbox.items"
+        :index="user.lightbox.index"
+        @hide="hideLightBox"
+      ></vue-easy-lightbox>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
+import VueEasyLightbox from 'vue-easy-lightbox'
 import PvcModal from '../global/PvcModal.vue'
 export default {
     name: "UserKycInfo",
     components: {
         PvcModal,
+        VueEasyLightbox
     },
     data: () => ({
         moment,
@@ -201,7 +99,13 @@ export default {
             bodyStyle: '',
             footerStyle: 'padding-top: 0'
         },
-        user: {},
+        user: {
+            lightbox: {
+                visible: false,
+                index: 0,
+                items: []
+            }
+        },
         carousel: {
             slide: 1
         }
@@ -209,13 +113,8 @@ export default {
     async beforeMount () {
     },
     async mounted () {
-        this.user = await this.getUserInfo(this.$route.params.id)
-        this.user.name = this.user.lastName + ', ' + this.user.firstName + ', ' + this.user.middleName
-        if (this.user.verificationStatus === 'proof of address pending') {
-            this.carousel.slide = 3
-        }else {
-            this.carousel.slide = 1
-        }
+        this.init()
+        console.log(VueEasyLightbox)
     },
 
     methods: {
@@ -292,6 +191,41 @@ export default {
                 this.$router.push({ name: 'Users' })
             }
             this.$q.loading.hide()
+        },
+        async openLightBox (index) {
+            this.user.lightbox.visible = true
+            this.user.lightbox.index = index
+        },
+        async hideLightBox() {
+            this.user.lightbox.visible = false
+        },
+        async init () {
+            // fetch user data
+            this.user = await this.getUserInfo(this.$route.params.id)
+            this.user.name = this.user.lastName + ', ' + this.user.firstName + ', ' + this.user.middleName
+            if (this.user.verificationStatus === 'proof of address pending') {
+                this.carousel.slide = 3
+            }else {
+                this.carousel.slide = 1
+            }
+
+            this.user.lightbox = {}
+            this.user.lightbox.visible = false
+            this.user.lightbox.index = 0
+            this.user.lightbox.items = [
+                {
+                    title: 'Selfie',
+                    src: this.user.selfieImage
+                },
+                {
+                    title: 'ID',
+                    src: this.user.idImage
+                },
+                {
+                    title: 'Proof of address',
+                    src: this.user.addressImage
+                }
+            ]
         }
     }
 }
@@ -323,23 +257,23 @@ export default {
         background-image: linear-gradient(to right, #f52d2d, #fa3030) !important;
     }
 
-    #carousel-col {
-        margin-top: 20px;
-        .q-card {
-            background-color:#0b0c22;
-        }
-        .body {
-            background-color:#0b0c22;
+    #user-info-col {
+        margin-bottom: 20px;
+    }
+
+    #img-cards {
+        background-color: #0b0c22 !important;
+        padding: 16px 0;
+    }
+
+    .img-card {
+        margin: 0 10px !important;
+        cursor: pointer !important;
+        :deep(.q-img.q-img--menu) {
+            height: 40vh;
         }
     }
 
-    #carousel {
-        background-color:#0b0c22;
-        :deep(.q-carousel__slide) {
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    }
 
     :deep(.q-field) {
         background-color: #10122d;

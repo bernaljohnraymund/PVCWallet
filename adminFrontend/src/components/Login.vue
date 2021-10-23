@@ -98,7 +98,7 @@ export default {
                         html: true,
                         icon: 'warning',
                         message: `<span style="font-color: white;">${val}</span>`,
-                        position: 'top-left',
+                        position: 'top',
                     })
                 })
             }else
